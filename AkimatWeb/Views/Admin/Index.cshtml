@@ -1,0 +1,61 @@
+@model AkimatWeb.Models.ViewModels.AdminDashboardVM
+@{
+    ViewData["Title"] = "Басқару тақтасы";
+    Layout = "_AdminLayout";
+}
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-card-icon red">📋</div>
+        <div>
+            <div class="stat-card-value">@Model.PendingApplications</div>
+            <div class="stat-card-label">Күтілуде өтініш</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-card-icon blue">📊</div>
+        <div>
+            <div class="stat-card-value">@Model.TotalApplications</div>
+            <div class="stat-card-label">Барлық өтініш</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-card-icon green">📰</div>
+        <div>
+            <div class="stat-card-value">@Model.TotalNews</div>
+            <div class="stat-card-label">Жаңалықтар</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-card-icon gold">📢</div>
+        <div>
+            <div class="stat-card-value">@Model.TotalAnnouncements</div>
+            <div class="stat-card-label">Хабарландырулар</div>
+        </div>
+    </div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+    <a asp-action="Applications" asp-route-status="Pending"
+       class="stat-card" style="text-decoration:none;transition:box-shadow 0.2s">
+        <div class="stat-card-icon red">🕐</div>
+        <div>
+            <div style="font-weight:600;color:#1f2937">Күтілуде өтініштер</div>
+            <div style="font-size:0.82rem;color:#9ca3af;margin-top:2px">Жауап беру керек</div>
+        </div>
+    </a>
+    <a asp-action="CreateNews" class="stat-card" style="text-decoration:none">
+        <div class="stat-card-icon green">➕</div>
+        <div>
+            <div style="font-weight:600;color:#1f2937">Жаңалық қосу</div>
+            <div style="font-size:0.82rem;color:#9ca3af;margin-top:2px">Жаңа мазмұн</div>
+        </div>
+    </a>
+    <a asp-action="CreateAnnouncement" class="stat-card" style="text-decoration:none">
+        <div class="stat-card-icon gold">📢</div>
+        <div>
+            <div style="font-weight:600;color:#1f2937">Хабарландыру қосу</div>
+            <div style="font-size:0.82rem;color:#9ca3af;margin-top:2px">Жаңа хабарландыру</div>
+        </div>
+    </a>
+</div>

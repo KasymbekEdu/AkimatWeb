@@ -1,0 +1,16 @@
+## .NET Core
+bin/
+obj/
+*.user
+.vs/
+appsettings.Development.json
+
+## Uploaded images (keep folder, ignore contents)
+wwwroot/img/news/*
+wwwroot/img/announcements/*
+!wwwroot/img/news/.gitkeep
+!wwwroot/img/announcements/.gitkeep
+
+## Logs
+logs/
+*.log

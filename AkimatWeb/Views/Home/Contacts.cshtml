@@ -1,0 +1,51 @@
+@inject AkimatWeb.Infrastructure.AppConfig Config
+@{
+    ViewData["Title"] = "Байланыс";
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <span>/</span>
+            <span>Байланыс</span>
+        </div>
+        <h1>Байланыс</h1>
+        <p>Бізбен хабарласыңыз</p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="cards-grid cards-grid-3">
+            <div class="form-card text-center">
+                <div style="font-size:2rem;margin-bottom:12px">📞</div>
+                <h3 style="margin-bottom:8px">Телефон</h3>
+                <p style="color:#4b5563">@Config.Company.CompanyPhone</p>
+                <p style="font-size:0.82rem;color:#9ca3af;margin-top:6px">Дс–Жм: 09:00–18:00</p>
+            </div>
+            <div class="form-card text-center">
+                <div style="font-size:2rem;margin-bottom:12px">✉</div>
+                <h3 style="margin-bottom:8px">Email</h3>
+                <p><a href="mailto:@Config.Company.CompanyEmail">@Config.Company.CompanyEmail</a></p>
+                <p style="font-size:0.82rem;color:#9ca3af;margin-top:6px">Жауап: 1–2 жұмыс күні</p>
+            </div>
+            <div class="form-card text-center">
+                <div style="font-size:2rem;margin-bottom:12px">📍</div>
+                <h3 style="margin-bottom:8px">Мекенжай</h3>
+                <p style="color:#4b5563">Астана қаласы, Бейбітшілік 11</p>
+                <p style="font-size:0.82rem;color:#9ca3af;margin-top:6px">Қабылдау: алдын ала жазылу бойынша</p>
+            </div>
+        </div>
+
+        <div style="margin-top:40px;background:#f5f6f8;border-radius:12px;padding:32px;text-align:center">
+            <h3 style="margin-bottom:12px">Онлайн өтініш</h3>
+            <p style="color:#4b5563;margin-bottom:20px">
+                Мәселеңіз бар ма? Онлайн өтініш беріп, жауабыңызды күтіңіз.
+            </p>
+            <a asp-controller="Applications" asp-action="Submit" class="btn btn-primary btn-lg">
+                📝 Өтініш беру
+            </a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Өтініш қабылданды";
+    string tracking = ViewBag.TrackingNumber ?? "";
+}
+
+<section class="section">
+    <div class="container text-center" style="max-width:560px">
+        <div style="font-size:4rem;margin-bottom:20px">✅</div>
+        <h1 style="margin-bottom:12px">Өтінішіңіз қабылданды!</h1>
+        <p style="color:#4b5563;margin-bottom:28px">
+            Өтінішіңіз тіркелді. 3–5 жұмыс күні ішінде жауап береміз.
+        </p>
+
+        <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:24px;margin-bottom:28px">
+            <p style="font-size:0.9rem;color:#166534;margin-bottom:8px">Трекинг нөміріңіз:</p>
+            <div style="font-size:2rem;font-weight:800;letter-spacing:0.15em;color:#166534;font-family:monospace">
+                @tracking
+            </div>
+            <p style="font-size:0.78rem;color:#16a34a;margin-top:8px">
+                Бұл нөмірді сақтаңыз — өтінішіңіздің мәртебесін тексеру үшін қажет
+            </p>
+        </div>
+
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <a asp-action="Track" asp-route-number="@tracking" class="btn btn-primary">
+                🔍 Мәртебені тексеру
+            </a>
+            <a asp-action="Submit" class="btn btn-outline">
+                ➕ Тағы өтініш беру
+            </a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline">
+                🏠 Басты бетке
+            </a>
+        </div>
+    </div>
+</section>

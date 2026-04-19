@@ -1,0 +1,86 @@
+@model List<AkimatWeb.Domain.Models.News>
+@{
+    ViewData["Title"] = "Жаңалықтар";
+    Layout = "_AdminLayout";
+}
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+    <span style="font-size:0.88rem;color:#9ca3af">Барлығы: @Model.Count жаңалық</span>
+    <a asp-action="CreateNews" class="btn btn-primary btn-sm">➕ Жаңалық қосу</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="empty-state">
+        <div class="empty-state-icon">📰</div>
+        <p>Жаңалықтар жоқ</p>
+        <a asp-action="CreateNews" class="btn btn-primary mt-2">➕ Бірінші жаңалық қосу</a>
+    </div>
+}
+else
+{
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Сурет</th>
+                    <th>Тақырып</th>
+                    <th>Жарияланды</th>
+                    <th>Мәртебе</th>
+                    <th>Әрекет</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var news in Model)
+            {
+                <tr>
+                    <td>@news.Id</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(news.ImagePath))
+                        {
+                            <img src="@news.ImagePath" alt=""
+                                 style="width:56px;height:40px;object-fit:cover;border-radius:4px"/>
+                        }
+                        else
+                        {
+                            <div style="width:56px;height:40px;background:#e9ebee;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1rem">
+                                📰
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        <span style="font-weight:500">@news.Title</span>
+                    </td>
+                    <td style="white-space:nowrap;font-size:0.85rem">
+                        @news.PublishedAt.ToString("dd.MM.yyyy")
+                    </td>
+                    <td>
+                        @if (news.IsPublished)
+                        {
+                            <span class="badge badge-success">Жарияланған</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary">Жасырын</span>
+                        }
+                    </td>
+                    <td>
+                        <div style="display:flex;gap:6px">
+                            <a asp-action="EditNews" asp-route-id="@news.Id"
+                               class="btn btn-sm btn-outline">✏ Өзгерту</a>
+                            <form asp-action="DeleteNews" method="post" style="display:inline">
+                                <input type="hidden" name="id" value="@news.Id"/>
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                        data-confirm="«@news.Title» жаңалығын жойғыңыз келеді ме?">
+                                    🗑
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

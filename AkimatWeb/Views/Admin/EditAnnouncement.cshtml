@@ -1,0 +1,6 @@
+@model AkimatWeb.Domain.Models.Announcement
+@{
+    ViewData["Title"] = "Хабарландыруды өзгерту";
+    Layout = "_AdminLayout";
+}
+@await Html.PartialAsync("CreateAnnouncement", Model)

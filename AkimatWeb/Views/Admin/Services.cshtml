@@ -1,0 +1,104 @@
+@model List<AkimatWeb.Domain.Models.ServiceCategory>
+@{
+    ViewData["Title"] = "Қызметтер";
+    Layout = "_AdminLayout";
+}
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+    <span style="font-size:0.88rem;color:#9ca3af">Барлығы: @Model.Count санат</span>
+    <div style="display:flex;gap:8px">
+        <a asp-action="CreateServiceCategory" class="btn btn-outline btn-sm">➕ Санат қосу</a>
+        <a asp-action="CreateService" class="btn btn-primary btn-sm">➕ Қызмет қосу</a>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="empty-state">
+        <div class="empty-state-icon">⚙</div>
+        <p>Қызметтер жоқ</p>
+        <a asp-action="CreateServiceCategory" class="btn btn-primary mt-2">➕ Санат қосу</a>
+    </div>
+}
+else
+{
+    @foreach (var cat in Model)
+    {
+        <div class="form-card" style="margin-bottom:20px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+                <h3 style="font-size:1rem;font-weight:700">⚙ @cat.Name</h3>
+                <div style="display:flex;gap:6px">
+                    <form asp-action="DeleteServiceCategory" method="post" style="display:inline">
+                        <input type="hidden" name="id" value="@cat.Id"/>
+                        <button type="submit" class="btn btn-sm btn-danger"
+                                data-confirm="«@cat.Name» санатын барлық қызметтерімен бірге жойғыңыз келеді ме?">
+                            🗑 Санатты жою
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            @if (!cat.Services.Any())
+            {
+                <p style="font-size:0.85rem;color:#9ca3af">Бұл санатта қызметтер жоқ.</p>
+            }
+            else
+            {
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Қызмет атауы</th>
+                                <th>Сыртқы сілтеме</th>
+                                <th>Белсенді</th>
+                                <th>Әрекет</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var svc in cat.Services.OrderBy(s => s.SortOrder))
+                        {
+                            <tr>
+                                <td>
+                                    <div style="font-weight:500">@svc.Title</div>
+                                    @if (!string.IsNullOrEmpty(svc.Description))
+                                    {
+                                        <div style="font-size:0.78rem;color:#9ca3af">@svc.Description</div>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(svc.ExternalUrl))
+                                    {
+                                        <a href="@svc.ExternalUrl" target="_blank" rel="noopener"
+                                           style="font-size:0.82rem">↗ Сілтеме</a>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:#9ca3af;font-size:0.82rem">—</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (svc.IsActive)
+                                    {
+                                        <span class="badge badge-success">Иә</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-secondary">Жоқ</span>
+                                    }
+                                </td>
+                                <td>
+                                    <form asp-action="DeleteService" method="post" style="display:inline">
+                                        <input type="hidden" name="id" value="@svc.Id"/>
+                                        <button type="submit" class="btn btn-sm btn-danger"
+                                                data-confirm="Қызметті жойғыңыз келеді ме?">🗑</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    }
+}

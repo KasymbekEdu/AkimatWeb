@@ -1,0 +1,70 @@
+@model AkimatWeb.Domain.Models.Announcement
+@using AkimatWeb.Domain.Models
+@{
+    bool isEdit = Model.Id > 0;
+    ViewData["Title"] = isEdit ? "Хабарландыруды өзгерту" : "Хабарландыру қосу";
+    Layout = "_AdminLayout";
+}
+
+<div style="max-width:680px">
+    <div class="form-card">
+        <h2 style="margin-bottom:24px;font-size:1.1rem">
+            @(isEdit ? "✏ Хабарландыруды өзгерту" : "➕ Жаңа хабарландыру")
+        </h2>
+
+        <form asp-action="@(isEdit ? "EditAnnouncement" : "CreateAnnouncement")" method="post">
+            @if (isEdit)
+            {
+                <input type="hidden" asp-for="Id"/>
+                <input type="hidden" asp-for="PublishedAt"/>
+            }
+
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="form-label">Тақырып *</label>
+                <input asp-for="Title" class="form-control" placeholder="Хабарландыру тақырыбы..."/>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div class="form-group">
+                    <label asp-for="Type" class="form-label">Түрі *</label>
+                    <select asp-for="Type" class="form-control">
+                        <option value="General">Жалпы</option>
+                        <option value="Tender">Тендер</option>
+                        <option value="RoadClosure">Жол жабылуы</option>
+                        <option value="Emergency">Шұғыл</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ExpiresAt" class="form-label">Мерзімі (міндетті емес)</label>
+                    <input asp-for="ExpiresAt" type="date" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Content" class="form-label">Мазмұны *</label>
+                <textarea asp-for="Content" class="form-control" rows="8"
+                          placeholder="Хабарландырудың толық мәтіні..."></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:500">
+                    <input asp-for="IsActive" type="checkbox" style="width:16px;height:16px;cursor:pointer"/>
+                    Белсенді (сайтта көрінеді)
+                </label>
+            </div>
+
+            <div style="display:flex;gap:10px">
+                <button type="submit" class="btn btn-primary">💾 Сақтау</button>
+                <a asp-action="Announcements" class="btn btn-outline">Болдырмау</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

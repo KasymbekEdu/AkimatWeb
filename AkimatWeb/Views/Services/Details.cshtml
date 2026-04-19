@@ -1,0 +1,59 @@
+@model AkimatWeb.Domain.Models.ServiceCategory
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <span>/</span>
+            <a asp-controller="Services" asp-action="Index">Қызметтер</a>
+            <span>/</span><span>@Model.Name</span>
+        </div>
+        <h1>@Model.Name</h1>
+        @if (!string.IsNullOrEmpty(Model.Description))
+        {
+            <p>@Model.Description</p>
+        }
+    </div>
+</div>
+
+<section class="section">
+    <div class="container" style="max-width:800px">
+        @if (!Model.Services.Any(s => s.IsActive))
+        {
+            <div class="empty-state">
+                <div class="empty-state-icon">⚙</div>
+                <p>Бұл санатта қызметтер жоқ</p>
+            </div>
+        }
+        else
+        {
+            <ul class="service-list">
+                @foreach (var service in Model.Services.Where(s => s.IsActive).OrderBy(s => s.SortOrder))
+                {
+                    <li>
+                        <div>
+                            <strong>@service.Title</strong>
+                            @if (!string.IsNullOrEmpty(service.Description))
+                            {
+                                <p style="font-size:0.85rem;color:#4b5563;margin-top:4px">@service.Description</p>
+                            }
+                        </div>
+                        @if (!string.IsNullOrEmpty(service.ExternalUrl))
+                        {
+                            <a href="@service.ExternalUrl" target="_blank" rel="noopener"
+                               class="btn btn-outline btn-sm" style="white-space:nowrap">
+                                Өту →
+                            </a>
+                        }
+                    </li>
+                }
+            </ul>
+        }
+        <div style="margin-top:24px">
+            <a asp-action="Index" class="btn btn-outline">← Барлық қызметтер</a>
+        </div>
+    </div>
+</section>

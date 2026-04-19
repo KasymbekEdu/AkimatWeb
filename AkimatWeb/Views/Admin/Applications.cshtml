@@ -1,0 +1,176 @@
+@model List<AkimatWeb.Domain.Models.Application>
+@using AkimatWeb.Domain.Models
+@{
+    ViewData["Title"] = "Өтініштер";
+    Layout = "_AdminLayout";
+    ApplicationStatus? cur = ViewBag.CurrentStatus;
+}
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <a asp-action="Applications" class="btn btn-sm @(cur==null?"btn-primary":"btn-outline")">Барлығы</a>
+        <a asp-action="Applications" asp-route-status="Pending"  class="btn btn-sm @(cur==ApplicationStatus.Pending ?"btn-primary":"btn-outline")">🕐 Күтілуде</a>
+        <a asp-action="Applications" asp-route-status="InReview" class="btn btn-sm @(cur==ApplicationStatus.InReview?"btn-primary":"btn-outline")">🔍 Қаралуда</a>
+        <a asp-action="Applications" asp-route-status="Approved" class="btn btn-sm @(cur==ApplicationStatus.Approved?"btn-primary":"btn-outline")">✅ Мақұлданды</a>
+        <a asp-action="Applications" asp-route-status="Rejected" class="btn btn-sm @(cur==ApplicationStatus.Rejected?"btn-primary":"btn-outline")">❌ Қабылданбады</a>
+    </div>
+    <span style="font-size:0.88rem;color:#9ca3af">Барлығы: @Model.Count</span>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="empty-state">
+        <div class="empty-state-icon">📋</div>
+        <p>Өтініштер жоқ</p>
+    </div>
+}
+else
+{
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Трекинг</th>
+                    <th>Аты-жөні</th>
+                    <th>Санат</th>
+                    <th>Телефон</th>
+                    <th>Берілді</th>
+                    <th>Мәртебе</th>
+                    <th>Әрекет</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var app in Model)
+            {
+                var (badgeClass, statusKk) = app.Status switch {
+                    ApplicationStatus.Pending  => ("badge-warning", "Күтілуде"),
+                    ApplicationStatus.InReview => ("badge-info",    "Қаралуда"),
+                    ApplicationStatus.Approved => ("badge-success", "Мақұлданды"),
+                    ApplicationStatus.Rejected => ("badge-danger",  "Қабылданбады"),
+                    _                          => ("badge-secondary","Белгісіз")
+                };
+                <tr>
+                    <td>@app.Id</td>
+                    <td><code style="font-size:0.82rem">@app.TrackingNumber</code></td>
+                    <td>@app.FullName</td>
+                    <td><span style="font-size:0.85rem">@app.Category</span></td>
+                    <td style="font-size:0.85rem">@app.Phone</td>
+                    <td style="white-space:nowrap;font-size:0.85rem">@app.SubmittedAt.ToString("dd.MM.yyyy")</td>
+                    <td><span class="badge @badgeClass">@statusKk</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline" data-modal="modal-app-@app.Id">
+                            Қарау
+                        </button>
+                    </td>
+                </tr>
+
+                <!-- Detail Modal -->
+                <div class="modal-overlay" id="modal-app-@app.Id">
+                    <div class="modal-box">
+                        <div class="modal-header">
+                            <h3 style="font-size:1.05rem">
+                                Өтініш #@app.TrackingNumber — @app.FullName
+                            </h3>
+                            <button class="modal-close">×</button>
+                        </div>
+
+                        <dl style="margin-bottom:20px">
+                            <div class="detail-row">
+                                <dt>Аты-жөні</dt><dd>@app.FullName</dd>
+                            </div>
+                            <div class="detail-row">
+                                <dt>Телефон</dt>
+                                <dd><a href="tel:@app.Phone">@app.Phone</a></dd>
+                            </div>
+                            @if (!string.IsNullOrEmpty(app.Email))
+                            {
+                                <div class="detail-row">
+                                    <dt>Email</dt>
+                                    <dd><a href="mailto:@app.Email">@app.Email</a></dd>
+                                </div>
+                            }
+                            <div class="detail-row">
+                                <dt>Санат</dt><dd>@app.Category</dd>
+                            </div>
+                            <div class="detail-row">
+                                <dt>Берілді</dt>
+                                <dd>@app.SubmittedAt.ToString("dd.MM.yyyy HH:mm")</dd>
+                            </div>
+                            <div class="detail-row" style="border-bottom:none">
+                                <dt>Мазмұны</dt>
+                                <dd style="white-space:pre-wrap">@app.Description</dd>
+                            </div>
+                                @if (!string.IsNullOrEmpty(app.FilePath))
+                                {
+                                    <div class="detail-row" style="border-bottom:none">
+                                        <dt>Қосымша файл</dt>
+                                        <dd>
+                                            @if (app.FilePath.EndsWith(".mp4"))
+                                            {
+                                                <video width="320" controls style="max-width:100%;border-radius:12px;border:1px solid #ddd;">
+                                                    <source src="@app.FilePath" type="video/mp4" />
+                                                    Браузер видеоны қолдамайды.
+                                                </video>
+                                            }
+                                            else
+                                            {
+                                                <img src="@app.FilePath"
+                                                     alt="Қосымша файл"
+                                                     style="max-width:320px;width:100%;border-radius:12px;border:1px solid #ddd;" />
+                                            }
+                                        </dd>
+                                    </div>
+                                }
+                        </dl>
+
+                        <form asp-action="UpdateApplicationStatus" method="post"
+                              style="border-top:1px solid #e9ebee;padding-top:16px">
+                            <input type="hidden" name="id" value="@app.Id"/>
+                            <div class="form-group">
+                                <label class="form-label">Мәртебені өзгерту</label>
+                                <select name="status" class="form-control">
+                                    @foreach (var s in Enum.GetValues<ApplicationStatus>())
+                                    {
+                                        var kk = s switch {
+                                            ApplicationStatus.Pending  => "Күтілуде",
+                                            ApplicationStatus.InReview => "Қаралуда",
+                                            ApplicationStatus.Approved => "Мақұлданды",
+                                            ApplicationStatus.Rejected => "Қабылданбады",
+                                            _ => s.ToString()
+                                        };
+                                        if (app.Status == s)
+                                        {
+                                            <option value="@s" selected>@kk</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@s">@kk</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Жауап / Түсіндірме</label>
+                                <textarea name="comment" class="form-control" rows="3"
+                                          placeholder="Азаматқа жіберілетін жауап...">@app.AdminComment</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                💾 Сақтау
+                            </button>
+                        </form>
+                            <form asp-action="DeleteApplication" method="post" style="margin-top:12px">
+                                <input type="hidden" name="id" value="@app.Id" />
+                                <button type="submit"
+                                        class="btn btn-danger btn-block"
+                                        onclick="return confirm('Бұл өтінішті базадан толық жойғыңыз келе ме?');">
+                                    🗑 Базадан жою
+                                </button>
+                            </form>
+                    </div>
+                </div>
+            }
+            </tbody>
+        </table>
+    </div>
+}

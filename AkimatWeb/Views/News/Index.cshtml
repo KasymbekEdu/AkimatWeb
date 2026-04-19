@@ -1,0 +1,89 @@
+@model List<AkimatWeb.Domain.Models.News>
+@{
+    ViewData["Title"] = "Жаңалықтар";
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages  = ViewBag.TotalPages ?? 1;
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <span>/</span><span>Жаңалықтар</span>
+        </div>
+        <h1>Жаңалықтар</h1>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        @if (!Model.Any())
+        {
+            <div class="empty-state">
+                <div class="empty-state-icon">📰</div>
+                <p>Жаңалықтар әлі жоқ</p>
+            </div>
+        }
+        else
+        {
+            <div class="cards-grid cards-grid-3">
+                @foreach (var news in Model)
+                {
+                    <article class="card">
+                        @if (news.Images != null && news.Images.Any())
+                        {
+                            <img src="@news.Images.First().ImagePath"
+                                 alt="@news.Title"
+                                 class="card-img" />
+                        }
+                        else if (!string.IsNullOrEmpty(news.ImagePath))
+                        {
+                            <img src="@news.ImagePath"
+                                 alt="@news.Title"
+                                 class="card-img" />
+                        }
+                        else
+                        {
+                            <div class="card-img-placeholder">📰</div>
+                        }
+                        <div class="card-body">
+                            <div class="card-meta">
+                                <span>📅 @news.PublishedAt.ToString("dd.MM.yyyy")</span>
+                            </div>
+                            <h3 class="card-title">
+                                <a asp-action="Details" asp-route-id="@news.Id">@news.Title</a>
+                            </h3>
+                            <a asp-action="Details" asp-route-id="@news.Id"
+                               class="btn btn-outline btn-sm">Толығырақ →</a>
+                        </div>
+                    </article>
+                }
+            </div>
+
+            @if (totalPages > 1)
+            {
+                <div class="pagination">
+                    @if (currentPage > 1)
+                    {
+                        <a asp-action="Index" asp-route-page="@(currentPage - 1)">← Алдыңғы</a>
+                    }
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        if (i == currentPage)
+                        {
+                            <span class="current">@i</span>
+                        }
+                        else
+                        {
+                            <a asp-action="Index" asp-route-page="@i">@i</a>
+                        }
+                    }
+                    @if (currentPage < totalPages)
+                    {
+                        <a asp-action="Index" asp-route-page="@(currentPage + 1)">Келесі →</a>
+                    }
+                </div>
+            }
+        }
+    </div>
+</section>

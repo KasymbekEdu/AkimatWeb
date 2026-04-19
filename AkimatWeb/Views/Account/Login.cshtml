@@ -1,0 +1,71 @@
+@model AkimatWeb.Models.ViewModels.LoginVM
+@{
+    ViewData["Title"] = "Жүйеге кіру";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Жүйеге кіру — Әкімдік</title>
+    <link rel="stylesheet" href="~/css/site.css"/>
+</head>
+<body style="background:#f5f6f8;min-height:100vh;display:flex;align-items:center;justify-content:center">
+
+<div style="width:100%;max-width:420px;padding:20px">
+    <div class="form-card">
+        <div style="text-align:center;margin-bottom:28px">
+            <div style="width:56px;height:56px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;color:#fff;margin:0 auto 14px">
+                Ә
+            </div>
+            <h1 style="font-size:1.3rem;margin-bottom:4px">Әкімшілік панель</h1>
+            <p style="font-size:0.88rem;color:#9ca3af">Жалғастыру үшін кіріңіз</p>
+        </div>
+
+        <form asp-action="Login" method="post" asp-route-returnUrl="@ViewBag.ReturnUrl">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control" type="email"
+                       placeholder="admin@akimat.kz" autofocus autocomplete="username"/>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="form-label">Құпия сөз</label>
+                <input asp-for="Password" class="form-control" type="password"
+                       placeholder="••••••" autocomplete="current-password"/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.88rem">
+                    <input asp-for="RememberMe" type="checkbox" style="width:14px;height:14px"/>
+                    Мені есте сақта
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                🔐 Кіру
+            </button>
+        </form>
+
+        <div style="text-align:center;margin-top:20px;padding-top:16px;border-top:1px solid #e9ebee">
+            <a asp-controller="Home" asp-action="Index"
+               style="font-size:0.85rem;color:#9ca3af">
+                ← Сайтқа оралу
+            </a>
+        </div>
+    </div>
+
+    <p style="text-align:center;font-size:0.75rem;color:#9ca3af;margin-top:16px">
+        Әдепкі: admin@akimat.kz / Admin123!
+    </p>
+</div>
+
+    <script src="~/js/site.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>

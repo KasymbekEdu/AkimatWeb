@@ -1,0 +1,129 @@
+@model AkimatWeb.Domain.Models.Application?
+@using AkimatWeb.Domain.Models
+@{
+    ViewData["Title"] = "Өтінішті тексеру";
+    bool searched = Context.Request.Query.ContainsKey("number");
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <span>/</span><span>Өтінішті тексеру</span>
+        </div>
+        <h1>Өтінішті қадағалау</h1>
+        <p>Трекинг нөмірі арқылы мәртебесін тексеріңіз</p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container" style="max-width:640px">
+        <form method="get" asp-action="Track" style="margin-bottom:32px">
+            <div style="display:flex;gap:8px">
+                <input type="text" name="number" class="form-control"
+                       placeholder="Трекинг нөмірін енгізіңіз (мысалы: AB12CD34)"
+                       value="@Context.Request.Query["number"]"
+                       style="font-family:monospace;font-size:1rem;letter-spacing:0.05em"/>
+                <button type="submit" class="btn btn-primary" style="white-space:nowrap">
+                    🔍 Тексеру
+                </button>
+            </div>
+        </form>
+
+        @if (Model != null)
+        {
+            var (statusLabel, statusClass) = Model.Status switch {
+                ApplicationStatus.Pending  => ("Күтілуде",     "Pending"),
+                ApplicationStatus.InReview => ("Қаралуда",     "InReview"),
+                ApplicationStatus.Approved => ("Мақұлданды",   "Approved"),
+                ApplicationStatus.Rejected => ("Қабылданбады", "Rejected"),
+                _                          => ("Белгісіз",     "Pending")
+            };
+
+            <div class="tracking-box">
+                <div class="tracking-status">
+                    <div class="status-dot status-dot-@Model.Status"></div>
+                    <div>
+                        <div style="font-weight:700;font-size:1.05rem">@statusLabel</div>
+                        @if (Model.ReviewedAt.HasValue)
+                        {
+                            <div style="font-size:0.82rem;color:#9ca3af">
+                                Қаралды: @Model.ReviewedAt.Value.ToString("dd.MM.yyyy HH:mm")
+                            </div>
+                        }
+                    </div>
+                    <span class="badge badge-@(Model.Status switch {
+                        ApplicationStatus.Approved => "success",
+                        ApplicationStatus.Rejected => "danger",
+                        ApplicationStatus.InReview => "info",
+                        _ => "warning"
+                    })" style="margin-left:auto">
+                        @statusLabel
+                    </span>
+                </div>
+
+                <dl>
+                    <div class="detail-row">
+                        <dt>Трекинг нөмірі</dt>
+                        <dd style="font-family:monospace;font-weight:700">@Model.TrackingNumber</dd>
+                    </div>
+                    <div class="detail-row">
+                        <dt>Аты-жөні</dt>
+                        <dd>@Model.FullName</dd>
+                    </div>
+                    <div class="detail-row">
+                        <dt>Санат</dt>
+                        <dd>@Model.Category</dd>
+                    </div>
+                    <div class="detail-row">
+                        <dt>Берілген күні</dt>
+                        <dd>@Model.SubmittedAt.ToString("dd.MM.yyyy HH:mm")</dd>
+                    </div>
+                    <div class="detail-row" style="border-bottom:none">
+                        <dt>Мазмұны</dt>
+                        <dd style="white-space:pre-wrap">@Model.Description</dd>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.FilePath))
+{
+    <div class="detail-row" style="border-bottom:none">
+        <dt>Қосымша файл</dt>
+        <dd>
+            @if (Model.FilePath.EndsWith(".mp4"))
+            {
+                <video width="320" controls style="max-width:100%;border-radius:12px;border:1px solid #ddd;">
+                    <source src="@Model.FilePath" type="video/mp4" />
+                    Браузер видеоны қолдамайды.
+                </video>
+            }
+            else
+            {
+                <img src="@Model.FilePath"
+                     alt="Өтініш файлы"
+                     style="max-width:320px;width:100%;border-radius:12px;border:1px solid #ddd;" />
+            }
+        </dd>
+    </div>
+}
+                </dl>
+
+                @if (!string.IsNullOrEmpty(Model.AdminComment))
+                {
+                    <div class="alert alert-info" style="margin-top:16px">
+                        <strong>💬 Жауап:</strong> @Model.AdminComment
+                    </div>
+                }
+            </div>
+        }
+        else if (searched)
+        {
+            <div class="alert alert-warning">
+                ⚠ Бұл нөмірмен өтініш табылмады. Нөмірді дұрыс енгізгеніңізге көз жеткізіңіз.
+            </div>
+        }
+
+        <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap">
+            <a asp-action="Submit" class="btn btn-outline">📝 Жаңа өтініш беру</a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline">🏠 Басты бетке</a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,59 @@
+@model AkimatWeb.Domain.Models.News
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <span>/</span>
+            <a asp-controller="News" asp-action="Index">Жаңалықтар</a>
+            <span>/</span>
+            <span class="truncate" style="max-width:200px">@Model.Title</span>
+        </div>
+        <h1>@Model.Title</h1>
+        <p>📅 @Model.PublishedAt.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("kk-KZ"))</p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div style="display:grid;grid-template-columns:1fr 300px;gap:40px;align-items:start">
+            <article>
+                @if (Model.Images != null && Model.Images.Any())
+                {
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:28px">
+                        @foreach (var img in Model.Images)
+                        {
+                            <img src="@img.ImagePath"
+                                 alt="@Model.Title"
+                                 style="width:100%;height:220px;object-fit:cover;border-radius:12px;border:1px solid #ddd;" />
+                        }
+                    </div>
+                }
+                else if (!string.IsNullOrEmpty(Model.ImagePath))
+                {
+                    <img src="@Model.ImagePath" alt="@Model.Title"
+                         style="width:100%;border-radius:12px;margin-bottom:28px;max-height:420px;object-fit:cover" />
+                }
+                <div style="line-height:1.8;font-size:1rem">
+                    @Html.Raw(Model.Content)
+                </div>
+                <div style="margin-top:32px;padding-top:20px;border-top:1px solid #e9ebee">
+                    <a asp-action="Index" class="btn btn-outline">← Жаңалықтарға қайту</a>
+                </div>
+            </article>
+            <aside>
+                <div class="form-card">
+                    <h4 style="margin-bottom:14px">Жылдам сілтемелер</h4>
+                    <ul class="footer-links">
+                        <li><a asp-controller="Applications" asp-action="Submit">📝 Өтініш беру</a></li>
+                        <li><a asp-controller="Announcements" asp-action="Index">📢 Хабарландырулар</a></li>
+                        <li><a asp-controller="Services" asp-action="Index">⚙ Қызметтер</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,63 @@
+@model AkimatWeb.Domain.Models.ServiceItem
+@{
+    ViewData["Title"] = "Қызмет қосу";
+    Layout = "_AdminLayout";
+    var categories = ViewBag.Categories as List<AkimatWeb.Domain.Models.ServiceCategory> ?? new();
+}
+
+<div style="max-width:580px">
+    <div class="form-card">
+        <h2 style="margin-bottom:24px;font-size:1.1rem">➕ Жаңа қызмет</h2>
+        <form asp-action="CreateService" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="CategoryId" class="form-label">Санат *</label>
+                <select asp-for="CategoryId" class="form-control">
+                    <option value="">— Санатты таңдаңыз —</option>
+                    @foreach (var cat in categories)
+                    {
+                        <option value="@cat.Id">@cat.Name</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="form-label">Қызмет атауы *</label>
+                <input asp-for="Title" class="form-control" placeholder="мысалы: Туу туралы куәлік алу"/>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="form-label">Сипаттама</label>
+                <textarea asp-for="Description" class="form-control" rows="3"
+                          placeholder="Қызметтің қысқаша сипаттамасы..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ExternalUrl" class="form-label">Сыртқы сілтеме (egov.kz, т.б.)</label>
+                <input asp-for="ExternalUrl" class="form-control"
+                       placeholder="https://egov.kz/..."/>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div class="form-group">
+                    <label asp-for="SortOrder" class="form-label">Реттік нөмірі</label>
+                    <input asp-for="SortOrder" type="number" class="form-control" value="0"/>
+                </div>
+                <div class="form-group" style="display:flex;align-items:flex-end;padding-bottom:20px">
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:500">
+                        <input asp-for="IsActive" type="checkbox"
+                               style="width:16px;height:16px" checked/>
+                        Белсенді
+                    </label>
+                </div>
+            </div>
+
+            <div style="display:flex;gap:10px">
+                <button type="submit" class="btn btn-primary">💾 Сақтау</button>
+                <a asp-action="Services" class="btn btn-outline">Болдырмау</a>
+            </div>
+        </form>
+    </div>
+</div>

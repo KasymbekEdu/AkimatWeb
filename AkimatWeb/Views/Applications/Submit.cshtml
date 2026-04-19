@@ -1,0 +1,116 @@
+@model AkimatWeb.Models.ViewModels.ApplicationCreateVM
+@{
+    ViewData["Title"] = "Өтініш беру";
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <span>/</span><span>Өтініш беру</span>
+        </div>
+        <h1>Өтініш / Шағым беру</h1>
+        <p>Мәселеңізді сипаттаңыз, біз жауап береміз</p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:start">
+            <div>
+                <div class="form-card">
+                    <h2 style="margin-bottom:24px;font-size:1.2rem">Өтініш мәліметтері</h2>
+
+                    <form asp-action="Submit" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="FullName" class="form-label">Аты-жөні *</label>
+                            <input asp-for="FullName" class="form-control"
+                                   placeholder="Иванов Иван Иванович"/>
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                            <div class="form-group">
+                                <label asp-for="Phone" class="form-label">Телефон *</label>
+                                <input asp-for="Phone" class="form-control" type="tel"
+                                       placeholder="+7 (700) 000-00-00"/>
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="form-label">Email (міндетті емес)</label>
+                                <input asp-for="Email" class="form-control"
+                                       placeholder="example@mail.kz"/>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Category" class="form-label">Өтініш санаты *</label>
+                            <select asp-for="Category" class="form-control">
+                                <option value="">— Санатты таңдаңыз —</option>
+                                <option>Жол жөндеу</option>
+                                <option>Коммуналдық қызмет</option>
+                                <option>Ағаш кесу / жасылдандыру</option>
+                                <option>Шу / тәртіп бұзу</option>
+                                <option>Үй іргесіндегі аула</option>
+                                <option>Жарықтандыру</option>
+                                <option>Қоқыс жинау</option>
+                                <option>Басқа</option>
+                            </select>
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Description" class="form-label">Өтінішіңіз *</label>
+                            <textarea asp-for="Description" class="form-control" rows="6"
+                                      placeholder="Мәселеңізді толық сипаттаңыз: қайда, не болды, нақты мекенжай..."></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">📷 Фото / Видео</label>
+                            <input type="file" name="file"
+                                   accept=".jpg,.jpeg,.png,.mp4"
+                                   class="form-control" />
+
+                            <small style="color:#6b7280">
+                                JPG, PNG немесе MP4. Максимум 10MB.
+                            </small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            📤 Өтінішті жіберу
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <aside>
+                <div class="form-card">
+                    <h4 style="margin-bottom:16px">ℹ Ескертпе</h4>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;font-size:0.88rem;color:#4b5563">
+                        <li>✅ Өтінішіңіз тіркеліп, трекинг нөмірі берілетін болады</li>
+                        <li>⏰ Жауап берілу мерзімі: 3–5 жұмыс күні</li>
+                        <li>🔔 Нәтиже туралы телефон/email арқылы хабарланады</li>
+                        <li>🔍 Трекинг нөмірі арқылы мәртебесін тексеруге болады</li>
+                    </ul>
+                </div>
+                <div class="form-card mt-2">
+                    <h4 style="margin-bottom:12px">📋 Өтінішті тексеру</h4>
+                    <p style="font-size:0.88rem;color:#4b5563;margin-bottom:12px">
+                        Бұрын берген өтінішіңіздің мәртебесін тексеріңіз
+                    </p>
+                    <a asp-action="Track" class="btn btn-outline btn-sm btn-block">
+                        🔍 Тексеру
+                    </a>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

@@ -1,0 +1,85 @@
+@model List<AkimatWeb.Domain.Models.Announcement>
+@using AkimatWeb.Domain.Models
+@{
+    ViewData["Title"] = "Хабарландырулар";
+    Layout = "_AdminLayout";
+}
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+    <span style="font-size:0.88rem;color:#9ca3af">Барлығы: @Model.Count</span>
+    <a asp-action="CreateAnnouncement" class="btn btn-primary btn-sm">➕ Хабарландыру қосу</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="empty-state">
+        <div class="empty-state-icon">📢</div>
+        <p>Хабарландырулар жоқ</p>
+        <a asp-action="CreateAnnouncement" class="btn btn-primary mt-2">➕ Қосу</a>
+    </div>
+}
+else
+{
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Тақырып</th>
+                    <th>Түрі</th>
+                    <th>Жарияланды</th>
+                    <th>Мерзімі</th>
+                    <th>Белсенді</th>
+                    <th>Әрекет</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var ann in Model)
+            {
+                var typeKk = ann.Type switch {
+                    AnnouncementType.Tender      => "Тендер",
+                    AnnouncementType.RoadClosure => "Жол жабылуы",
+                    AnnouncementType.Emergency   => "Шұғыл",
+                    _                            => "Жалпы"
+                };
+                <tr>
+                    <td>@ann.Id</td>
+                    <td style="font-weight:500;max-width:300px">
+                        <span class="truncate" style="display:block">@ann.Title</span>
+                    </td>
+                    <td>
+                        <span class="badge type-badge-@ann.Type">@typeKk</span>
+                    </td>
+                    <td style="white-space:nowrap;font-size:0.85rem">
+                        @ann.PublishedAt.ToString("dd.MM.yyyy")
+                    </td>
+                    <td style="font-size:0.85rem">
+                        @(ann.ExpiresAt.HasValue ? ann.ExpiresAt.Value.ToString("dd.MM.yyyy") : "—")
+                    </td>
+                    <td>
+                        @if (ann.IsActive)
+                        {
+                            <span class="badge badge-success">Белсенді</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary">Өшірілген</span>
+                        }
+                    </td>
+                    <td>
+                        <div style="display:flex;gap:6px">
+                            <a asp-action="EditAnnouncement" asp-route-id="@ann.Id"
+                               class="btn btn-sm btn-outline">✏ Өзгерту</a>
+                            <form asp-action="DeleteAnnouncement" method="post" style="display:inline">
+                                <input type="hidden" name="id" value="@ann.Id"/>
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                        data-confirm="Хабарландыруды жойғыңыз келеді ме?">🗑</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

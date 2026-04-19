@@ -1,0 +1,86 @@
+@model List<AkimatWeb.Domain.Models.Announcement>
+@using AkimatWeb.Domain.Models
+@{
+    ViewData["Title"] = "Хабарландырулар";
+    AnnouncementType? currentType = ViewBag.CurrentType;
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <span>/</span><span>Хабарландырулар</span>
+        </div>
+        <h1>Хабарландырулар</h1>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div style="display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap">
+            <a asp-action="Index"
+               class="btn btn-sm @(currentType == null ? "btn-primary" : "btn-outline")">Барлығы</a>
+            @foreach (var type in Enum.GetValues<AnnouncementType>())
+            {
+                var label = type switch {
+                    AnnouncementType.Tender      => "Тендер",
+                    AnnouncementType.RoadClosure => "Жол жабылуы",
+                    AnnouncementType.Emergency   => "Шұғыл",
+                    _                            => "Жалпы"
+                };
+                <a asp-action="Index" asp-route-type="@type"
+                   class="btn btn-sm @(currentType == type ? "btn-primary" : "btn-outline")">@label</a>
+            }
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="empty-state">
+                <div class="empty-state-icon">📢</div>
+                <p>Хабарландырулар жоқ</p>
+            </div>
+        }
+        else
+        {
+            <div class="ann-list">
+                @foreach (var ann in Model)
+                {
+                    <div class="ann-card type-@ann.Type">
+                        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+                            <div style="flex:1">
+                                <div style="margin-bottom:6px">
+                                    <span class="badge type-badge-@ann.Type">
+                                        @(ann.Type switch {
+                                            AnnouncementType.Tender      => "Тендер",
+                                            AnnouncementType.RoadClosure => "Жол жабылуы",
+                                            AnnouncementType.Emergency   => "🚨 Шұғыл",
+                                            _                            => "Жалпы"
+                                        })
+                                    </span>
+                                </div>
+                                <h3 style="font-size:1rem;font-weight:600;margin-bottom:6px">
+                                    <a asp-action="Details" asp-route-id="@ann.Id" style="color:#1f2937">
+                                        @ann.Title
+                                    </a>
+                                </h3>
+                                @if (ann.ExpiresAt.HasValue)
+                                {
+                                    <span style="font-size:0.78rem;color:#9ca3af">
+                                        ⏰ Мерзімі: @ann.ExpiresAt.Value.ToString("dd.MM.yyyy")
+                                    </span>
+                                }
+                            </div>
+                            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+                                <span style="font-size:0.78rem;color:#9ca3af;white-space:nowrap">
+                                    @ann.PublishedAt.ToString("dd.MM.yyyy")
+                                </span>
+                                <a asp-action="Details" asp-route-id="@ann.Id"
+                                   class="btn btn-sm btn-outline">Толығырақ</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>

@@ -1,0 +1,74 @@
+@inject AkimatWeb.Infrastructure.AppConfig Config
+@{
+    ViewData["Title"] = "Әкімдік туралы";
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="breadcrumb">
+            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <span>/</span>
+            <span>Әкімдік туралы</span>
+        </div>
+        <h1>Әкімдік туралы</h1>
+        <p>@Config.Company.CompanyName</p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:start">
+            <div>
+                <h2 class="section-title">Біз туралы</h2>
+                <p style="margin-bottom:16px">
+                    @Config.Company.CompanyName — аумақтық басқарудың атқарушы органы.
+                    Қаланың тұрақты дамуын, тұрғындардың өмір сапасын арттыруды және
+                    мемлекеттік қызметтерді тиімді ұсынуды қамтамасыз етеді.
+                </p>
+                <p style="margin-bottom:16px">
+                    Біздің негізгі міндеттеріміз: халыққа сапалы мемлекеттік қызмет
+                    көрсету, инфрақұрылымды дамыту, азаматтардың өтініштерін уақытылы
+                    қарау және шешу.
+                </p>
+
+                <h3 style="margin:28px 0 16px">Басым бағыттар</h3>
+                <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+                    @foreach (var item in new[] {
+                        ("🏗", "Инфрақұрылымды дамыту"),
+                        ("🌱", "Экология және қоршаған орта"),
+                        ("👥", "Халықты әлеуметтік қолдау"),
+                        ("📚", "Білім және мәдениет"),
+                        ("💼", "Кәсіпкерлікті қолдау"),
+                        ("🔒", "Қоғамдық тәртіп пен қауіпсіздік")
+                    })
+                    {
+                        <li style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:#f5f6f8;border-radius:8px">
+                            <span style="font-size:1.2rem">@item.Item1</span>
+                            <span>@item.Item2</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div>
+                <div class="form-card" style="text-align:center">
+                    <div style="font-size:3rem;margin-bottom:12px">🏛</div>
+                    <h3 style="margin-bottom:16px">@Config.Company.CompanyName</h3>
+                    <dl style="text-align:left">
+                        <div class="detail-row">
+                            <dt>Телефон</dt>
+                            <dd>@Config.Company.CompanyPhone</dd>
+                        </div>
+                        <div class="detail-row">
+                            <dt>Email</dt>
+                            <dd>@Config.Company.CompanyEmail</dd>
+                        </div>
+                        <div class="detail-row">
+                            <dt>Жұмыс уақыты</dt>
+                            <dd>Дс–Жм: 09:00–18:00</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
