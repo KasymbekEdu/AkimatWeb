@@ -23,7 +23,7 @@ public class Program
 
         // Database
         builder.Services.AddDbContext<AppDbContext>(x =>
-    x.UseSqlServer(config.Database.ConnectionString));
+    x.UseSqlite("Data Source=site.db"));
 
         // Repositories
         builder.Services.AddTransient<INewsRepository, EFNewsRepository>();
