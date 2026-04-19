@@ -86,7 +86,7 @@ public class Program
         // Seed roles and admin user
         await SeedDataAsync(app);
 
-        await app.RunAsync();
+        await app.RunAsync("http://0.0.0.0:8080");
     }
 
     private static async Task SeedDataAsync(WebApplication app)
