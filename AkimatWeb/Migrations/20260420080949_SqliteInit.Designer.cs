@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AkimatWeb.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260420080246_SqliteInit")]
+    [Migration("20260420080949_SqliteInit")]
     partial class SqliteInit
     {
         /// <inheritdoc />
