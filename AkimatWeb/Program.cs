@@ -83,6 +83,11 @@ public class Program
         app.MapControllerRoute("areas", "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
         app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
+        using (var scope = app.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            db.Database.Migrate();
+        }
         // Seed roles and admin user
         await SeedDataAsync(app);
 
