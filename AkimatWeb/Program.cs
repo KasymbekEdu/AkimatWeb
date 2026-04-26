@@ -3,6 +3,7 @@ using AkimatWeb.Domain.Repositories.Abstract;
 using AkimatWeb.Domain.Repositories.EntityFramework;
 using AkimatWeb.Infrastructure;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
@@ -57,7 +58,11 @@ public class Program
             options.SlidingExpiration = true;
         });
 
-        builder.Services.AddControllersWithViews();
+        builder.Services.AddLocalization();
+
+        builder.Services.AddControllersWithViews()
+            .AddViewLocalization()
+            .AddDataAnnotationsLocalization();
 
         builder.Host.UseSerilog((context, configuration) =>
             configuration.ReadFrom.Configuration(context.Configuration));
@@ -76,6 +81,13 @@ public class Program
 
         app.UseStaticFiles();
         app.UseRouting();
+
+        var supportedCultures = new[] { "kk-KZ", "ru-RU" };
+        app.UseRequestLocalization(new RequestLocalizationOptions()
+            .SetDefaultCulture("kk-KZ")
+            .AddSupportedCultures(supportedCultures)
+            .AddSupportedUICultures(supportedCultures));
+
         app.UseCookiePolicy();
         app.UseAuthentication();
         app.UseAuthorization();

@@ -1,11 +1,11 @@
 @inject AkimatWeb.Infrastructure.AppConfig Config
 <!DOCTYPE html>
-<html lang="kk">
+<html lang="@System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] — @Config.Company.CompanyName</title>
-    <meta name="description" content="@Config.Company.CompanyName — ресми сайт"/>
+    <meta name="description" content="@Config.Company.CompanyName — @L["OfficialResource"]"/>
     <link rel="stylesheet" href="~/css/site.css"/>
     @await RenderSectionAsync("Styles", required: false)
 </head>
@@ -14,7 +14,7 @@
 <!-- Top bar -->
 <div class="top-bar">
     <div class="container">
-        <span>📍 Қазақстан Республикасы</span>
+        <span>📍 @L["Kazakhstan"]</span>
         <span>
             <a href="tel:@Config.Company.CompanyPhoneShort">📞 @Config.Company.CompanyPhone</a>
             &nbsp;&nbsp;
@@ -30,28 +30,46 @@
             <div class="logo-icon">Ә</div>
             <div>
                 <span>@Config.Company.CompanyName</span>
-                <small>Ресми интернет-ресурс</small>
+                <small>@L["OfficialResource"]</small>
             </div>
         </a>
-        <button class="navbar-toggle" id="navToggle" aria-label="Мәзір">☰</button>
+        <button class="navbar-toggle" id="navToggle" aria-label="@L["Nav_Menu"]">☰</button>
         <ul class="navbar-nav" id="mainNav">
-            <li><a asp-controller="Home" asp-action="Index">Басты бет</a></li>
-            <li><a asp-controller="News" asp-action="Index">Жаңалықтар</a></li>
-            <li><a asp-controller="Announcements" asp-action="Index">Хабарландырулар</a></li>
-            <li><a asp-controller="Services" asp-action="Index">Қызметтер</a></li>
-            <li><a asp-controller="Applications" asp-action="Submit">Өтініш беру</a></li>
-            <li><a asp-controller="Home" asp-action="About">Әкімдік туралы</a></li>
-            <li><a asp-controller="Home" asp-action="Contacts">Байланыс</a></li>
+            <li><a asp-controller="Home" asp-action="Index">@L["Nav_Home"]</a></li>
+            <li><a asp-controller="News" asp-action="Index">@L["Nav_News"]</a></li>
+            <li><a asp-controller="Announcements" asp-action="Index">@L["Nav_Announcements"]</a></li>
+            <li><a asp-controller="Services" asp-action="Index">@L["Nav_Services"]</a></li>
+            <li><a asp-controller="Applications" asp-action="Submit">@L["Nav_SubmitApplication"]</a></li>
+            <li><a asp-controller="Home" asp-action="About">@L["Nav_About"]</a></li>
+            <li><a asp-controller="Home" asp-action="Contacts">@L["Nav_Contacts"]</a></li>
             @if (User.Identity?.IsAuthenticated == true)
             {
                 <li>
                     <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline">
                         <button type="submit" class="btn btn-sm" style="color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.12);border:none;cursor:pointer;padding:8px 14px;border-radius:8px;">
-                            Шығу
+                            @L["Nav_Logout"]
                         </button>
                     </form>
                 </li>
             }
+            <li class="lang-selector">
+                @{
+                    var returnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
+                    var safeReturnUrl = Uri.IsWellFormedUriString(returnUrl, UriKind.Relative) ? returnUrl : "/";
+                }
+                <a asp-controller="Culture" asp-action="Set"
+                   asp-route-culture="kk-KZ"
+                   asp-route-returnUrl="@safeReturnUrl"
+                   class="lang-btn @(System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("kk") ? "lang-btn-active" : "")">
+                    ҚАЗ
+                </a>
+                <a asp-controller="Culture" asp-action="Set"
+                   asp-route-culture="ru-RU"
+                   asp-route-returnUrl="@safeReturnUrl"
+                   class="lang-btn @(System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("ru") ? "lang-btn-active" : "")">
+                    РУС
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -67,28 +85,28 @@
         <div class="footer-grid">
             <div>
                 <h4>@Config.Company.CompanyName</h4>
-                <p>Ресми интернет-ресурс. Барлық құқықтар қорғалған. Сайтта орналастырылған ақпаратты пайдалану кезінде сілтеме міндетті.</p>
+                <p>@L["Footer_InfoUsage"]</p>
                 <br/>
                 <p>📞 <a href="tel:@Config.Company.CompanyPhoneShort" style="color:rgba(255,255,255,0.65)">@Config.Company.CompanyPhone</a></p>
                 <p>✉ <a href="mailto:@Config.Company.CompanyEmail" style="color:rgba(255,255,255,0.65)">@Config.Company.CompanyEmail</a></p>
             </div>
             <div>
-                <h4>Навигация</h4>
+                <h4>@L["Footer_Navigation"]</h4>
                 <ul class="footer-links">
-                    <li><a asp-controller="Home" asp-action="Index">Басты бет</a></li>
-                    <li><a asp-controller="News" asp-action="Index">Жаңалықтар</a></li>
-                    <li><a asp-controller="Announcements" asp-action="Index">Хабарландырулар</a></li>
-                    <li><a asp-controller="Services" asp-action="Index">Мемлекеттік қызметтер</a></li>
-                    <li><a asp-controller="Home" asp-action="About">Әкімдік туралы</a></li>
+                    <li><a asp-controller="Home" asp-action="Index">@L["Nav_Home"]</a></li>
+                    <li><a asp-controller="News" asp-action="Index">@L["Nav_News"]</a></li>
+                    <li><a asp-controller="Announcements" asp-action="Index">@L["Nav_Announcements"]</a></li>
+                    <li><a asp-controller="Services" asp-action="Index">@L["Footer_StateServices"]</a></li>
+                    <li><a asp-controller="Home" asp-action="About">@L["Nav_About"]</a></li>
                 </ul>
             </div>
             <div>
-                <h4>Азаматтарға</h4>
+                <h4>@L["Footer_ForCitizens"]</h4>
                 <ul class="footer-links">
-                    <li><a asp-controller="Applications" asp-action="Submit">Өтініш беру</a></li>
-                    <li><a asp-controller="Applications" asp-action="Track">Өтінішті тексеру</a></li>
-                    <li><a asp-controller="Announcements" asp-action="Index" asp-route-type="Tender">Тендерлер</a></li>
-                    <li><a asp-controller="Home" asp-action="Contacts">Байланыс</a></li>
+                    <li><a asp-controller="Applications" asp-action="Submit">@L["Nav_SubmitApplication"]</a></li>
+                    <li><a asp-controller="Applications" asp-action="Track">@L["Nav_TrackApplication"]</a></li>
+                    <li><a asp-controller="Announcements" asp-action="Index" asp-route-type="Tender">@L["Footer_Tenders"]</a></li>
+                    <li><a asp-controller="Home" asp-action="Contacts">@L["Nav_Contacts"]</a></li>
                     <li><a href="https://egov.kz" target="_blank" rel="noopener">eGov.kz ↗</a></li>
                 </ul>
             </div>
@@ -96,7 +114,7 @@
     </div>
     <div class="footer-bottom">
         <div class="container">
-            © @DateTime.Now.Year @Config.Company.CompanyName. Барлық құқықтар қорғалған.
+            © @DateTime.Now.Year @Config.Company.CompanyName. @L["Footer_AllRights"]
         </div>
     </div>
 </footer>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Navigation -->
+  <data name="Nav_Home" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="Nav_News" xml:space="preserve">
+    <value>Новости</value>
+  </data>
+  <data name="Nav_Announcements" xml:space="preserve">
+    <value>Объявления</value>
+  </data>
+  <data name="Nav_Services" xml:space="preserve">
+    <value>Услуги</value>
+  </data>
+  <data name="Nav_SubmitApplication" xml:space="preserve">
+    <value>Подать заявку</value>
+  </data>
+  <data name="Nav_TrackApplication" xml:space="preserve">
+    <value>Отследить заявку</value>
+  </data>
+  <data name="Nav_About" xml:space="preserve">
+    <value>Об акимате</value>
+  </data>
+  <data name="Nav_Contacts" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="Nav_Logout" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="Nav_Login" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Nav_Menu" xml:space="preserve">
+    <value>Меню</value>
+  </data>
+
+  <!-- General -->
+  <data name="OfficialResource" xml:space="preserve">
+    <value>Официальный интернет-ресурс</value>
+  </data>
+  <data name="Kazakhstan" xml:space="preserve">
+    <value>Республика Казахстан</value>
+  </data>
+  <data name="LangKK" xml:space="preserve">
+    <value>ҚАЗ</value>
+  </data>
+  <data name="LangRU" xml:space="preserve">
+    <value>РУС</value>
+  </data>
+
+  <!-- Footer -->
+  <data name="Footer_Navigation" xml:space="preserve">
+    <value>Навигация</value>
+  </data>
+  <data name="Footer_ForCitizens" xml:space="preserve">
+    <value>Гражданам</value>
+  </data>
+  <data name="Footer_StateServices" xml:space="preserve">
+    <value>Государственные услуги</value>
+  </data>
+  <data name="Footer_InfoUsage" xml:space="preserve">
+    <value>Официальный интернет-ресурс. Все права защищены. При использовании информации с сайта ссылка обязательна.</value>
+  </data>
+  <data name="Footer_Tenders" xml:space="preserve">
+    <value>Тендеры</value>
+  </data>
+  <data name="Footer_AllRights" xml:space="preserve">
+    <value>Все права защищены.</value>
+  </data>
+
+  <!-- Home page -->
+  <data name="Hero_Title" xml:space="preserve">
+    <value>Служение гражданам — наша главная обязанность</value>
+  </data>
+  <data name="Hero_Description" xml:space="preserve">
+    <value>Подать заявку, читать объявления, получить государственные услуги — всё здесь.</value>
+  </data>
+  <data name="Stat_Online" xml:space="preserve">
+    <value>Онлайн заявка</value>
+  </data>
+  <data name="Stat_WorkDays" xml:space="preserve">
+    <value>Рабочих дней на ответ</value>
+  </data>
+  <data name="Stat_Services" xml:space="preserve">
+    <value>Государственных услуг</value>
+  </data>
+  <data name="Stat_Direct" xml:space="preserve">
+    <value>Без посредников, напрямую</value>
+  </data>
+  <data name="Section_LatestNews" xml:space="preserve">
+    <value>Последние новости</value>
+  </data>
+  <data name="Section_Announcements" xml:space="preserve">
+    <value>Объявления</value>
+  </data>
+  <data name="Section_StateServices" xml:space="preserve">
+    <value>Государственные услуги</value>
+  </data>
+  <data name="Btn_AllItems" xml:space="preserve">
+    <value>Все →</value>
+  </data>
+  <data name="Btn_More" xml:space="preserve">
+    <value>Подробнее →</value>
+  </data>
+  <data name="Btn_SubmitApplication" xml:space="preserve">
+    <value>📝 Подать заявку</value>
+  </data>
+  <data name="Btn_TrackApplication" xml:space="preserve">
+    <value>🔍 Отследить заявку</value>
+  </data>
+  <data name="CTA_Title" xml:space="preserve">
+    <value>Есть вопрос?</value>
+  </data>
+  <data name="CTA_Description" xml:space="preserve">
+    <value>Отправьте ваше обращение онлайн. Мы ответим в течение 3 рабочих дней.</value>
+  </data>
+
+  <!-- Announcement types -->
+  <data name="Type_Tender" xml:space="preserve">
+    <value>Тендер</value>
+  </data>
+  <data name="Type_RoadClosure" xml:space="preserve">
+    <value>Перекрытие дороги</value>
+  </data>
+  <data name="Type_Emergency" xml:space="preserve">
+    <value>Срочно</value>
+  </data>
+  <data name="Type_General" xml:space="preserve">
+    <value>Общее</value>
+  </data>
+
+  <!-- About page -->
+  <data name="About_Title" xml:space="preserve">
+    <value>Об акимате</value>
+  </data>
+  <data name="About_SubTitle" xml:space="preserve">
+    <value>О нас</value>
+  </data>
+
+  <!-- Contacts page -->
+  <data name="Contacts_Title" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="Contacts_SubTitle" xml:space="preserve">
+    <value>Свяжитесь с нами</value>
+  </data>
+</root>

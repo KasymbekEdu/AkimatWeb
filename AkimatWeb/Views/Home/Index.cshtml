@@ -1,20 +1,20 @@
 @model HomeIndexVM
 @{
-    ViewData["Title"] = "Басты бет";
+    ViewData["Title"] = L["Nav_Home"];
 }
 
 <!-- Hero -->
 <section class="hero">
     <div class="container">
         <div class="hero-content">
-            <h1>Азаматтарға қызмет — біздің басты міндет</h1>
-            <p>Өтініш беру, хабарландыруларды оқу, мемлекеттік қызметтерге қол жеткізу — бәрі осында.</p>
+            <h1>@L["Hero_Title"]</h1>
+            <p>@L["Hero_Description"]</p>
             <div class="hero-actions">
                 <a asp-controller="Applications" asp-action="Submit" class="btn btn-white btn-lg">
-                    📝 Өтініш беру
+                    @L["Btn_SubmitApplication"]
                 </a>
                 <a asp-controller="Applications" asp-action="Track" class="btn btn-gold btn-lg">
-                    🔍 Өтінішті тексеру
+                    @L["Btn_TrackApplication"]
                 </a>
             </div>
         </div>
@@ -26,19 +26,19 @@
     <div class="container">
         <div class="stat-item">
             <span class="stat-number">24/7</span>
-            <span class="stat-label">Онлайн өтініш беру</span>
+            <span class="stat-label">@L["Stat_Online"]</span>
         </div>
         <div class="stat-item">
             <span class="stat-number">3</span>
-            <span class="stat-label">Жұмыс күні ішінде жауап</span>
+            <span class="stat-label">@L["Stat_WorkDays"]</span>
         </div>
         <div class="stat-item">
             <span class="stat-number">50+</span>
-            <span class="stat-label">Мемлекеттік қызмет</span>
+            <span class="stat-label">@L["Stat_Services"]</span>
         </div>
         <div class="stat-item">
             <span class="stat-number">0</span>
-            <span class="stat-label">Делдалсыз, тікелей</span>
+            <span class="stat-label">@L["Stat_Direct"]</span>
         </div>
     </div>
 </div>
@@ -49,8 +49,8 @@
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Соңғы жаңалықтар</h2>
-                <a asp-controller="News" asp-action="Index" class="btn btn-outline btn-sm">Барлығы →</a>
+                <h2 class="section-title">@L["Section_LatestNews"]</h2>
+                <a asp-controller="News" asp-action="Index" class="btn btn-outline btn-sm">@L["Btn_AllItems"]</a>
             </div>
             <div class="cards-grid cards-grid-3">
                 @foreach (var news in Model.LatestNews)
@@ -75,7 +75,7 @@
                             </h3>
                             <a asp-controller="News" asp-action="Details" asp-route-id="@news.Id"
                                class="btn btn-outline btn-sm card-footer-link">
-                                Толығырақ →
+                                @L["Btn_More"]
                             </a>
                         </div>
                     </article>
@@ -91,8 +91,8 @@
     <section class="section section-alt">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Хабарландырулар</h2>
-                <a asp-controller="Announcements" asp-action="Index" class="btn btn-outline btn-sm">Барлығы →</a>
+                <h2 class="section-title">@L["Section_Announcements"]</h2>
+                <a asp-controller="Announcements" asp-action="Index" class="btn btn-outline btn-sm">@L["Btn_AllItems"]</a>
             </div>
             <div class="ann-list">
                 @foreach (var ann in Model.LatestAnnouncements)
@@ -102,10 +102,10 @@
                             <div>
                                 <span class="badge type-badge-@ann.Type" style="margin-bottom:6px;display:inline-block;">
                                     @(ann.Type switch {
-                                        AnnouncementType.Tender => "Тендер",
-                                        AnnouncementType.RoadClosure => "Жол жабылуы",
-                                        AnnouncementType.Emergency => "Шұғыл",
-                                        _ => "Жалпы"
+                                        AnnouncementType.Tender => L["Type_Tender"].Value,
+                                        AnnouncementType.RoadClosure => L["Type_RoadClosure"].Value,
+                                        AnnouncementType.Emergency => L["Type_Emergency"].Value,
+                                        _ => L["Type_General"].Value
                                     })
                                 </span>
                                 <h3 class="card-title" style="margin-bottom:0">
@@ -131,8 +131,8 @@
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Мемлекеттік қызметтер</h2>
-                <a asp-controller="Services" asp-action="Index" class="btn btn-outline btn-sm">Барлығы →</a>
+                <h2 class="section-title">@L["Section_StateServices"]</h2>
+                <a asp-controller="Services" asp-action="Index" class="btn btn-outline btn-sm">@L["Btn_AllItems"]</a>
             </div>
             <div class="cards-grid cards-grid-3">
                 @foreach (var cat in Model.ServiceCategories)
@@ -145,7 +145,7 @@
                         {
                             <p style="font-size:0.82rem;color:#9ca3af;margin-top:6px">@cat.Description</p>
                         }
-                        <p style="font-size:0.8rem;color:#3b82f6;margin-top:10px">@cat.Services.Count қызмет →</p>
+                        <p style="font-size:0.8rem;color:#3b82f6;margin-top:10px">@cat.Services.Count @L["Stat_Services"] →</p>
                     </a>
                 }
             </div>
@@ -156,16 +156,16 @@
 <!-- CTA: Submit application -->
 <section class="section section-alt">
     <div class="container text-center">
-        <h2 style="margin-bottom:12px">Мәселеңіз бар ма?</h2>
+        <h2 style="margin-bottom:12px">@L["CTA_Title"]</h2>
         <p style="color:#4b5563;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto">
-            Өтінішіңізді онлайн жіберіңіз. Біз 3 жұмыс күні ішінде жауап береміз.
+            @L["CTA_Description"]
         </p>
         <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
             <a asp-controller="Applications" asp-action="Submit" class="btn btn-primary btn-lg">
-                📝 Өтініш беру
+                @L["Btn_SubmitApplication"]
             </a>
             <a asp-controller="Applications" asp-action="Track" class="btn btn-outline btn-lg">
-                🔍 Өтінішті тексеру
+                @L["Btn_TrackApplication"]
             </a>
         </div>
     </div>
