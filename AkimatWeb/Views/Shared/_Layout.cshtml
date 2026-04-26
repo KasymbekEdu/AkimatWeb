@@ -54,7 +54,9 @@
             }
             <li class="lang-selector">
                 @{
-                    var returnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
+                    var rawPath = Context.Request.Path.Value ?? "/";
+                    var rawQuery = Context.Request.QueryString.Value ?? "";
+                    var returnUrl = rawPath + rawQuery;
                     var safeReturnUrl = Uri.IsWellFormedUriString(returnUrl, UriKind.Relative) ? returnUrl : "/";
                 }
                 <a asp-controller="Culture" asp-action="Set"

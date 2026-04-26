@@ -8,6 +8,9 @@ public class CultureController : Controller
     [HttpGet]
     public IActionResult Set(string culture, string returnUrl = "/")
     {
+        if (string.IsNullOrWhiteSpace(returnUrl))
+            returnUrl = "/";
+
         if (!string.IsNullOrWhiteSpace(culture))
         {
             Response.Cookies.Append(
@@ -18,7 +21,7 @@ public class CultureController : Controller
                     Expires = DateTimeOffset.UtcNow.AddYears(1),
                     IsEssential = true,
                     SameSite = SameSiteMode.Lax,
-                    Secure = Request.IsHttps
+                    Secure = true
                 });
         }
 
