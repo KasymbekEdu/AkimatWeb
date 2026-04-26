@@ -582,3 +582,37 @@ tbody tr:hover { background: var(--gray-100); }
 .detail-row dd { color: var(--gray-800); }
 .empty-state { text-align: center; padding: 60px 20px; color: var(--gray-400); }
 .empty-state-icon { font-size: 3rem; margin-bottom: 16px; }
+
+/* ── Language Selector ── */
+.lang-selector {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+}
+.lang-btn {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all var(--transition);
+  letter-spacing: 0.04em;
+}
+.lang-btn:hover {
+  color: var(--white);
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.4);
+  text-decoration: none;
+}
+.lang-btn.lang-btn-active {
+  color: var(--white);
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.5);
+}
+@media (max-width: 768px) {
+  .lang-selector { margin-left: 0; margin-top: 4px; }
+}

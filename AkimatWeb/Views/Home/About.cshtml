@@ -1,16 +1,16 @@
 @inject AkimatWeb.Infrastructure.AppConfig Config
 @{
-    ViewData["Title"] = "Әкімдік туралы";
+    ViewData["Title"] = L["About_Title"];
 }
 
 <div class="page-header">
     <div class="container">
         <div class="breadcrumb">
-            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <a asp-controller="Home" asp-action="Index">@L["Nav_Home"]</a>
             <span>/</span>
-            <span>Әкімдік туралы</span>
+            <span>@L["About_Title"]</span>
         </div>
-        <h1>Әкімдік туралы</h1>
+        <h1>@L["About_Title"]</h1>
         <p>@Config.Company.CompanyName</p>
     </div>
 </div>
