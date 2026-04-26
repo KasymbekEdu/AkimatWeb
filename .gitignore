@@ -14,3 +14,7 @@ wwwroot/img/announcements/*
 ## Logs
 logs/
 *.log
+
+## SQLite temp files
+*.db-shm
+*.db-wal
