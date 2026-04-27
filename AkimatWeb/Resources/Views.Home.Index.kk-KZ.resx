@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="HomePage" xml:space="preserve"><value>Басты бет</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Азаматтарға қызмет — біздің басты міндет</value></data>
+  <data name="HeroSubTitle" xml:space="preserve"><value>Өтініш беру, хабарландыруларды оқу, мемлекеттік қызметтерге қол жеткізу — бәрі осында.</value></data>
+  <data name="SubmitBtn" xml:space="preserve"><value>Өтініш беру</value></data>
+  <data name="TrackBtn" xml:space="preserve"><value>Өтінішті тексеру</value></data>
+  <data name="StatOnline" xml:space="preserve"><value>24/7 Онлайн өтініш</value></data>
+  <data name="StatDays" xml:space="preserve"><value>3 жұмыс күні ішінде жауап</value></data>
+  <data name="StatServices" xml:space="preserve"><value>Мемлекеттік қызмет</value></data>
+  <data name="StatDirect" xml:space="preserve"><value>Делдалсыз, тікелей</value></data>
+  <data name="LatestNews" xml:space="preserve"><value>Соңғы жаңалықтар</value></data>
+  <data name="Announcements" xml:space="preserve"><value>Хабарландырулар</value></data>
+  <data name="All" xml:space="preserve"><value>Барлығы</value></data>
+  <data name="More" xml:space="preserve"><value>Толығырақ</value></data>
+  <data name="CTATitle" xml:space="preserve"><value>Мәселеңіз бар ма?</value></data>
+  <data name="CTASubTitle" xml:space="preserve"><value>Өтінішіңізді онлайн жіберіңіз. Біз 3 жұмыс күні ішінде жауап береміз.</value></data>
+  <data name="Tender" xml:space="preserve"><value>Тендер</value></data>
+  <data name="RoadClosure" xml:space="preserve"><value>Жол жабылуы</value></data>
+  <data name="Emergency" xml:space="preserve"><value>Шұғыл</value></data>
+  <data name="General" xml:space="preserve"><value>Жалпы</value></data>
+</root>

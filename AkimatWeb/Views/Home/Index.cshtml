@@ -1,56 +1,56 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @model HomeIndexVM
+
 @{
-    ViewData["Title"] = "Басты бет";
+    ViewData["Title"] = Localizer["HomePage"];
 }
 
-<!-- Hero -->
 <section class="hero">
     <div class="container">
         <div class="hero-content">
-            <h1>Азаматтарға қызмет — біздің басты міндет</h1>
-            <p>Өтініш беру, хабарландыруларды оқу, мемлекеттік қызметтерге қол жеткізу — бәрі осында.</p>
+            <h1>@Localizer["HeroTitle"]</h1>
+            <p>@Localizer["HeroSubTitle"]</p>
             <div class="hero-actions">
                 <a asp-controller="Applications" asp-action="Submit" class="btn btn-white btn-lg">
-                    📝 Өтініш беру
+                    📝 @Localizer["SubmitBtn"]
                 </a>
                 <a asp-controller="Applications" asp-action="Track" class="btn btn-gold btn-lg">
-                    🔍 Өтінішті тексеру
+                    🔍 @Localizer["TrackBtn"]
                 </a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Stats -->
 <div class="stats-bar">
     <div class="container">
         <div class="stat-item">
             <span class="stat-number">24/7</span>
-            <span class="stat-label">Онлайн өтініш беру</span>
+            <span class="stat-label">@Localizer["StatOnline"]</span>
         </div>
         <div class="stat-item">
             <span class="stat-number">3</span>
-            <span class="stat-label">Жұмыс күні ішінде жауап</span>
+            <span class="stat-label">@Localizer["StatDays"]</span>
         </div>
         <div class="stat-item">
             <span class="stat-number">50+</span>
-            <span class="stat-label">Мемлекеттік қызмет</span>
+            <span class="stat-label">@Localizer["StatServices"]</span>
         </div>
         <div class="stat-item">
             <span class="stat-number">0</span>
-            <span class="stat-label">Делдалсыз, тікелей</span>
+            <span class="stat-label">@Localizer["StatDirect"]</span>
         </div>
     </div>
 </div>
 
-<!-- Latest News -->
 @if (Model.LatestNews.Any())
 {
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Соңғы жаңалықтар</h2>
-                <a asp-controller="News" asp-action="Index" class="btn btn-outline btn-sm">Барлығы →</a>
+                <h2 class="section-title">@Localizer["LatestNews"]</h2>
+                <a asp-controller="News" asp-action="Index" class="btn btn-outline btn-sm">@Localizer["All"] →</a>
             </div>
             <div class="cards-grid cards-grid-3">
                 @foreach (var news in Model.LatestNews)
@@ -58,7 +58,7 @@
                     <article class="card">
                         @if (!string.IsNullOrEmpty(news.ImagePath))
                         {
-                            <img src="@news.ImagePath" alt="@news.Title" class="card-img"/>
+                            <img src="@news.ImagePath" alt="@news.Title" class="card-img" />
                         }
                         else
                         {
@@ -74,8 +74,8 @@
                                 </a>
                             </h3>
                             <a asp-controller="News" asp-action="Details" asp-route-id="@news.Id"
-                               class="btn btn-outline btn-sm card-footer-link">
-                                Толығырақ →
+                                   class="btn btn-outline btn-sm card-footer-link">
+                                @Localizer["More"] →
                             </a>
                         </div>
                     </article>
@@ -85,14 +85,13 @@
     </section>
 }
 
-<!-- Announcements -->
 @if (Model.LatestAnnouncements.Any())
 {
     <section class="section section-alt">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Хабарландырулар</h2>
-                <a asp-controller="Announcements" asp-action="Index" class="btn btn-outline btn-sm">Барлығы →</a>
+                <h2 class="section-title">@Localizer["Announcements"]</h2>
+                <a asp-controller="Announcements" asp-action="Index" class="btn btn-outline btn-sm">@Localizer["All"] →</a>
             </div>
             <div class="ann-list">
                 @foreach (var ann in Model.LatestAnnouncements)
@@ -101,11 +100,12 @@
                         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
                             <div>
                                 <span class="badge type-badge-@ann.Type" style="margin-bottom:6px;display:inline-block;">
-                                    @(ann.Type switch {
-                                        AnnouncementType.Tender => "Тендер",
-                                        AnnouncementType.RoadClosure => "Жол жабылуы",
-                                        AnnouncementType.Emergency => "Шұғыл",
-                                        _ => "Жалпы"
+                                    @(ann.Type switch
+                                    {
+                                        AnnouncementType.Tender => Localizer["Tender"].Value,
+                                        AnnouncementType.RoadClosure => Localizer["RoadClosure"].Value,
+                                        AnnouncementType.Emergency => Localizer["Emergency"].Value,
+                                        _ => Localizer["General"].Value
                                     })
                                 </span>
                                 <h3 class="card-title" style="margin-bottom:0">
@@ -125,47 +125,18 @@
     </section>
 }
 
-<!-- Services -->
-@if (Model.ServiceCategories.Any())
-{
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Мемлекеттік қызметтер</h2>
-                <a asp-controller="Services" asp-action="Index" class="btn btn-outline btn-sm">Барлығы →</a>
-            </div>
-            <div class="cards-grid cards-grid-3">
-                @foreach (var cat in Model.ServiceCategories)
-                {
-                    <a asp-controller="Services" asp-action="Details" asp-route-id="@cat.Id"
-                       class="service-cat-card" style="text-decoration:none">
-                        <div class="service-cat-icon">⚙</div>
-                        <div class="service-cat-name">@cat.Name</div>
-                        @if (!string.IsNullOrEmpty(cat.Description))
-                        {
-                            <p style="font-size:0.82rem;color:#9ca3af;margin-top:6px">@cat.Description</p>
-                        }
-                        <p style="font-size:0.8rem;color:#3b82f6;margin-top:10px">@cat.Services.Count қызмет →</p>
-                    </a>
-                }
-            </div>
-        </div>
-    </section>
-}
-
-<!-- CTA: Submit application -->
-<section class="section section-alt">
+<section class="section">
     <div class="container text-center">
-        <h2 style="margin-bottom:12px">Мәселеңіз бар ма?</h2>
+        <h2 style="margin-bottom:12px">@Localizer["CTATitle"]</h2>
         <p style="color:#4b5563;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto">
-            Өтінішіңізді онлайн жіберіңіз. Біз 3 жұмыс күні ішінде жауап береміз.
+            @Localizer["CTASubTitle"]
         </p>
         <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
             <a asp-controller="Applications" asp-action="Submit" class="btn btn-primary btn-lg">
-                📝 Өтініш беру
+                📝 @Localizer["SubmitBtn"]
             </a>
             <a asp-controller="Applications" asp-action="Track" class="btn btn-outline btn-lg">
-                🔍 Өтінішті тексеру
+                🔍 @Localizer["TrackBtn"]
             </a>
         </div>
     </div>
