@@ -71,21 +71,30 @@ public class Program
         }
 
         app.UseStaticFiles();
-        app.UseRouting(); // Routing міндетті түрде бірінші тұруы керек
+        app.UseRouting(); // 1. Маршруттау қосылады
 
-        // --- ТІЛДІҢ АУЫСПАУЫН ТҮЗЕТУ ---
-        var supportedCultures = new[] { new CultureInfo("kk-KZ"), new CultureInfo("ru-RU") };
+        // 2. Тіл баптаулары (Осы жерде тұруы шарт)
+        var supportedCultures = new[]
+        {
+    new System.Globalization.CultureInfo("kk-KZ"),
+    new System.Globalization.CultureInfo("ru-RU")
+};
+
         app.UseRequestLocalization(new RequestLocalizationOptions
         {
-            DefaultRequestCulture = new RequestCulture("kk-KZ"),
+            DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("kk-KZ"),
             SupportedCultures = supportedCultures,
             SupportedUICultures = supportedCultures,
-            RequestCultureProviders = new List<IRequestCultureProvider>
-            {
-                new CookieRequestCultureProvider(), // Cookie бірінші кезекте
-                new QueryStringRequestCultureProvider()
-            }
+            RequestCultureProviders = new List<Microsoft.AspNetCore.Localization.IRequestCultureProvider>
+    {
+        // Тілді сақтау үшін Cookie-ді бірінші кезекке қоямыз
+        new Microsoft.AspNetCore.Localization.CookieRequestCultureProvider(),
+        new Microsoft.AspNetCore.Localization.QueryStringRequestCultureProvider()
+    }
         });
+
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         app.UseAuthentication();
         app.UseAuthorization();
