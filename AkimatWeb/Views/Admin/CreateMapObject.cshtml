@@ -1,0 +1,123 @@
+﻿@model AkimatWeb.Domain.Models.MapObject
+@using AkimatWeb.Domain.Models
+@{
+    bool isEdit = Model.Id > 0;
+    ViewData["Title"] = isEdit ? "Нысанды өзгерту" : "Нысан қосу";
+    Layout = "_AdminLayout";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <style>
+        #pick-map {
+            height: 320px;
+            border-radius: 8px;
+            border: 1.5px solid #e9ebee;
+            cursor: crosshair
+        }</style>
+    }
+
+    <div style="max-width:680px">
+        <div class="form-card">
+            <form asp-action="@(isEdit ? "EditMapObject" : "CreateMapObject")" method="post">
+                @if (isEdit)
+                {
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="CreatedAt" />
+                }
+
+                <div class="form-group">
+                    <label asp-for="Title" class="form-label">Атауы *</label>
+                    <input asp-for="Title" class="form-control"
+                           placeholder="мысалы: Абай даңғылындағы жол жөндеуі" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="form-label">Сипаттама</label>
+                    <textarea asp-for="Description" class="form-control" rows="2"></textarea>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                    <div class="form-group">
+                        <label asp-for="Type" class="form-label">Түрі</label>
+                        <select asp-for="Type" class="form-control">
+                            <option value="Repair">🔧 Жөндеу</option>
+                            <option value="RoadClosed">🚧 Жабық жол</option>
+                            <option value="Construction">🏗 Құрылыс</option>
+                            <option value="Utility">⚡ Коммуналдық</option>
+                            <option value="Other">📍 Басқа</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Status" class="form-label">Мәртебе</label>
+                        <select asp-for="Status" class="form-control">
+                            <option value="Planned">🕐 Жоспарланған</option>
+                            <option value="Active">🔴 Жүріп жатыр</option>
+                            <option value="Completed">✅ Аяқталды</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                    <div class="form-group">
+                        <label asp-for="StartDate" class="form-label">Басталу күні</label>
+                        <input asp-for="StartDate" type="date" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndDate" class="form-label">Аяқталу күні</label>
+                        <input asp-for="EndDate" type="date" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Картадан орын таңда *</label>
+                    <p style="font-size:0.8rem;color:#9ca3af;margin-bottom:6px">
+                        Картаны бас → координаталар автоматты толтырылады
+                    </p>
+                    <div id="pick-map"></div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                    <div class="form-group">
+                        <label asp-for="Latitude" class="form-label">Latitude</label>
+                        <input asp-for="Latitude" id="latInput" class="form-control"
+                               step="0.000001" placeholder="43.2565" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Longitude" class="form-label">Longitude</label>
+                        <input asp-for="Longitude" id="lngInput" class="form-control"
+                               step="0.000001" placeholder="76.9286" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+                        <input asp-for="IsActive" type="checkbox" style="width:16px;height:16px" />
+                        Белсенді (картада көрінеді)
+                    </label>
+                </div>
+
+                <div style="display:flex;gap:10px">
+                    <button type="submit" class="btn btn-primary">💾 Сақтау</button>
+                    <a asp-action="Map" class="btn btn-outline">Болдырмау</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+        <script>
+            const iLat = parseFloat(document.getElementById('latInput').value) || 43.2565;
+            const iLng = parseFloat(document.getElementById('lngInput').value) || 76.9286;
+            const pm = L.map('pick-map').setView([iLat, iLng], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(pm);
+            let mk = (iLat !== 43.2565) ? L.marker([iLat,iLng]).addTo(pm) : null;
+            pm.on('click', e => {
+            document.getElementById('latInput').value = e.latlng.lat.toFixed(6);
+            document.getElementById('lngInput').value = e.latlng.lng.toFixed(6);
+            if (mk) pm.removeLayer(mk);
+            mk = L.marker([e.latlng.lat, e.latlng.lng]).addTo(pm);
+            });
+        </script>
+    }

@@ -131,3 +131,99 @@ public class NewsImage
     public News News { get; set; } = null!;
     public List<NewsImage> Images { get; set; } = new();
 }
+
+// ── Карта нысаны ──────────────────────────────────────────────────────────────
+
+public class MapObject
+{
+    public int Id { get; set; }
+
+    [Required, MaxLength(300)]
+    public string Title { get; set; } = string.Empty;
+
+    public string? Description { get; set; }
+
+    public MapObjectType Type { get; set; } = MapObjectType.Repair;
+
+    public MapObjectStatus Status { get; set; } = MapObjectStatus.Active;
+
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
+
+    public DateTime StartDate { get; set; } = DateTime.UtcNow;
+    public DateTime? EndDate { get; set; }
+
+    public bool IsActive { get; set; } = true;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+}
+
+public enum MapObjectType
+{
+    Repair,         // Жөндеу жұмыстары
+    RoadClosed,     // Жол жабылған
+    Construction,   // Құрылыс
+    Utility,        // Коммуналдық
+    Other
+}
+
+public enum MapObjectStatus
+{
+    Planned,    // Жоспарланған
+    Active,     // Жүріп жатыр
+    Completed   // Аяқталды
+}
+
+// ── Сауалнама ─────────────────────────────────────────────────────────────────
+
+public class Poll
+{
+    public int Id { get; set; }
+
+    [Required, MaxLength(500)]
+    public string Question { get; set; } = string.Empty;
+
+    public string? Description { get; set; }
+
+    public PollType Type { get; set; } = PollType.SingleChoice;
+
+    public bool IsActive { get; set; } = true;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? ExpiresAt { get; set; }
+
+    public ICollection<PollOption> Options { get; set; } = new List<PollOption>();
+    public ICollection<PollVote> Votes { get; set; } = new List<PollVote>();
+}
+
+public enum PollType
+{
+    SingleChoice,
+    MultiChoice
+}
+
+public class PollOption
+{
+    public int Id { get; set; }
+
+    [Required, MaxLength(300)]
+    public string Text { get; set; } = string.Empty;
+
+    public int SortOrder { get; set; }
+    public int PollId { get; set; }
+    public Poll? Poll { get; set; }
+
+    public ICollection<PollVote> Votes { get; set; } = new List<PollVote>();
+}
+
+public class PollVote
+{
+    public int Id { get; set; }
+    public int PollId { get; set; }
+    public Poll? Poll { get; set; }
+    public int OptionId { get; set; }
+    public PollOption? Option { get; set; }
+
+    // Анонимді — IP+UserAgent хэші, жеке деректер жоқ
+    public string VoterFingerprint { get; set; } = string.Empty;
+    public string? UserId { get; set; }
+    public DateTime VotedAt { get; set; } = DateTime.UtcNow;
+}

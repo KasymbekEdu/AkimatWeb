@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AkimatWeb.Controllers;
 
 [Authorize(Roles = "Admin")]
-public class AdminController : Controller
+public partial class AdminController : Controller
 {
     private readonly DataManager _data;
     private readonly IWebHostEnvironment _env;
@@ -254,5 +254,93 @@ public class AdminController : Controller
         await image.CopyToAsync(stream);
 
         return $"/img/{folder}/{fileName}";
+    }
+
+    // ─── Карта ───────────────────────────────────────────────────────────────────
+
+    public IActionResult Map() =>
+        View(_data.MapObjects.GetAll().ToList());
+
+    [HttpGet]
+    public IActionResult CreateMapObject() => View(new MapObject());
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateMapObject(MapObject obj)
+    {
+        if (!ModelState.IsValid) return View(obj);
+        obj.CreatedAt = DateTime.UtcNow;
+        await _data.MapObjects.CreateAsync(obj);
+        return RedirectToAction(nameof(Map));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> EditMapObject(int id)
+    {
+        var obj = await _data.MapObjects.GetByIdAsync(id);
+        if (obj is null) return NotFound();
+        return View(obj);
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> EditMapObject(MapObject obj)
+    {
+        if (!ModelState.IsValid) return View(obj);
+        await _data.MapObjects.UpdateAsync(obj);
+        return RedirectToAction(nameof(Map));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteMapObject(int id)
+    {
+        await _data.MapObjects.DeleteAsync(id);
+        return RedirectToAction(nameof(Map));
+    }
+
+    // ─── Сауалнамалар ─────────────────────────────────────────────────────────────
+
+    public IActionResult Polls() =>
+        View(_data.Polls.GetAll().ToList());
+
+    [HttpGet]
+    public IActionResult CreatePoll() => View(new Poll());
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreatePoll(Poll poll, List<string> optionTexts)
+    {
+        ModelState.Remove("Options");
+        if (!ModelState.IsValid) return View(poll);
+
+        var validOptions = optionTexts
+            .Where(t => !string.IsNullOrWhiteSpace(t))
+            .Select((t, i) => new PollOption { Text = t.Trim(), SortOrder = i })
+            .ToList();
+
+        if (validOptions.Count < 2)
+        {
+            ModelState.AddModelError("", "Кем дегенде 2 нұсқа қосыңыз");
+            return View(poll);
+        }
+
+        poll.Options = validOptions;
+        poll.CreatedAt = DateTime.UtcNow;
+        await _data.Polls.CreateAsync(poll);
+        return RedirectToAction(nameof(Polls));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> TogglePoll(int id)
+    {
+        var poll = await _data.Polls.GetByIdAsync(id);
+        if (poll is null) return NotFound();
+        poll.IsActive = !poll.IsActive;
+        await _data.Polls.UpdateAsync(poll);
+        return RedirectToAction(nameof(Polls));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeletePoll(int id)
+    {
+        await _data.Polls.DeleteAsync(id);
+        return RedirectToAction(nameof(Polls));
     }
 }

@@ -4,8 +4,6 @@ using AkimatWeb.Domain.Repositories.EntityFramework;
 using AkimatWeb.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace AkimatWeb;
@@ -18,12 +16,16 @@ public class Program
 
         AppConfig config = builder.Configuration.GetSection("Project").Get<AppConfig>() ?? new AppConfig();
 
-        if (string.IsNullOrWhiteSpace(config.Database.ConnectionString))
-            throw new InvalidOperationException("Project:Database:ConnectionString appsettings.json ішінде толтырылуы керек.");
+        var connectionString =
+            builder.Configuration.GetConnectionString("DefaultConnection")
+            ?? builder.Configuration["DATABASE_URL"];
+
+        if (string.IsNullOrWhiteSpace(connectionString))
+            throw new InvalidOperationException("ConnectionStrings:DefaultConnection немесе DATABASE_URL толтырылуы керек.");
 
         // Database
-        builder.Services.AddDbContext<AppDbContext>(x =>
-    x.UseSqlite("Data Source=site.db"));
+        builder.Services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(connectionString));
 
         // Repositories
         builder.Services.AddTransient<INewsRepository, EFNewsRepository>();
@@ -31,6 +33,8 @@ public class Program
         builder.Services.AddTransient<IApplicationsRepository, EFApplicationsRepository>();
         builder.Services.AddTransient<IServicesRepository, EFServicesRepository>();
         builder.Services.AddTransient<DataManager>();
+        builder.Services.AddTransient<IMapObjectsRepository, EFMapObjectsRepository>();
+        builder.Services.AddTransient<IPollsRepository, EFPollsRepository>();
 
         // Config singleton for views
         builder.Services.AddSingleton(config);
@@ -57,7 +61,10 @@ public class Program
             options.SlidingExpiration = true;
         });
 
-        builder.Services.AddControllersWithViews();
+        builder.Services.AddLocalization();
+        builder.Services.AddControllersWithViews()
+            .AddViewLocalization()
+            .AddDataAnnotationsLocalization();
 
         builder.Host.UseSerilog((context, configuration) =>
             configuration.ReadFrom.Configuration(context.Configuration));
@@ -74,6 +81,23 @@ public class Program
             app.UseHsts();
         }
 
+        var supportedCultures = new[]
+{
+    new System.Globalization.CultureInfo("kk-KZ"),
+    new System.Globalization.CultureInfo("ru-RU")
+};
+        app.UseRequestLocalization(new RequestLocalizationOptions
+        {
+            DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("kk-KZ"),
+            SupportedCultures = supportedCultures,
+            SupportedUICultures = supportedCultures,
+            RequestCultureProviders = new List<Microsoft.AspNetCore.Localization.IRequestCultureProvider>
+    {
+        new Microsoft.AspNetCore.Localization.CookieRequestCultureProvider(),
+        new Microsoft.AspNetCore.Localization.QueryStringRequestCultureProvider()
+    }
+        });
+
         app.UseStaticFiles();
         app.UseRouting();
         app.UseCookiePolicy();
@@ -88,9 +112,8 @@ public class Program
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             db.Database.Migrate();
         }
-        // Seed roles and admin user
-        await SeedDataAsync(app);
 
+        await SeedDataAsync(app);
         await app.RunAsync("http://0.0.0.0:8080");
     }
 
@@ -117,6 +140,7 @@ public class Program
                 Email = adminEmail,
                 EmailConfirmed = true
             };
+
             var result = await userManager.CreateAsync(admin, adminPassword);
             if (result.Succeeded)
                 await userManager.AddToRoleAsync(admin, "Admin");

@@ -1,0 +1,87 @@
+﻿@model AkimatWeb.Domain.Models.Poll
+@{
+    ViewData["Title"] = "Сауалнама қосу";
+    Layout = "_AdminLayout";
+}
+
+<div style="max-width:600px">
+    <div class="form-card">
+        <h2 style="margin-bottom:24px;font-size:1.1rem">📊 Жаңа сауалнама</h2>
+        <form asp-action="CreatePoll" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Question" class="form-label">Сұрақ *</label>
+                <input asp-for="Question" class="form-control"
+                       placeholder="мысалы: Қай аудандағы жол жөндеуі басым болу керек?" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="form-label">Сипаттама</label>
+                <textarea asp-for="Description" class="form-control" rows="2"></textarea>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div class="form-group">
+                    <label asp-for="Type" class="form-label">Түрі</label>
+                    <select asp-for="Type" class="form-control">
+                        <option value="SingleChoice">Бір жауап</option>
+                        <option value="MultiChoice">Бірнеше жауап</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ExpiresAt" class="form-label">Аяқталу күні</label>
+                    <input asp-for="ExpiresAt" type="date" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Жауап нұсқалары * (кем дегенде 2)</label>
+                <div id="opts" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px">
+                    <div class="opt-row" style="display:flex;gap:8px">
+                        <input type="text" name="optionTexts" class="form-control" placeholder="1-нұсқа" />
+                        <button type="button" class="btn btn-sm btn-danger rm-opt">✕</button>
+                    </div>
+                    <div class="opt-row" style="display:flex;gap:8px">
+                        <input type="text" name="optionTexts" class="form-control" placeholder="2-нұсқа" />
+                        <button type="button" class="btn btn-sm btn-danger rm-opt">✕</button>
+                    </div>
+                </div>
+                <button type="button" id="addOpt" class="btn btn-sm btn-outline">➕ Нұсқа қосу</button>
+            </div>
+
+            <div class="form-group">
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+                    <input asp-for="IsActive" type="checkbox" style="width:16px;height:16px" checked />
+                    Бірден белсендіру
+                </label>
+            </div>
+
+            <div style="display:flex;gap:10px">
+                <button type="submit" class="btn btn-primary">📊 Жариялау</button>
+                <a asp-action="Polls" class="btn btn-outline">Болдырмау</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let n = 2;
+        function attachRm(btn) {
+            btn.addEventListener('click', () => {
+                if (document.querySelectorAll('.opt-row').length > 2)
+                    btn.closest('.opt-row').remove();
+            });
+        }
+        document.querySelectorAll('.rm-opt').forEach(attachRm);
+        document.getElementById('addOpt').addEventListener('click', () => {
+            n++;
+            const row = document.createElement('div');
+            row.className = 'opt-row'; row.style.cssText = 'display:flex;gap:8px';
+            row.innerHTML = `<input type="text" name="optionTexts" class="form-control" placeholder="${n}-нұсқа"/>
+                <button type="button" class="btn btn-sm btn-danger rm-opt">✕</button>`;
+            document.getElementById('opts').appendChild(row);
+            attachRm(row.querySelector('.rm-opt'));
+        });
+    </script>
+}

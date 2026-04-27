@@ -8,16 +8,22 @@ public class DataManager
     public IAnnouncementsRepository Announcements { get; }
     public IApplicationsRepository Applications { get; }
     public IServicesRepository Services { get; }
+    public IMapObjectsRepository MapObjects { get; }
+    public IPollsRepository Polls { get; }
 
     public DataManager(
         INewsRepository news,
         IAnnouncementsRepository announcements,
         IApplicationsRepository applications,
-        IServicesRepository services)
+        IServicesRepository services,
+        IMapObjectsRepository mapObjects,
+        IPollsRepository polls)
     {
         News = news;
         Announcements = announcements;
         Applications = applications;
         Services = services;
+        MapObjects = mapObjects;
+        Polls = polls;
     }
 }

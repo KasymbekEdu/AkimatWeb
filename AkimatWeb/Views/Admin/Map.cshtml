@@ -1,0 +1,70 @@
+﻿@model List<AkimatWeb.Domain.Models.MapObject>
+@using AkimatWeb.Domain.Models
+@{
+    ViewData["Title"] = "Карта нысандары";
+    Layout = "_AdminLayout";
+}
+
+<div style="display:flex;justify-content:space-between;margin-bottom:20px">
+    <span style="color:#9ca3af">Барлығы: @Model.Count</span>
+    <a asp-action="CreateMapObject" class="btn btn-primary btn-sm">➕ Нысан қосу</a>
+</div>
+
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Атауы</th>
+                <th>Түрі</th>
+                <th>Мәртебе</th>
+                <th>Басталды</th>
+                <th>Аяқталады</th>
+                <th>Әрекет</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                var typeKk = obj.Type switch
+                {
+                    MapObjectType.Repair => "🔧 Жөндеу",
+                    MapObjectType.RoadClosed => "🚧 Жабық жол",
+                    MapObjectType.Construction => "🏗 Құрылыс",
+                    MapObjectType.Utility => "⚡ Коммуналдық",
+                    _ => "📍 Басқа"
+                };
+                var statusKk = obj.Status switch
+                {
+                    MapObjectStatus.Planned => "Жоспарланған",
+                    MapObjectStatus.Active => "Жүріп жатыр",
+                    MapObjectStatus.Completed => "Аяқталды",
+                    _ => ""
+                };
+                <tr>
+                    <td>@obj.Id</td>
+                    <td style="font-weight:500">@obj.Title</td>
+                    <td><span class="badge badge-info">@typeKk</span></td>
+                    <td>@statusKk</td>
+                    <td style="font-size:0.85rem">@obj.StartDate.ToString("dd.MM.yyyy")</td>
+                    <td style="font-size:0.85rem">
+                        @(obj.EndDate.HasValue ? obj.EndDate.Value.ToString("dd.MM.yyyy") : "—")
+                    </td>
+                    <td>
+                        <div style="display:flex;gap:6px">
+                            <a asp-action="EditMapObject" asp-route-id="@obj.Id"
+                               class="btn btn-sm btn-outline">✏</a>
+                            <form asp-action="DeleteMapObject" method="post" style="display:inline">
+                                <input type="hidden" name="id" value="@obj.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                        data-confirm="Жойғыңыз келеді ме?">
+                                    🗑
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

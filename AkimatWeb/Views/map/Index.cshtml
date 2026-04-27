@@ -1,0 +1,167 @@
+﻿@model List<AkimatWeb.Domain.Models.MapObject>
+@using AkimatWeb.Domain.Models
+@{
+    ViewData["Title"] = "Интерактивті карта";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+    <style>
+        #map { height: 540px; border-radius: 12px; border: 1px solid #e9ebee; }
+        .map-list-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    </style>
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1>🗺 Интерактивті карта</h1>
+        <p>Жөндеу жұмыстары, жабық жолдар және жаңа нысандар</p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+
+        <!-- Фильтр батырмалары -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px" id="mapFilters">
+            <button class="btn btn-sm btn-primary" data-filter="all">Барлығы</button>
+            <button class="btn btn-sm btn-outline" data-filter="Repair"
+                    style="border-color:#f59e0b;color:#f59e0b">🔧 Жөндеу</button>
+            <button class="btn btn-sm btn-outline" data-filter="RoadClosed"
+                    style="border-color:#ef4444;color:#ef4444">🚧 Жабық жол</button>
+            <button class="btn btn-sm btn-outline" data-filter="Construction"
+                    style="border-color:#8b5cf6;color:#8b5cf6">🏗 Құрылыс</button>
+            <button class="btn btn-sm btn-outline" data-filter="Utility"
+                    style="border-color:#3b82f6;color:#3b82f6">⚡ Коммуналдық</button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 260px;gap:16px;align-items:start">
+
+            <div id="map"></div>
+
+            <!-- Оң жақ тізім -->
+            <div style="display:flex;flex-direction:column;gap:8px;
+                        max-height:540px;overflow-y:auto" id="objectList">
+                @foreach (var obj in Model)
+                {
+                    var color = obj.Type switch {
+                        MapObjectType.Repair       => "#f59e0b",
+                        MapObjectType.RoadClosed   => "#ef4444",
+                        MapObjectType.Construction => "#8b5cf6",
+                        MapObjectType.Utility      => "#3b82f6",
+                        _                          => "#6b7280"
+                    };
+                    var typeKk = obj.Type switch {
+                        MapObjectType.Repair       => "Жөндеу",
+                        MapObjectType.RoadClosed   => "Жабық жол",
+                        MapObjectType.Construction => "Құрылыс",
+                        MapObjectType.Utility      => "Коммуналдық",
+                        _                          => "Басқа"
+                    };
+                    <div class="map-list-item"
+                         data-type="@obj.Type"
+                         data-lat="@obj.Latitude.ToString("F6", System.Globalization.CultureInfo.InvariantCulture)"
+                         data-lng="@obj.Longitude.ToString("F6", System.Globalization.CultureInfo.InvariantCulture)"
+                         style="background:#fff;border:1px solid #e9ebee;
+                                border-left:4px solid @color;
+                                border-radius:0 8px 8px 0;
+                                padding:10px 12px;cursor:pointer;transition:box-shadow 0.2s">
+                        <div style="font-size:0.7rem;color:@color;font-weight:700">@typeKk</div>
+                        <div style="font-weight:600;font-size:0.85rem">@obj.Title</div>
+                        <div style="font-size:0.75rem;color:#9ca3af">
+                            @obj.StartDate.ToString("dd.MM.yyyy")
+                            @if (obj.EndDate.HasValue)
+                            { <span>→ @obj.EndDate.Value.ToString("dd.MM.yyyy")</span> }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const map = L.map('map').setView([43.2565, 76.9286], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+}).addTo(map);
+
+const colors = {
+    Repair:'#f59e0b', RoadClosed:'#ef4444',
+    Construction:'#8b5cf6', Utility:'#3b82f6', Other:'#6b7280'
+};
+const labels = {
+    Repair:'🔧 Жөндеу', RoadClosed:'🚧 Жабық жол',
+    Construction:'🏗 Құрылыс', Utility:'⚡ Коммуналдық', Other:'📍 Басқа'
+};
+const statusKk = {
+    Planned:'🕐 Жоспарланған', Active:'🔴 Жүріп жатыр', Completed:'✅ Аяқталды'
+};
+
+function makeIcon(color) {
+    return L.divIcon({
+        className: '',
+        html: `<div style="width:16px;height:16px;background:${color};
+               border:2px solid #fff;border-radius:50%;
+               box-shadow:0 2px 6px rgba(0,0,0,0.3)"></div>`,
+        iconSize:[16,16], iconAnchor:[8,8], popupAnchor:[0,-10]
+    });
+}
+
+let allMarkers = [];
+
+fetch('/api/map/objects').then(r => r.json()).then(data => {
+    data.features.forEach(f => {
+        const p = f.properties;
+        const [lng, lat] = f.geometry.coordinates;
+        const color = colors[p.type] || '#6b7280';
+        const m = L.marker([lat, lng], { icon: makeIcon(color) });
+        const date = p.endDate ? `${p.startDate} → ${p.endDate}` : `${p.startDate} бастап`;
+        m.bindPopup(`
+            <b style="color:${color}">${labels[p.type]||p.type}</b><br/>
+            <strong>${p.title}</strong><br/>
+            ${p.description ? `<span style="color:#4b5563">${p.description}</span><br/>` : ''}
+            <small style="color:#9ca3af">📅 ${date}</small><br/>
+            <small style="color:#9ca3af">${statusKk[p.status]||p.status}</small>
+        `);
+        m._type = p.type;
+        m.addTo(map);
+        allMarkers.push(m);
+    });
+    if (allMarkers.length > 0)
+        map.fitBounds(L.featureGroup(allMarkers).getBounds().pad(0.2));
+});
+
+// Фильтр
+document.querySelectorAll('#mapFilters button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('#mapFilters button').forEach(b => {
+            b.classList.remove('btn-primary');
+            b.classList.add('btn-outline');
+        });
+        btn.classList.replace('btn-outline','btn-primary');
+        const f = btn.dataset.filter;
+        allMarkers.forEach(m => f==='all'||m._type===f ? m.addTo(map) : map.removeLayer(m));
+        document.querySelectorAll('.map-list-item').forEach(el =>
+            el.style.display = f==='all'||el.dataset.type===f ? '' : 'none');
+    });
+});
+
+// Тізімге басу → картада ашу
+document.querySelectorAll('.map-list-item').forEach(el => {
+    el.addEventListener('click', () => {
+        const lat = parseFloat(el.dataset.lat);
+        const lng = parseFloat(el.dataset.lng);
+        map.flyTo([lat, lng], 16, {duration:0.8});
+        allMarkers.forEach(m => {
+            const ll = m.getLatLng();
+            if (Math.abs(ll.lat-lat)<0.0001 && Math.abs(ll.lng-lng)<0.0001)
+                m.openPopup();
+        });
+    });
+});
+</script>
+}
