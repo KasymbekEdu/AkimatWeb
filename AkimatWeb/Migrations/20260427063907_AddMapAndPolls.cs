@@ -12,6 +12,9 @@ namespace AkimatWeb.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            // БҰЛ ЖОЛ ҚАТЕНІ ТҮЗЕТЕДІ: PostgreSQL-ге бағанды boolean түріне айналдыруды үйретеді
+            migrationBuilder.Sql("ALTER TABLE \"ServiceItems\" ALTER COLUMN \"IsActive\" TYPE boolean USING \"IsActive\"::boolean;");
+
             migrationBuilder.CreateTable(
                 name: "MapObjects",
                 columns: table => new
