@@ -82,20 +82,20 @@ public class Program
         }
 
         var supportedCultures = new[]
-{
-    new System.Globalization.CultureInfo("kk-KZ"),
-    new System.Globalization.CultureInfo("ru-RU")
-};
+        {
+            new System.Globalization.CultureInfo("kk-KZ"),
+            new System.Globalization.CultureInfo("ru-RU")
+        };
         app.UseRequestLocalization(new RequestLocalizationOptions
         {
             DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("kk-KZ"),
             SupportedCultures = supportedCultures,
             SupportedUICultures = supportedCultures,
             RequestCultureProviders = new List<Microsoft.AspNetCore.Localization.IRequestCultureProvider>
-    {
-        new Microsoft.AspNetCore.Localization.CookieRequestCultureProvider(),
-        new Microsoft.AspNetCore.Localization.QueryStringRequestCultureProvider()
-    }
+            {
+                new Microsoft.AspNetCore.Localization.CookieRequestCultureProvider(),
+                new Microsoft.AspNetCore.Localization.QueryStringRequestCultureProvider()
+            }
         });
 
         app.UseStaticFiles();
@@ -107,10 +107,48 @@ public class Program
         app.MapControllerRoute("areas", "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
         app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
+        // --- МЫНА БӨЛІМ ӨЗГЕРТІЛДІ: БАЗАНЫ ТАЗАЛАУ ЖӘНЕ МИГРАЦИЯ ---
+        // Program.cs ішіндегі осы бөлімді тауып, ауыстырыңыз:
         using (var scope = app.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            try
+            {
+                // 1. Алдымен барлық кестелерді өшіреміз (CASCADE - бұл байланысқан кестелерді де қоса өшіреді)
+                // Командаларды бір-бірлеп жібереміз
+                var dropCommands = new[]
+                {
+            "DROP TABLE IF EXISTS \"ServiceItems\" CASCADE;",
+            "DROP TABLE IF EXISTS \"MapObjects\" CASCADE;",
+            "DROP TABLE IF EXISTS \"PollVotes\" CASCADE;",
+            "DROP TABLE IF EXISTS \"PollOptions\" CASCADE;",
+            "DROP TABLE IF EXISTS \"Polls\" CASCADE;",
+            "DROP TABLE IF EXISTS \"AspNetUsers\" CASCADE;",
+            "DROP TABLE IF EXISTS \"AspNetRoles\" CASCADE;",
+            "DROP TABLE IF EXISTS \"AspNetUserRoles\" CASCADE;",
+            "DROP TABLE IF EXISTS \"AspNetUserClaims\" CASCADE;",
+            "DROP TABLE IF EXISTS \"AspNetRoleClaims\" CASCADE;",
+            "DROP TABLE IF EXISTS \"AspNetUserLogins\" CASCADE;",
+            "DROP TABLE IF EXISTS \"AspNetUserTokens\" CASCADE;",
+            "DROP TABLE IF EXISTS \"__EFMigrationsHistory\" CASCADE;"
+        };
+
+                foreach (var cmd in dropCommands)
+                {
+                    db.Database.ExecuteSqlRaw(cmd);
+                }
+
+                Console.WriteLine("БАЗА ТОЛЫҚ ТАЗАРТЫЛДЫ.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Тазарту қатесі: {ex.Message}");
+            }
+
+            // 2. Енді таза базаға жаңа миграцияны жібереміз
             db.Database.Migrate();
+            Console.WriteLine("МИГРАЦИЯ СӘТТІ АЯҚТАЛДЫ.");
         }
 
         await SeedDataAsync(app);
