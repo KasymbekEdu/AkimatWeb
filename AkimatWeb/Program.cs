@@ -5,6 +5,8 @@ using AkimatWeb.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace AkimatWeb;
 
@@ -36,32 +38,19 @@ public class Program
         builder.Services.AddTransient<IMapObjectsRepository, EFMapObjectsRepository>();
         builder.Services.AddTransient<IPollsRepository, EFPollsRepository>();
 
-        // Config singleton for views
         builder.Services.AddSingleton(config);
 
         // Identity
         builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
         {
             options.User.RequireUniqueEmail = true;
-            options.Password.RequireDigit = false;
             options.Password.RequiredLength = 6;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireUppercase = false;
-            options.Password.RequireLowercase = false;
         })
         .AddEntityFrameworkStores<AppDbContext>()
         .AddDefaultTokenProviders();
 
-        builder.Services.ConfigureApplicationCookie(options =>
-        {
-            options.Cookie.Name = "AkimatAuth";
-            options.Cookie.HttpOnly = true;
-            options.LoginPath = "/account/login";
-            options.AccessDeniedPath = "/admin/accessdenied";
-            options.SlidingExpiration = true;
-        });
+        builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-        builder.Services.AddLocalization();
         builder.Services.AddControllersWithViews()
             .AddViewLocalization()
             .AddDataAnnotationsLocalization();
@@ -81,55 +70,45 @@ public class Program
             app.UseHsts();
         }
 
-        var supportedCultures = new[]
-        {
-            new System.Globalization.CultureInfo("kk-KZ"),
-            new System.Globalization.CultureInfo("ru-RU")
-        };
+        app.UseStaticFiles();
+        app.UseRouting(); // Routing міндетті түрде бірінші тұруы керек
+
+        // --- ТІЛДІҢ АУЫСПАУЫН ТҮЗЕТУ ---
+        var supportedCultures = new[] { new CultureInfo("kk-KZ"), new CultureInfo("ru-RU") };
         app.UseRequestLocalization(new RequestLocalizationOptions
         {
-            DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("kk-KZ"),
+            DefaultRequestCulture = new RequestCulture("kk-KZ"),
             SupportedCultures = supportedCultures,
             SupportedUICultures = supportedCultures,
-            RequestCultureProviders = new List<Microsoft.AspNetCore.Localization.IRequestCultureProvider>
+            RequestCultureProviders = new List<IRequestCultureProvider>
             {
-                new Microsoft.AspNetCore.Localization.CookieRequestCultureProvider(),
-                new Microsoft.AspNetCore.Localization.QueryStringRequestCultureProvider()
+                new CookieRequestCultureProvider(), // Cookie бірінші кезекте
+                new QueryStringRequestCultureProvider()
             }
         });
 
-        app.UseStaticFiles();
-        app.UseRouting();
-        app.UseCookiePolicy();
         app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllerRoute("areas", "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
         app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
-        // --- МЫНА БӨЛІМДІ ТОЛЫҒЫМЕН АУЫСТЫРЫҢЫЗ ---
+        // --- БАЗАНЫ ЖӘНЕ КАРТАНЫ ТҮЗЕТУ ---
         using (var scope = app.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
             try
             {
-                Console.WriteLine("МӘЖБҮРЛІ ТАЗАРТУ ЖӘНЕ ЖАҢАДАН ҚҰРУ БАСТАЛДЫ...");
-
-                // 1. Базаны физикалық түрде жою (бұрынғы миграция тарихын қоса)
-                db.Database.EnsureDeleted();
-
-                // 2. Миграция файлдарына қарамай, базаны қазіргі класстар бойынша бірден құру
-                db.Database.EnsureCreated();
-
-                Console.WriteLine("БАЗА НӨЛДЕН СӘТТІ ҚҰРЫЛДЫ!");
+                // Ескерту: EnsureCreated() миграция тарихын жазбайды, сондықтан Migrate() қолдану тиімдірек
+                // Бірақ қазіргі қақтығыстарды шешу үшін Migrate() қайта қосамыз
+                db.Database.Migrate();
+                Console.WriteLine("БАЗА ЖӘНЕ МИГРАЦИЯЛАР ДАЙЫН.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Қате: {ex.Message}");
+                Console.WriteLine($"База қатесі: {ex.Message}");
             }
         }
-        // ------------------------------------------
 
         await SeedDataAsync(app);
         await app.RunAsync("http://0.0.0.0:8080");
