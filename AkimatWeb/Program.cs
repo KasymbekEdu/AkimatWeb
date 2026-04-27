@@ -107,46 +107,34 @@ public class Program
         app.MapControllerRoute("areas", "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
         app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
-        // --- МЫНА БӨЛІМ ӨЗГЕРТІЛДІ: БАЗАНЫ ТАЗАЛАУ ЖӘНЕ МИГРАЦИЯ ---
-        // Program.cs ішіндегі осы бөлімді тауып, ауыстырыңыз:
+        // --- ЖАҢАРТЫЛҒАН БӨЛІМ: ДИНАМИКАЛЫҚ ТАЗАРТУ ЖӘНЕ МИГРАЦИЯ ---
         using (var scope = app.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
             try
             {
-                // 1. Алдымен барлық кестелерді өшіреміз (CASCADE - бұл байланысқан кестелерді де қоса өшіреді)
-                // Командаларды бір-бірлеп жібереміз
-                var dropCommands = new[]
-                {
-            "DROP TABLE IF EXISTS \"ServiceItems\" CASCADE;",
-            "DROP TABLE IF EXISTS \"MapObjects\" CASCADE;",
-            "DROP TABLE IF EXISTS \"PollVotes\" CASCADE;",
-            "DROP TABLE IF EXISTS \"PollOptions\" CASCADE;",
-            "DROP TABLE IF EXISTS \"Polls\" CASCADE;",
-            "DROP TABLE IF EXISTS \"AspNetUsers\" CASCADE;",
-            "DROP TABLE IF EXISTS \"AspNetRoles\" CASCADE;",
-            "DROP TABLE IF EXISTS \"AspNetUserRoles\" CASCADE;",
-            "DROP TABLE IF EXISTS \"AspNetUserClaims\" CASCADE;",
-            "DROP TABLE IF EXISTS \"AspNetRoleClaims\" CASCADE;",
-            "DROP TABLE IF EXISTS \"AspNetUserLogins\" CASCADE;",
-            "DROP TABLE IF EXISTS \"AspNetUserTokens\" CASCADE;",
-            "DROP TABLE IF EXISTS \"__EFMigrationsHistory\" CASCADE;"
-        };
+                Console.WriteLine("БАЗАНЫ АВТОМАТТЫ ТАЗАРТУ БАСТАЛДЫ...");
 
-                foreach (var cmd in dropCommands)
-                {
-                    db.Database.ExecuteSqlRaw(cmd);
-                }
+                // PostgreSQL-дегі барлық кестелерді кез келген атпен тауып өшіретін скрипт
+                var dropAllTablesSql = @"
+                    DO $$ DECLARE
+                        r RECORD;
+                    BEGIN
+                        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+                            EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(r.tablename) || ' CASCADE';
+                        END LOOP;
+                    END $$;";
 
-                Console.WriteLine("БАЗА ТОЛЫҚ ТАЗАРТЫЛДЫ.");
+                db.Database.ExecuteSqlRaw(dropAllTablesSql);
+                Console.WriteLine("БАЗА ТОЛЫҚ ТАЗАРТЫЛДЫ (БАРЛЫҚ КЕСТЕЛЕР ЖОЙЫЛДЫ).");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Тазарту қатесі: {ex.Message}");
+                Console.WriteLine($"Тазарту кезінде қате (бірінші рет болса қалыпты): {ex.Message}");
             }
 
-            // 2. Енді таза базаға жаңа миграцияны жібереміз
+            // Таза базаға жаңа құрылымды жіберу
             db.Database.Migrate();
             Console.WriteLine("МИГРАЦИЯ СӘТТІ АЯҚТАЛДЫ.");
         }
