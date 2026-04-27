@@ -174,4 +174,70 @@
   <data name="General" xml:space="preserve">
     <value>Общее</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Услуги</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Карта</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Новости</value>
+  </data>
+  <data name="&#x8;Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="ContactUS" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Все права защищены</value>
+  </data>
+  <data name="SubmitTitle" xml:space="preserve">
+    <value>Подача нового обращения</value>
+  </data>
+  <data name="FullName " xml:space="preserve">
+    <value>Ваше ФИО</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Выберите категорию</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание проблемы</value>
+  </data>
+  <data name="AttachFile" xml:space="preserve">
+    <value>Прикрепить фото или видео</value>
+  </data>
+  <data name="SendBtn" xml:space="preserve">
+    <value>Отправить обращение</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Согласен на обработку данных</value>
+  </data>
+  <data name="SuccessMessage" xml:space="preserve">
+    <value>Ваше обращение успешно отправлено!</value>
+  </data>
+  <data name="NewsTitle" xml:space="preserve">
+    <value>Новости города</value>
+  </data>
+  <data name="SearchNews" xml:space="preserve">
+    <value>Поиск новостей</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Читать далее</value>
+  </data>
+  <data name="PublishedAt" xml:space="preserve">
+    <value>Дата публикации</value>
+  </data>
+  <data name="NoNews" xml:space="preserve">
+    <value>Новости не найдены</value>
+  </data>
+  <data name="AnnTitle" xml:space="preserve">
+    <value>Важные объявление</value>
+  </data>
+  <data name="Roads" xml:space="preserve">
+    <value>Перекрытие дорог</value>
+  </data>
 </root>
