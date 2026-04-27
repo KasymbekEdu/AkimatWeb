@@ -58,6 +58,8 @@ public class Program
         builder.Host.UseSerilog((context, configuration) =>
             configuration.ReadFrom.Configuration(context.Configuration));
 
+        // ... (жоғарғы using-тар қала береді)
+
         WebApplication app = builder.Build();
 
         app.UseSerilogRequestLogging();
@@ -70,31 +72,22 @@ public class Program
             app.UseHsts();
         }
 
+        // --- МАҢЫЗДЫ: Координаталар нүктемен сақталуы үшін ---
+        var defaultCulture = new CultureInfo("en-US");
+        // Базаға сандар нүктемен (43.123) баруы үшін en-US қолданамыз, 
+        // бірақ интерфейс интерфейс локализаторы арқылы kk/ru болып қала береді.
+
         app.UseStaticFiles();
-        app.UseRouting(); // 1. Маршруттау қосылады
+        app.UseRouting();
 
-        // 2. Тіл баптаулары (Осы жерде тұруы шарт)
-        var supportedCultures = new[]
-        {
-    new System.Globalization.CultureInfo("kk-KZ"),
-    new System.Globalization.CultureInfo("ru-RU")
-};
-
+        // Тіл баптаулары
+        var supportedCultures = new[] { new CultureInfo("kk-KZ"), new CultureInfo("ru-RU") };
         app.UseRequestLocalization(new RequestLocalizationOptions
         {
-            DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("kk-KZ"),
+            DefaultRequestCulture = new RequestCulture("kk-KZ"),
             SupportedCultures = supportedCultures,
-            SupportedUICultures = supportedCultures,
-            RequestCultureProviders = new List<Microsoft.AspNetCore.Localization.IRequestCultureProvider>
-    {
-        // Тілді сақтау үшін Cookie-ді бірінші кезекке қоямыз
-        new Microsoft.AspNetCore.Localization.CookieRequestCultureProvider(),
-        new Microsoft.AspNetCore.Localization.QueryStringRequestCultureProvider()
-    }
+            SupportedUICultures = supportedCultures
         });
-
-        app.UseAuthentication();
-        app.UseAuthorization();
 
         app.UseAuthentication();
         app.UseAuthorization();
@@ -102,20 +95,20 @@ public class Program
         app.MapControllerRoute("areas", "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
         app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
-        // --- БАЗАНЫ ЖӘНЕ КАРТАНЫ ТҮЗЕТУ ---
+        // --- БАЗАНЫ ТЕКСЕРУ ЖӘНЕ ҚАТЕНІ ӨҢДЕУ ---
         using (var scope = app.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             try
             {
-                // Ескерту: EnsureCreated() миграция тарихын жазбайды, сондықтан Migrate() қолдану тиімдірек
-                // Бірақ қазіргі қақтығыстарды шешу үшін Migrate() қайта қосамыз
+                // Егер база жаңа болса, миграцияларды жібереміз
                 db.Database.Migrate();
-                Console.WriteLine("БАЗА ЖӘНЕ МИГРАЦИЯЛАР ДАЙЫН.");
+                Console.WriteLine(">>>> БАЗА СӘТТІ ҚОСЫЛДЫ ЖӘНЕ ЖАҢАРТЫЛДЫ.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"База қатесі: {ex.Message}");
+                // Егер мұнда қате шықса, консольден көре аласың
+                Console.WriteLine($">>>> БАЗАҒА ҚОСЫЛУ ҚАТЕСІ: {ex.Message}");
             }
         }
 
