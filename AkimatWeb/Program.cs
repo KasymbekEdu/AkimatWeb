@@ -107,37 +107,29 @@ public class Program
         app.MapControllerRoute("areas", "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
         app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
-        // --- ЖАҢАРТЫЛҒАН БӨЛІМ: ДИНАМИКАЛЫҚ ТАЗАРТУ ЖӘНЕ МИГРАЦИЯ ---
+        // --- МЫНА БӨЛІМДІ ТОЛЫҒЫМЕН АУЫСТЫРЫҢЫЗ ---
         using (var scope = app.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
             try
             {
-                Console.WriteLine("БАЗАНЫ АВТОМАТТЫ ТАЗАРТУ БАСТАЛДЫ...");
+                Console.WriteLine("МӘЖБҮРЛІ ТАЗАРТУ ЖӘНЕ ЖАҢАДАН ҚҰРУ БАСТАЛДЫ...");
 
-                // PostgreSQL-дегі барлық кестелерді кез келген атпен тауып өшіретін скрипт
-                var dropAllTablesSql = @"
-                    DO $$ DECLARE
-                        r RECORD;
-                    BEGIN
-                        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-                            EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(r.tablename) || ' CASCADE';
-                        END LOOP;
-                    END $$;";
+                // 1. Базаны физикалық түрде жою (бұрынғы миграция тарихын қоса)
+                db.Database.EnsureDeleted();
 
-                db.Database.ExecuteSqlRaw(dropAllTablesSql);
-                Console.WriteLine("БАЗА ТОЛЫҚ ТАЗАРТЫЛДЫ (БАРЛЫҚ КЕСТЕЛЕР ЖОЙЫЛДЫ).");
+                // 2. Миграция файлдарына қарамай, базаны қазіргі класстар бойынша бірден құру
+                db.Database.EnsureCreated();
+
+                Console.WriteLine("БАЗА НӨЛДЕН СӘТТІ ҚҰРЫЛДЫ!");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Тазарту кезінде қате (бірінші рет болса қалыпты): {ex.Message}");
+                Console.WriteLine($"Қате: {ex.Message}");
             }
-
-            // Таза базаға жаңа құрылымды жіберу
-            db.Database.Migrate();
-            Console.WriteLine("МИГРАЦИЯ СӘТТІ АЯҚТАЛДЫ.");
         }
+        // ------------------------------------------
 
         await SeedDataAsync(app);
         await app.RunAsync("http://0.0.0.0:8080");
