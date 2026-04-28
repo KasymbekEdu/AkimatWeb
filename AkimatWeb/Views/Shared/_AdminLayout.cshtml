@@ -2,58 +2,60 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] — Әкімшілік панель</title>
-    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    @* 1. МЫНА ЖОЛДЫ ҚОСТЫҚ: Егер бетте Styles секциясы болса, осы жерде шығады *@
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
-<div class="admin-wrapper">
+    <div class="admin-wrapper">
 
-    <!-- Sidebar -->
-    <aside class="admin-sidebar">
-        <div class="admin-sidebar-header">
-            🏛 Әкімшілік панель
-        </div>
-        <ul class="admin-nav">
-            <li><a asp-controller="Admin" asp-action="Index">📊 Басқару тақтасы</a></li>
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                🏛 Әкімшілік панель
+            </div>
+            <ul class="admin-nav">
+                <li><a asp-controller="Admin" asp-action="Index">📊 Басқару тақтасы</a></li>
 
-            <li class="nav-section">Мазмұн</li>
-            <li><a asp-controller="Admin" asp-action="News">📰 Жаңалықтар</a></li>
-            <li><a asp-controller="Admin" asp-action="Announcements">📢 Хабарландырулар</a></li>
-            <li><a asp-controller="Admin" asp-action="Services">⚙ Қызметтер</a></li>
+                <li class="nav-section">Мазмұн</li>
+                <li><a asp-controller="Admin" asp-action="News">📰 Жаңалықтар</a></li>
+                <li><a asp-controller="Admin" asp-action="Announcements">📢 Хабарландырулар</a></li>
+                <li><a asp-controller="Admin" asp-action="Services">⚙ Қызметтер</a></li>
                 <li><a asp-controller="Admin" asp-action="Map">🗺 Карта нысандары</a></li>
                 <li><a asp-controller="Admin" asp-action="Polls">📊 Сауалнамалар</a></li>
 
-            <li class="nav-section">Өтініштер</li>
-            <li><a asp-controller="Admin" asp-action="Applications">📋 Барлық өтініштер</a></li>
-            <li><a asp-controller="Admin" asp-action="Applications" asp-route-status="Pending">🕐 Күтілуде</a></li>
+                <li class="nav-section">Өтініштер</li>
+                <li><a asp-controller="Admin" asp-action="Applications">📋 Барлық өтініштер</a></li>
+                <li><a asp-controller="Admin" asp-action="Applications" asp-route-status="Pending">🕐 Күтілуде</a></li>
 
-            <li class="nav-section">Жүйе</li>
-            <li><a asp-controller="Home" asp-action="Index" target="_blank">🌐 Сайтқа өту</a></li>
-            <li>
-                <form asp-controller="Account" asp-action="Logout" method="post">
-                    <button type="submit" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;padding:10px 18px;color:rgba(255,255,255,0.75);font-size:0.88rem;display:flex;align-items:center;gap:10px;">
-                        🚪 Шығу
-                    </button>
-                </form>
-            </li>
-        </ul>
-    </aside>
+                <li class="nav-section">Жүйе</li>
+                <li><a asp-controller="Home" asp-action="Index" target="_blank">🌐 Сайтқа өту</a></li>
+                <li>
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        <button type="submit" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;padding:10px 18px;color:rgba(255,255,255,0.75);font-size:0.88rem;display:flex;align-items:center;gap:10px;">
+                            🚪 Шығу
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </aside>
 
-    <!-- Main -->
-    <div class="admin-main">
-        <div class="admin-topbar">
-            <span style="font-weight:600">@ViewData["Title"]</span>
-            <span style="color:#9ca3af">👤 @User.Identity?.Name</span>
-        </div>
-        <div class="admin-content">
-            @RenderBody()
+        <div class="admin-main">
+            <div class="admin-topbar">
+                <span style="font-weight:600">@ViewData["Title"]</span>
+                <span style="color:#9ca3af">👤 @User.Identity?.Name</span>
+            </div>
+            <div class="admin-content">
+                @RenderBody()
+            </div>
         </div>
     </div>
 
-</div>
-<script src="~/js/site.js"></script>
-@await RenderSectionAsync("Scripts", required: false)
+    @* 2. МАҢЫЗДЫ: site.js-тің алдында немесе кейін басқа JS кітапханалардың (Leaflet сияқты) жүктелуіне жол береміз *@
+    <script src="~/js/site.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
