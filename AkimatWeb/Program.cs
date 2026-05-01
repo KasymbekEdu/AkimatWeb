@@ -16,6 +16,8 @@ public class Program
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
         AppConfig config = builder.Configuration.GetSection("Project").Get<AppConfig>() ?? new AppConfig();
 
         var connectionString =
