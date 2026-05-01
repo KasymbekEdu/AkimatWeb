@@ -1,32 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<!-- Бұл параметр қателерді өткізуге көмектеседі -->
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 		<RootNamespace>AkimatWeb</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.4" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.4" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.4">
+		<!-- Барлық EF Core пакеттерін бірдей 10.0.7 нұсқасына көтереміз -->
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.7">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.7">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
+		<!-- PostgreSQL драйверін де жаңартып қойған дұрыс -->
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
 		<PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="wwwroot\uploads\news\" />
 	</ItemGroup>
-
 </Project>
