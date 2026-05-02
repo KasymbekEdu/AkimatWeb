@@ -186,7 +186,7 @@
   <data name="News" xml:space="preserve">
     <value>Жаңалықтар</value>
   </data>
-  <data name="&#x8;Language" xml:space="preserve">
+  <data name="Language" xml:space="preserve">
     <value>Тіл</value>
   </data>
   <data name="ContactUS" xml:space="preserve">
@@ -198,7 +198,7 @@
   <data name="SubmitTitle" xml:space="preserve">
     <value>Жаңа өтініш жіберу</value>
   </data>
-  <data name="FullName " xml:space="preserve">
+  <data name="FullName" xml:space="preserve">
     <value>Аты-жөніңіз</value>
   </data>
   <data name="Category" xml:space="preserve">

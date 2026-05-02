@@ -1,9 +1,8 @@
-@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @model HomeIndexVM
 
 @{
-    ViewData["Title"] = Localizer["HomePage"];
+    ViewData["Title"] = Localizer["HomePage"].Value;
 }
 
 <section class="hero">

@@ -52,6 +52,7 @@ public class Program
         .AddEntityFrameworkStores<AppDbContext>()
         .AddDefaultTokenProviders();
 
+        // ✅ Localization сервистерін тіркеу
         builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
         builder.Services.AddControllersWithViews()
@@ -60,8 +61,6 @@ public class Program
 
         builder.Host.UseSerilog((context, configuration) =>
             configuration.ReadFrom.Configuration(context.Configuration));
-
-        // ... (жоғарғы using-тар қала береді)
 
         WebApplication app = builder.Build();
 
@@ -75,22 +74,30 @@ public class Program
             app.UseHsts();
         }
 
-        // --- МАҢЫЗДЫ: Координаталар нүктемен сақталуы үшін ---
-        var defaultCulture = new CultureInfo("en-US");
-        // Базаға сандар нүктемен (43.123) баруы үшін en-US қолданамыз, 
-        // бірақ интерфейс интерфейс локализаторы арқылы kk/ru болып қала береді.
-
         app.UseStaticFiles();
         app.UseRouting();
 
-        // Тіл баптаулары
-        var supportedCultures = new[] { new CultureInfo("kk-KZ"), new CultureInfo("ru-RU") };
-        app.UseRequestLocalization(new RequestLocalizationOptions
+        // ✅ Қолдаулы мәдениеттерді анықтау
+        var supportedCultures = new[]
+        {
+            new CultureInfo("kk-KZ"),
+            new CultureInfo("ru-RU")
+        };
+
+        // ✅ RequestLocalization + CookieRequestCultureProvider дұрыс тіркеу
+        // МАҢЫЗДЫ: CookieRequestCultureProvider тізімде бірінші болуы керек,
+        // сонда cookie мәні QueryString мен AcceptLanguage-тен басымдықты алады.
+        var localizationOptions = new RequestLocalizationOptions
         {
             DefaultRequestCulture = new RequestCulture("kk-KZ"),
             SupportedCultures = supportedCultures,
             SupportedUICultures = supportedCultures
-        });
+        };
+
+        // CookieRequestCultureProvider провайдерін бірінші орынға қою
+        localizationOptions.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider());
+
+        app.UseRequestLocalization(localizationOptions);
 
         app.UseAuthentication();
         app.UseAuthorization();
@@ -98,19 +105,17 @@ public class Program
         app.MapControllerRoute("areas", "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
         app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
-        // --- БАЗАНЫ ТЕКСЕРУ ЖӘНЕ ҚАТЕНІ ӨҢДЕУ ---
+        // База тексеру
         using (var scope = app.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             try
             {
-                // Егер база жаңа болса, миграцияларды жібереміз
                 db.Database.Migrate();
                 Console.WriteLine(">>>> БАЗА СӘТТІ ҚОСЫЛДЫ ЖӘНЕ ЖАҢАРТЫЛДЫ.");
             }
             catch (Exception ex)
             {
-                // Егер мұнда қате шықса, консольден көре аласың
                 Console.WriteLine($">>>> БАЗАҒА ҚОСЫЛУ ҚАТЕСІ: {ex.Message}");
             }
         }
