@@ -5,12 +5,21 @@ obj/
 .vs/
 appsettings.Development.json
 
-## Uploaded images (keep folder, ignore contents)
+## Uploaded images (Cloudinary қолданғандықтан, бұл папкалардың ішіндегіні жібермейміз)
 wwwroot/img/news/*
 wwwroot/img/announcements/*
+wwwroot/uploads/*
+wwwroot/applications/*
+
+## Папка құрылымын сақтау (бос папкалар GitHub-та көрінуі үшін)
 !wwwroot/img/news/.gitkeep
 !wwwroot/img/announcements/.gitkeep
+!wwwroot/uploads/.gitkeep
+!wwwroot/applications/.gitkeep
 
 ## Logs
 logs/
 *.log
+
+## Cloud Settings (Құпия кілттер кездейсоқ кетіп қалмауы үшін)
+.env
