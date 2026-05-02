@@ -1,18 +1,24 @@
 ﻿using AkimatWeb.Domain;
 using AkimatWeb.Domain.Models;
 using AkimatWeb.Models.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using AkimatWeb.Infrastructure; // CloudinaryService үшін қажет
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Security.Claims;
 
 namespace AkimatWeb.Controllers;
 
 public class ApplicationsController : Controller
 {
     private readonly DataManager _data;
+    private readonly CloudinaryService _cloudinaryService; // Сервисті қостық
 
-    public ApplicationsController(DataManager data) => _data = data;
+    public ApplicationsController(DataManager data, CloudinaryService cloudinaryService)
+    {
+        _data = data;
+        _cloudinaryService = cloudinaryService;
+    }
 
     [HttpGet]
     public IActionResult Submit() => View();
@@ -30,6 +36,8 @@ public class ApplicationsController : Controller
                 ModelState.AddModelError("", "Тек JPG, JPEG, PNG немесе MP4 файлдарын жүктеуге болады.");
             }
 
+            // Cloudinary тегін тарифінде видеолар үшін 10MB аз болуы мүмкін, 
+            // бірақ сенің шектеуіңді қалдырдым. Қаласаң 50MB-қа дейін көтере аласың.
             if (file.Length > 10 * 1024 * 1024)
             {
                 ModelState.AddModelError("", "Файл көлемі 10 MB-тан аспауы керек.");
@@ -37,20 +45,18 @@ public class ApplicationsController : Controller
 
             if (ModelState.IsValid)
             {
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                // ЕСКІ ЛОГИКА (wwwroot-қа сақтау) АЛЫП ТАСТАЛДЫ
+                // ЖАҢА ЛОГИКА: Cloudinary-ге жүктеу
+                var mediaUrl = await _cloudinaryService.UploadFileAsync(file, "applications");
 
-                if (!Directory.Exists(uploadsFolder))
-                    Directory.CreateDirectory(uploadsFolder);
-
-                var fileName = Guid.NewGuid().ToString() + ext;
-                var fullPath = Path.Combine(uploadsFolder, fileName);
-
-                using (var stream = new FileStream(fullPath, FileMode.Create))
+                if (!string.IsNullOrEmpty(mediaUrl))
                 {
-                    await file.CopyToAsync(stream);
+                    vm.FilePath = mediaUrl; // Енді базада https://res.cloudinary.com... сілтемесі сақталады
                 }
-
-                vm.FilePath = "/uploads/" + fileName;
+                else
+                {
+                    ModelState.AddModelError("", "Файлды жүктеу кезінде қате кетті.");
+                }
             }
         }
 
