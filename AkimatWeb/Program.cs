@@ -39,6 +39,7 @@ public class Program
         builder.Services.AddTransient<DataManager>();
         builder.Services.AddTransient<IMapObjectsRepository, EFMapObjectsRepository>();
         builder.Services.AddTransient<IPollsRepository, EFPollsRepository>();
+        builder.Services.AddSingleton<CloudinaryService>();
 
         builder.Services.AddSingleton(config);
 

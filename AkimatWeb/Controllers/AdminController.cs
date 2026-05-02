@@ -1,6 +1,7 @@
 using AkimatWeb.Domain;
 using AkimatWeb.Domain.Models;
 using AkimatWeb.Models.ViewModels;
+using AkimatWeb.Infrastructure; // CloudinaryService класы орналасқан namespace
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +12,13 @@ public partial class AdminController : Controller
 {
     private readonly DataManager _data;
     private readonly IWebHostEnvironment _env;
+    private readonly CloudinaryService _cloudinaryService;
 
-    public AdminController(DataManager data, IWebHostEnvironment env)
+    public AdminController(DataManager data, IWebHostEnvironment env, CloudinaryService cloudinaryService)
     {
         _data = data;
         _env = env;
+        _cloudinaryService = cloudinaryService;
     }
 
     // ─── Dashboard ───────────────────────────────────────────────────────────
@@ -27,7 +30,7 @@ public partial class AdminController : Controller
             PendingApplications = _data.Applications.GetAll()
                 .Count(a => a.Status == ApplicationStatus.Pending),
             TotalApplications = _data.Applications.GetAll().Count(),
-            TotalNews         = _data.News.GetAll().Count(),
+            TotalNews = _data.News.GetAll().Count(),
             TotalAnnouncements = _data.Announcements.GetAll().Count()
         };
         return View(vm);
@@ -84,38 +87,25 @@ public partial class AdminController : Controller
 
         if (vm.Images != null && vm.Images.Any())
         {
-            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp" };
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "news");
-
-            if (!Directory.Exists(uploadsFolder))
-                Directory.CreateDirectory(uploadsFolder);
-
             foreach (var file in vm.Images)
             {
                 if (file == null || file.Length == 0)
                     continue;
 
-                var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
-                if (!allowedExtensions.Contains(ext))
-                    continue;
+                // Суретті Cloudinary-ге жүктеп, дайын URL алу
+                var imageUrl = await _cloudinaryService.UploadFileAsync(file, "news");
 
-                var fileName = Guid.NewGuid().ToString() + ext;
-                var fullPath = Path.Combine(uploadsFolder, fileName);
-
-                using (var stream = new FileStream(fullPath, FileMode.Create))
+                if (!string.IsNullOrEmpty(imageUrl))
                 {
-                    await file.CopyToAsync(stream);
+                    news.Images.Add(new NewsImage
+                    {
+                        ImagePath = imageUrl
+                    });
                 }
-
-                news.Images.Add(new NewsImage
-                {
-                    ImagePath = "/uploads/news/" + fileName
-                });
             }
         }
 
         await _data.News.CreateAsync(news);
-
         return RedirectToAction(nameof(News));
     }
 
@@ -134,7 +124,10 @@ public partial class AdminController : Controller
         if (!ModelState.IsValid) return View(news);
 
         if (image != null && image.Length > 0)
-            news.ImagePath = await SaveImageAsync(image, "news");
+        {
+            // Edit кезінде де бұлтқа сақтаймыз
+            news.ImagePath = await _cloudinaryService.UploadFileAsync(image, "news");
+        }
 
         await _data.News.UpdateAsync(news);
         return RedirectToAction(nameof(News));
@@ -234,26 +227,6 @@ public partial class AdminController : Controller
     {
         await _data.Services.DeleteServiceAsync(id);
         return RedirectToAction(nameof(Services));
-    }
-
-    // ─── Helper ──────────────────────────────────────────────────────────────
-
-    private async Task<string> SaveImageAsync(IFormFile image, string folder)
-    {
-        var allowed = new[] { ".jpg", ".jpeg", ".png", ".webp" };
-        var ext = Path.GetExtension(image.FileName).ToLowerInvariant();
-        if (!allowed.Contains(ext)) return string.Empty;
-
-        var dir = Path.Combine(_env.WebRootPath, "img", folder);
-        Directory.CreateDirectory(dir);
-
-        var fileName = $"{Guid.NewGuid()}{ext}";
-        var path = Path.Combine(dir, fileName);
-
-        await using var stream = System.IO.File.Create(path);
-        await image.CopyToAsync(stream);
-
-        return $"/img/{folder}/{fileName}";
     }
 
     // ─── Карта ───────────────────────────────────────────────────────────────────
