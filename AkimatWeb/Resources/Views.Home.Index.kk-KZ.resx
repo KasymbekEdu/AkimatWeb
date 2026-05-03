@@ -240,6 +240,15 @@
   <data name="Roads" xml:space="preserve">
     <value>Жолдардың жабылуы</value>
   </data>
+  <data name="Polls" xml:space="preserve">
+    <value>Сауалнамалар</value>
+  </data>
+  <data name="NoAnnouncements" xml:space="preserve">
+    <value>Хабарландырулар табылмады</value>
+  </data>
+  <data name="SubmitApp" xml:space="preserve">
+    <value>Өтініш беру</value>
+  </data>
   <data name="GovServices" xml:space="preserve">
     <value>Мемлекеттік қызметтер</value>
   </data>
