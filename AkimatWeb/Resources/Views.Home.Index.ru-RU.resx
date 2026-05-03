@@ -1,255 +1,200 @@
-<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
+<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
 
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="HomePage" xml:space="preserve">
-    <value>Главная страница</value>
-  </data>
-  <data name="HeroTitle" xml:space="preserve">
-    <value>Служба гражданам — наша главная обязанность</value>
-  </data>
-  <data name="HeroSubTitle" xml:space="preserve">
-    <value>Подача заявлений, чтение объявлений, доступ к госуслугам — всё здесь.</value>
-  </data>
-  <data name="SubmitBtn" xml:space="preserve">
-    <value>Подать заявление</value>
-  </data>
-  <data name="TrackBtn" xml:space="preserve">
-    <value>Проверить заявление</value>
-  </data>
-  <data name="StatOnline" xml:space="preserve">
-    <value>Онлайн подача 24/7</value>
-  </data>
-  <data name="StatDays" xml:space="preserve">
-    <value>Ответ в течение 3 рабочих дней</value>
-  </data>
-  <data name="StatServices" xml:space="preserve">
-    <value>Госуслуг</value>
-  </data>
-  <data name="StatDirect" xml:space="preserve">
-    <value>Напрямую, без посредников</value>
-  </data>
-  <data name="LatestNews" xml:space="preserve">
-    <value>Последние новости</value>
-  </data>
-  <data name="Announcements" xml:space="preserve">
-    <value>Объявления</value>
-  </data>
-  <data name="All" xml:space="preserve">
-    <value>Все</value>
-  </data>
-  <data name="More" xml:space="preserve">
-    <value>Подробнее</value>
-  </data>
-  <data name="CTATitle" xml:space="preserve">
-    <value>Есть проблема?</value>
-  </data>
-  <data name="CTASubTitle" xml:space="preserve">
-    <value>Отправьте обращение онлайн. Мы ответим в течение 3 рабочих дней.</value>
-  </data>
-  <data name="Tender" xml:space="preserve">
-    <value>Тендер</value>
-  </data>
-  <data name="RoadClosure" xml:space="preserve">
-    <value>Перекрытие дорог</value>
-  </data>
-  <data name="Emergency" xml:space="preserve">
-    <value>Срочно</value>
-  </data>
-  <data name="General" xml:space="preserve">
-    <value>Общее</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Главная</value>
-  </data>
-  <data name="Services" xml:space="preserve">
-    <value>Услуги</value>
-  </data>
-  <data name="Map" xml:space="preserve">
-    <value>Карта</value>
-  </data>
-  <data name="News" xml:space="preserve">
-    <value>Новости</value>
-  </data>
-  <data name="Language" xml:space="preserve">
-    <value>Язык</value>
-  </data>
-  <data name="ContactUS" xml:space="preserve">
-    <value>Контакты</value>
-  </data>
-  <data name="AllRightsReserved" xml:space="preserve">
-    <value>Все права защищены</value>
-  </data>
-  <data name="SubmitTitle" xml:space="preserve">
-    <value>Новое обращение</value>
-  </data>
-  <data name="FullName" xml:space="preserve">
-    <value>Ваше ФИО</value>
-  </data>
-  <data name="Category" xml:space="preserve">
-    <value>Выберите категорию</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Описание проблемы</value>
-  </data>
-  <data name="AttachFile" xml:space="preserve">
-    <value>Прикрепить фото или видео</value>
-  </data>
-  <data name="SendBtn" xml:space="preserve">
-    <value>Отправить обращение</value>
-  </data>
-  <data name="PrivacyPolicy" xml:space="preserve">
-    <value>Согласие на обработку персональных данных</value>
-  </data>
-  <data name="SuccessMessage" xml:space="preserve">
-    <value>Ваше обращение успешно отправлено!</value>
-  </data>
-  <data name="NewsTitle" xml:space="preserve">
-    <value>Городские новости</value>
-  </data>
-  <data name="SearchNews" xml:space="preserve">
-    <value>Поиск новостей</value>
-  </data>
-  <data name="ReadMore" xml:space="preserve">
-    <value>Читать далее</value>
-  </data>
-  <data name="PublishedAt" xml:space="preserve">
-    <value>Дата публикации</value>
-  </data>
-  <data name="NoNews" xml:space="preserve">
-    <value>Новости не найдены</value>
-  </data>
-  <data name="AnnTitle" xml:space="preserve">
-    <value>Важные объявления</value>
-  </data>
-  <data name="Roads" xml:space="preserve">
-    <value>Перекрытие дорог</value>
-  </data>
-  <data name="Polls" xml:space="preserve">
-    <value>Опросы</value>
-  </data>
-  <data name="NoAnnouncements" xml:space="preserve">
-    <value>Объявления не найдены</value>
-  </data>
-  <data name="SubmitApp" xml:space="preserve">
-    <value>Подать заявление</value>
-  </data>
-  <data name="GovServices" xml:space="preserve">
-    <value>Государственные услуги</value>
-  </data>
+  <data name="HomePage" xml:space="preserve"><value>Главная страница</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Служба гражданам — наша главная обязанность</value></data>
+  <data name="HeroSubTitle" xml:space="preserve"><value>Подача заявлений, чтение объявлений, доступ к госуслугам — всё здесь.</value></data>
+  <data name="SubmitBtn" xml:space="preserve"><value>Подать заявление</value></data>
+  <data name="TrackBtn" xml:space="preserve"><value>Проверить заявление</value></data>
+  <data name="StatOnline" xml:space="preserve"><value>Онлайн подача 24/7</value></data>
+  <data name="StatDays" xml:space="preserve"><value>Ответ в течение 3 рабочих дней</value></data>
+  <data name="StatServices" xml:space="preserve"><value>Госуслуг</value></data>
+  <data name="StatDirect" xml:space="preserve"><value>Напрямую, без посредников</value></data>
+  <data name="LatestNews" xml:space="preserve"><value>Последние новости</value></data>
+  <data name="Announcements" xml:space="preserve"><value>Объявления</value></data>
+  <data name="All" xml:space="preserve"><value>Все</value></data>
+  <data name="More" xml:space="preserve"><value>Подробнее</value></data>
+  <data name="CTATitle" xml:space="preserve"><value>Есть проблема?</value></data>
+  <data name="CTASubTitle" xml:space="preserve"><value>Отправьте обращение онлайн. Мы ответим в течение 3 рабочих дней.</value></data>
+  <data name="Tender" xml:space="preserve"><value>Тендер</value></data>
+  <data name="RoadClosure" xml:space="preserve"><value>Перекрытие дорог</value></data>
+  <data name="Emergency" xml:space="preserve"><value>Срочно</value></data>
+  <data name="General" xml:space="preserve"><value>Общее</value></data>
+  <data name="Roads" xml:space="preserve"><value>Перекрытие дорог</value></data>
+  <data name="AnnTitle" xml:space="preserve"><value>Важные объявления</value></data>
+  <data name="News" xml:space="preserve"><value>Новости</value></data>
+  <data name="Services" xml:space="preserve"><value>Услуги</value></data>
+  <data name="Polls" xml:space="preserve"><value>Опросы</value></data>
+  <data name="ReadMore" xml:space="preserve"><value>Читать далее</value></data>
+  <data name="NoNews" xml:space="preserve"><value>Новости не найдены</value></data>
+  <data name="NoAnnouncements" xml:space="preserve"><value>Объявления не найдены</value></data>
+  <data name="SubmitApp" xml:space="preserve"><value>Подать заявление</value></data>
+  <data name="PublishedAt" xml:space="preserve"><value>Дата публикации</value></data>
+  <data name="GovServices" xml:space="preserve"><value>Государственные услуги</value></data>
+  <data name="Home" xml:space="preserve"><value>Главная</value></data>
+  <data name="Map" xml:space="preserve"><value>Карта</value></data>
+  <data name="Language" xml:space="preserve"><value>Язык</value></data>
+  <data name="ContactUS" xml:space="preserve"><value>Контакты</value></data>
+  <data name="AllRightsReserved" xml:space="preserve"><value>Все права защищены</value></data>
+  <data name="FullName" xml:space="preserve"><value>Ваше ФИО</value></data>
+  <data name="Category" xml:space="preserve"><value>Выберите категорию</value></data>
+  <data name="Description" xml:space="preserve"><value>Описание проблемы</value></data>
+  <data name="AttachFile" xml:space="preserve"><value>Прикрепить фото или видео</value></data>
+  <data name="PrivacyPolicy" xml:space="preserve"><value>Согласие на обработку персональных данных</value></data>
+  <data name="SearchNews" xml:space="preserve"><value>Поиск новостей</value></data>
+  <data name="SendBtn" xml:space="preserve"><value>Отправить обращение</value></data>
+  <data name="SubmitTitle" xml:space="preserve"><value>Новое обращение</value></data>
+  <data name="SuccessMessage" xml:space="preserve"><value>Ваше обращение успешно отправлено!</value></data>
+<data name="InfoMap" xml:space="preserve"><value>Инфокарта</value></data>
+  <data name="About" xml:space="preserve"><value>Об акимате</value></data>
+  <data name="Logout" xml:space="preserve"><value>Выйти</value></data>
+  <data name="OfficialResource" xml:space="preserve"><value>Официальный интернет-ресурс</value></data>
+  <data name="FooterDesc" xml:space="preserve"><value>Официальный интернет-ресурс. Все права защищены. При использовании материалов сайта ссылка обязательна.</value></data>
+  <data name="FooterNav" xml:space="preserve"><value>Навигация</value></data>
+  <data name="FooterForCitizens" xml:space="preserve"><value>Гражданам</value></data>
+  <data name="TrackApp" xml:space="preserve"><value>Проверить заявление</value></data>
+  <data name="Tenders" xml:space="preserve"><value>Тендеры</value></data>
+  <data name="NewsTitle" xml:space="preserve"><value>Новости города</value></data>
+  <data name="BackToList" xml:space="preserve"><value>Вернуться к списку</value></data>
+
+  
+  <data name="AnnPageTitle" xml:space="preserve"><value>Важные объявления</value></data>
+  <data name="AllAnn" xml:space="preserve"><value>Все</value></data>
+  <data name="TrackTitle" xml:space="preserve"><value>Проверить заявление</value></data>
+  <data name="EnterTrackCode" xml:space="preserve"><value>Введите трек-код</value></data>
+  <data name="SearchBtn" xml:space="preserve"><value>Поиск</value></data>
+  <data name="AppNotFound" xml:space="preserve"><value>Заявление не найдено</value></data>
+  <data name="AppStatus" xml:space="preserve"><value>Статус заявления</value></data>
+
+  
+  <data name="ServicesTitle" xml:space="preserve"><value>Государственные услуги</value></data>
+  <data name="NoServices" xml:space="preserve"><value>Услуги не найдены</value></data>
+
+  
+  <data name="PollsTitle" xml:space="preserve"><value>Опросы</value></data>
+  <data name="VoteBtn" xml:space="preserve"><value>Проголосовать</value></data>
+  <data name="NoPolls" xml:space="preserve"><value>Нет активных опросов</value></data>
+  <data name="PollResults" xml:space="preserve"><value>Результаты</value></data>
+  <data name="Votes" xml:space="preserve"><value>голосов</value></data>
+
+  
+  <data name="AboutTitle" xml:space="preserve"><value>Об акимате</value></data>
+  <data name="ContactsTitle" xml:space="preserve"><value>Контакты</value></data>
+  <data name="Address" xml:space="preserve"><value>Адрес</value></data>
+  <data name="Phone" xml:space="preserve"><value>Телефон</value></data>
+  <data name="Email" xml:space="preserve"><value>Электронная почта</value></data>
+  <data name="WorkingHours" xml:space="preserve"><value>Часы работы</value></data>
+
+  
+  <data name="ErrorTitle" xml:space="preserve"><value>Произошла ошибка</value></data>
+  <data name="ErrorMessage" xml:space="preserve"><value>При обработке вашего запроса возникла ошибка.</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>Вернуться на главную</value></data>
+
+  
+  <data name="PrevPage" xml:space="preserve"><value>Предыдущая</value></data>
+  <data name="NextPage" xml:space="preserve"><value>Следующая</value></data>
+
+  
+  <data name="Details" xml:space="preserve"><value>Подробности</value></data>
+  <data name="BackToAnn" xml:space="preserve"><value>Вернуться к объявлениям</value></data>
+  <data name="Deadline" xml:space="preserve"><value>Срок</value></data>
+
+  
+  <data name="SubmitSubTitle" xml:space="preserve"><value>Опишите проблему, мы ответим</value></data>
+  <data name="AppDetails" xml:space="preserve"><value>Данные обращения</value></data>
+  <data name="Optional" xml:space="preserve"><value>необязательно</value></data>
+  <data name="SelectCategory" xml:space="preserve"><value>Выберите категорию</value></data>
+  <data name="CatRoad" xml:space="preserve"><value>Ремонт дорог</value></data>
+  <data name="CatUtility" xml:space="preserve"><value>Коммунальные услуги</value></data>
+  <data name="CatTrees" xml:space="preserve"><value>Снос деревьев / озеленение</value></data>
+  <data name="CatNoise" xml:space="preserve"><value>Шум / нарушение порядка</value></data>
+  <data name="CatYard" xml:space="preserve"><value>Придомовая территория</value></data>
+  <data name="CatLighting" xml:space="preserve"><value>Освещение</value></data>
+  <data name="CatGarbage" xml:space="preserve"><value>Вывоз мусора</value></data>
+  <data name="CatOther" xml:space="preserve"><value>Другое</value></data>
+  <data name="DescPlaceholder" xml:space="preserve"><value>Подробно опишите проблему: где, что произошло, точный адрес...</value></data>
+  <data name="Or" xml:space="preserve"><value>или</value></data>
+  <data name="MaxSize" xml:space="preserve"><value>Максимум</value></data>
+  <data name="Note" xml:space="preserve"><value>Примечание</value></data>
+  <data name="NoteTracking" xml:space="preserve"><value>Заявление будет зарегистрировано и получит трекинг-номер</value></data>
+  <data name="NoteDeadline" xml:space="preserve"><value>Срок ответа: 3–5 рабочих дней</value></data>
+  <data name="NoteNotify" xml:space="preserve"><value>О результате сообщат по телефону/email</value></data>
+  <data name="NoteCheck" xml:space="preserve"><value>По трекинг-номеру можно проверить статус</value></data>
+  <data name="TrackDesc" xml:space="preserve"><value>Проверьте статус ранее поданного заявления</value></data>
+
+  
+  <data name="TrackHeading" xml:space="preserve"><value>Отслеживание заявления</value></data>
+  <data name="TrackSubTitle" xml:space="preserve"><value>Проверьте статус по трекинг-номеру</value></data>
+  <data name="StatusPending" xml:space="preserve"><value>Ожидает рассмотрения</value></data>
+  <data name="StatusInReview" xml:space="preserve"><value>На рассмотрении</value></data>
+  <data name="StatusApproved" xml:space="preserve"><value>Одобрено</value></data>
+  <data name="StatusRejected" xml:space="preserve"><value>Отклонено</value></data>
+  <data name="StatusUnknown" xml:space="preserve"><value>Неизвестно</value></data>
+  <data name="ReviewedAt" xml:space="preserve"><value>Рассмотрено</value></data>
+  <data name="TrackingNumber" xml:space="preserve"><value>Трекинг-номер</value></data>
+  <data name="SubmittedAt" xml:space="preserve"><value>Дата подачи</value></data>
+  <data name="AdminReply" xml:space="preserve"><value>Ответ</value></data>
+
+  
+  <data name="PollsSubTitle" xml:space="preserve"><value>Партисипаторный бюджет — ваше мнение важно</value></data>
+  <data name="Participants" xml:space="preserve"><value>участников</value></data>
+  <data name="MultiChoice" xml:space="preserve"><value>Несколько ответов</value></data>
+  <data name="VoteAccepted" xml:space="preserve"><value>Ваш голос принят.</value></data>
+  <data name="AllPolls" xml:space="preserve"><value>Все опросы</value></data>
+  <data name="AnonymousVote" xml:space="preserve"><value>Анонимное голосование</value></data>
+
+  
+  <data name="AboutUs" xml:space="preserve"><value>О нас</value></data>
+  <data name="AboutDesc1" xml:space="preserve"><value>Исполнительный орган территориального управления. Обеспечивает устойчивое развитие города, повышение качества жизни жителей и эффективное предоставление государственных услуг.</value></data>
+  <data name="AboutDesc2" xml:space="preserve"><value>Наши основные задачи: оказание качественных государственных услуг населению, развитие инфраструктуры, своевременное рассмотрение и решение обращений граждан.</value></data>
+  <data name="PriorityAreas" xml:space="preserve"><value>Приоритетные направления</value></data>
+  <data name="AreaInfra" xml:space="preserve"><value>Развитие инфраструктуры</value></data>
+  <data name="AreaEco" xml:space="preserve"><value>Экология и окружающая среда</value></data>
+  <data name="AreaSocial" xml:space="preserve"><value>Социальная поддержка населения</value></data>
+  <data name="AreaEducation" xml:space="preserve"><value>Образование и культура</value></data>
+  <data name="AreaBusiness" xml:space="preserve"><value>Поддержка предпринимательства</value></data>
+  <data name="AreaSafety" xml:space="preserve"><value>Общественный порядок и безопасность</value></data>
+  <data name="WorkingHoursValue" xml:space="preserve"><value>Пн–Пт: 09:00–18:00</value></data>
+
+  
+  <data name="ContactsSubTitle" xml:space="preserve"><value>Свяжитесь с нами</value></data>
+  <data name="EmailReply" xml:space="preserve"><value>Ответ: 1–2 рабочих дня</value></data>
+  <data name="AddressValue" xml:space="preserve"><value>г. Астана, Бейбітшілік 11</value></data>
+  <data name="AppointmentNote" xml:space="preserve"><value>Приём: по предварительной записи</value></data>
+  <data name="OnlineApp" xml:space="preserve"><value>Онлайн обращение</value></data>
+  <data name="OnlineAppDesc" xml:space="preserve"><value>Есть проблема? Подайте обращение онлайн и ожидайте ответа.</value></data>
+
+  
+  <data name="ServicesSubTitle" xml:space="preserve"><value>Все услуги доступны в онлайн формате</value></data>
+  <data name="ServiceCount" xml:space="preserve"><value>услуг</value></data>
 </root>

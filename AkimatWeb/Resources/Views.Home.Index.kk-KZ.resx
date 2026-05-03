@@ -1,110 +1,52 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
+﻿<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
@@ -240,16 +182,330 @@
   <data name="Roads" xml:space="preserve">
     <value>Жолдардың жабылуы</value>
   </data>
+  <data name="GovServices" xml:space="preserve">
+    <value>Мемлекеттік қызметтер</value>
+  </data>
   <data name="Polls" xml:space="preserve">
     <value>Сауалнамалар</value>
-  </data>
-  <data name="NoAnnouncements" xml:space="preserve">
-    <value>Хабарландырулар табылмады</value>
   </data>
   <data name="SubmitApp" xml:space="preserve">
     <value>Өтініш беру</value>
   </data>
-  <data name="GovServices" xml:space="preserve">
+<data name="InfoMap" xml:space="preserve">
+    <value>Инфокарта</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>Әкімдік туралы</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Шығу</value>
+  </data>
+  
+  <data name="OfficialResource" xml:space="preserve">
+    <value>Ресми интернет-ресурс</value>
+  </data>
+  <data name="FooterDesc" xml:space="preserve">
+    <value>Ресми интернет-ресурс. Барлық құқықтар қорғалған. Сайтта орналастырылған ақпаратты пайдалану кезінде сілтеме міндетті.</value>
+  </data>
+  <data name="FooterNav" xml:space="preserve">
+    <value>Навигация</value>
+  </data>
+  <data name="FooterForCitizens" xml:space="preserve">
+    <value>Азаматтарға</value>
+  </data>
+  <data name="TrackApp" xml:space="preserve">
+    <value>Өтінішті тексеру</value>
+  </data>
+  <data name="Tenders" xml:space="preserve">
+    <value>Тендерлер</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>Тізімге оралу</value>
+  </data>
+
+  
+  <data name="AnnPageTitle" xml:space="preserve">
+    <value>Маңызды хабарландырулар</value>
+  </data>
+  <data name="AllAnn" xml:space="preserve">
+    <value>Барлығы</value>
+  </data>
+  <data name="NoAnnouncements" xml:space="preserve">
+    <value>Хабарландырулар табылмады</value>
+  </data>
+
+  
+  <data name="TrackTitle" xml:space="preserve">
+    <value>Өтінішті тексеру</value>
+  </data>
+  <data name="EnterTrackCode" xml:space="preserve">
+    <value>Трек-кодыңызды енгізіңіз</value>
+  </data>
+  <data name="SearchBtn" xml:space="preserve">
+    <value>Іздеу</value>
+  </data>
+  <data name="AppNotFound" xml:space="preserve">
+    <value>Өтініш табылмады</value>
+  </data>
+  <data name="AppStatus" xml:space="preserve">
+    <value>Өтініш күйі</value>
+  </data>
+
+  
+  <data name="ServicesTitle" xml:space="preserve">
     <value>Мемлекеттік қызметтер</value>
+  </data>
+  <data name="NoServices" xml:space="preserve">
+    <value>Қызметтер табылмады</value>
+  </data>
+
+  
+  <data name="PollsTitle" xml:space="preserve">
+    <value>Сауалнамалар</value>
+  </data>
+  <data name="VoteBtn" xml:space="preserve">
+    <value>Дауыс беру</value>
+  </data>
+  <data name="NoPolls" xml:space="preserve">
+    <value>Белсенді сауалнама жоқ</value>
+  </data>
+  <data name="PollResults" xml:space="preserve">
+    <value>Нәтижелер</value>
+  </data>
+  <data name="Votes" xml:space="preserve">
+    <value>дауыс</value>
+  </data>
+
+  
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Әкімдік туралы</value>
+  </data>
+  <data name="ContactsTitle" xml:space="preserve">
+    <value>Байланыс</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Мекен-жайы</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Электрондық пошта</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>Жұмыс уақыты</value>
+  </data>
+
+  
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Қате орын алды</value>
+  </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Сұрауыңызды өңдеу кезінде қате шықты.</value>
+  </data>
+  <data name="BackToHome" xml:space="preserve">
+    <value>Басты бетке оралу</value>
+  </data>
+
+  
+  <data name="PrevPage" xml:space="preserve">
+    <value>Алдыңғы</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Келесі</value>
+  </data>
+
+  
+  <data name="Details" xml:space="preserve">
+    <value>Мәліметтер</value>
+  </data>
+  <data name="BackToAnn" xml:space="preserve">
+    <value>Хабарландыруларға қайту</value>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Мерзімі</value>
+  </data>
+
+  
+  <data name="SubmitSubTitle" xml:space="preserve">
+    <value>Мәселеңізді сипаттаңыз, біз жауап береміз</value>
+  </data>
+  <data name="AppDetails" xml:space="preserve">
+    <value>Өтініш мәліметтері</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>міндетті емес</value>
+  </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>Санатты таңдаңыз</value>
+  </data>
+  <data name="CatRoad" xml:space="preserve">
+    <value>Жол жөндеу</value>
+  </data>
+  <data name="CatUtility" xml:space="preserve">
+    <value>Коммуналдық қызмет</value>
+  </data>
+  <data name="CatTrees" xml:space="preserve">
+    <value>Ағаш кесу / жасылдандыру</value>
+  </data>
+  <data name="CatNoise" xml:space="preserve">
+    <value>Шу / тәртіп бұзу</value>
+  </data>
+  <data name="CatYard" xml:space="preserve">
+    <value>Үй іргесіндегі аула</value>
+  </data>
+  <data name="CatLighting" xml:space="preserve">
+    <value>Жарықтандыру</value>
+  </data>
+  <data name="CatGarbage" xml:space="preserve">
+    <value>Қоқыс жинау</value>
+  </data>
+  <data name="CatOther" xml:space="preserve">
+    <value>Басқа</value>
+  </data>
+  <data name="DescPlaceholder" xml:space="preserve">
+    <value>Мәселеңізді толық сипаттаңыз: қайда, не болды, нақты мекенжай...</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>немесе</value>
+  </data>
+  <data name="MaxSize" xml:space="preserve">
+    <value>Максимум</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Ескертпе</value>
+  </data>
+  <data name="NoteTracking" xml:space="preserve">
+    <value>Өтінішіңіз тіркеліп, трекинг нөмірі берілетін болады</value>
+  </data>
+  <data name="NoteDeadline" xml:space="preserve">
+    <value>Жауап берілу мерзімі: 3–5 жұмыс күні</value>
+  </data>
+  <data name="NoteNotify" xml:space="preserve">
+    <value>Нәтиже туралы телефон/email арқылы хабарланады</value>
+  </data>
+  <data name="NoteCheck" xml:space="preserve">
+    <value>Трекинг нөмірі арқылы мәртебесін тексеруге болады</value>
+  </data>
+  <data name="TrackDesc" xml:space="preserve">
+    <value>Бұрын берген өтінішіңіздің мәртебесін тексеріңіз</value>
+  </data>
+
+  
+  <data name="TrackHeading" xml:space="preserve">
+    <value>Өтінішті қадағалау</value>
+  </data>
+  <data name="TrackSubTitle" xml:space="preserve">
+    <value>Трекинг нөмірі арқылы мәртебесін тексеріңіз</value>
+  </data>
+  <data name="StatusPending" xml:space="preserve">
+    <value>Күтілуде</value>
+  </data>
+  <data name="StatusInReview" xml:space="preserve">
+    <value>Қаралуда</value>
+  </data>
+  <data name="StatusApproved" xml:space="preserve">
+    <value>Мақұлданды</value>
+  </data>
+  <data name="StatusRejected" xml:space="preserve">
+    <value>Қабылданбады</value>
+  </data>
+  <data name="StatusUnknown" xml:space="preserve">
+    <value>Белгісіз</value>
+  </data>
+  <data name="ReviewedAt" xml:space="preserve">
+    <value>Қаралды</value>
+  </data>
+  <data name="TrackingNumber" xml:space="preserve">
+    <value>Трекинг нөмірі</value>
+  </data>
+  <data name="SubmittedAt" xml:space="preserve">
+    <value>Берілген күні</value>
+  </data>
+  <data name="AdminReply" xml:space="preserve">
+    <value>Жауап</value>
+  </data>
+
+  
+  <data name="PollsSubTitle" xml:space="preserve">
+    <value>Халық қатысатын бюджет — сіздің пікіріңіз маңызды</value>
+  </data>
+  <data name="Participants" xml:space="preserve">
+    <value>қатысушы</value>
+  </data>
+  <data name="MultiChoice" xml:space="preserve">
+    <value>Бірнеше жауап</value>
+  </data>
+  <data name="VoteAccepted" xml:space="preserve">
+    <value>Дауысыңыз қабылданды.</value>
+  </data>
+  <data name="AllPolls" xml:space="preserve">
+    <value>Барлық сауалнамалар</value>
+  </data>
+  <data name="AnonymousVote" xml:space="preserve">
+    <value>Анонимді дауыс беру</value>
+  </data>
+
+  
+  <data name="AboutUs" xml:space="preserve">
+    <value>Біз туралы</value>
+  </data>
+  <data name="AboutDesc1" xml:space="preserve">
+    <value>Аумақтық басқарудың атқарушы органы. Қаланың тұрақты дамуын, тұрғындардың өмір сапасын арттыруды және мемлекеттік қызметтерді тиімді ұсынуды қамтамасыз етеді.</value>
+  </data>
+  <data name="AboutDesc2" xml:space="preserve">
+    <value>Біздің негізгі міндеттеріміз: халыққа сапалы мемлекеттік қызмет көрсету, инфрақұрылымды дамыту, азаматтардың өтініштерін уақытылы қарау және шешу.</value>
+  </data>
+  <data name="PriorityAreas" xml:space="preserve">
+    <value>Басым бағыттар</value>
+  </data>
+  <data name="AreaInfra" xml:space="preserve">
+    <value>Инфрақұрылымды дамыту</value>
+  </data>
+  <data name="AreaEco" xml:space="preserve">
+    <value>Экология және қоршаған орта</value>
+  </data>
+  <data name="AreaSocial" xml:space="preserve">
+    <value>Халықты әлеуметтік қолдау</value>
+  </data>
+  <data name="AreaEducation" xml:space="preserve">
+    <value>Білім және мәдениет</value>
+  </data>
+  <data name="AreaBusiness" xml:space="preserve">
+    <value>Кәсіпкерлікті қолдау</value>
+  </data>
+  <data name="AreaSafety" xml:space="preserve">
+    <value>Қоғамдық тәртіп пен қауіпсіздік</value>
+  </data>
+  <data name="WorkingHoursValue" xml:space="preserve">
+    <value>Дс–Жм: 09:00–18:00</value>
+  </data>
+
+  
+  <data name="ContactsSubTitle" xml:space="preserve">
+    <value>Бізбен хабарласыңыз</value>
+  </data>
+  <data name="EmailReply" xml:space="preserve">
+    <value>Жауап: 1–2 жұмыс күні</value>
+  </data>
+  <data name="AddressValue" xml:space="preserve">
+    <value>Астана қаласы, Бейбітшілік 11</value>
+  </data>
+  <data name="AppointmentNote" xml:space="preserve">
+    <value>Қабылдау: алдын ала жазылу бойынша</value>
+  </data>
+  <data name="OnlineApp" xml:space="preserve">
+    <value>Онлайн өтініш</value>
+  </data>
+  <data name="OnlineAppDesc" xml:space="preserve">
+    <value>Мәселеңіз бар ма? Онлайн өтініш беріп, жауабыңызды күтіңіз.</value>
+  </data>
+
+  
+  <data name="ServicesSubTitle" xml:space="preserve">
+    <value>Барлық қызметтер онлайн форматта қол жетімді</value>
+  </data>
+  <data name="ServiceCount" xml:space="preserve">
+    <value>қызмет</value>
   </data>
 </root>
