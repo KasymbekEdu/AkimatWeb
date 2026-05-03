@@ -1,4 +1,4 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   
   <xs:schema id="root">
@@ -508,4 +508,4 @@
   <data name="ServiceCount" xml:space="preserve">
     <value>қызмет</value>
   </data>
-</root>
+<data name="QuickLinks" xml:space="preserve"><value>Жылдам сілтемелер</value></data><data name="GoTo" xml:space="preserve"><value>Өту</value></data><data name="MapTitle" xml:space="preserve"><value>Интерактивті карта</value></data><data name="MapSubTitle" xml:space="preserve"><value>Жөндеу жұмыстары, жабық жолдар және жаңа нысандар</value></data><data name="MapRepair" xml:space="preserve"><value>Жөндеу</value></data><data name="MapRoadClosed" xml:space="preserve"><value>Жабық жол</value></data><data name="MapConstruction" xml:space="preserve"><value>Құрылыс</value></data><data name="MapUtility" xml:space="preserve"><value>Коммуналдық</value></data><data name="MapOther" xml:space="preserve"><value>Басқа</value></data><data name="MapStatusPlanned" xml:space="preserve"><value>Жоспарланған</value></data><data name="MapStatusActive" xml:space="preserve"><value>Жүріп жатыр</value></data><data name="MapStatusCompleted" xml:space="preserve"><value>Аяқталды</value></data></root>

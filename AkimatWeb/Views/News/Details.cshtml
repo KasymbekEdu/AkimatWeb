@@ -1,3 +1,4 @@
+@inject IViewLocalizer Localizer
 @model AkimatWeb.Domain.Models.News
 @{
     ViewData["Title"] = Model.Title;
@@ -6,14 +7,14 @@
 <div class="page-header">
     <div class="container">
         <div class="breadcrumb">
-            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
             <span>/</span>
-            <a asp-controller="News" asp-action="Index">Жаңалықтар</a>
+            <a asp-controller="News" asp-action="Index">@Localizer["News"]</a>
             <span>/</span>
             <span class="truncate" style="max-width:200px">@Model.Title</span>
         </div>
         <h1>@Model.Title</h1>
-        <p>📅 @Model.PublishedAt.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("kk-KZ"))</p>
+        <p>📅 @Model.PublishedAt.ToString("dd MMMM yyyy", System.Globalization.CultureInfo.CurrentCulture)</p>
     </div>
 </div>
 
@@ -41,16 +42,16 @@
                     @Html.Raw(Model.Content)
                 </div>
                 <div style="margin-top:32px;padding-top:20px;border-top:1px solid #e9ebee">
-                    <a asp-action="Index" class="btn btn-outline">← Жаңалықтарға қайту</a>
+                    <a asp-action="Index" class="btn btn-outline">← @Localizer["BackToList"]</a>
                 </div>
             </article>
             <aside>
                 <div class="form-card">
-                    <h4 style="margin-bottom:14px">Жылдам сілтемелер</h4>
+                    <h4 style="margin-bottom:14px">@Localizer["QuickLinks"]</h4>
                     <ul class="footer-links">
-                        <li><a asp-controller="Applications" asp-action="Submit">📝 Өтініш беру</a></li>
-                        <li><a asp-controller="Announcements" asp-action="Index">📢 Хабарландырулар</a></li>
-                        <li><a asp-controller="Services" asp-action="Index">⚙ Қызметтер</a></li>
+                        <li><a asp-controller="Applications" asp-action="Submit">📝 @Localizer["SubmitApp"]</a></li>
+                        <li><a asp-controller="Announcements" asp-action="Index">📢 @Localizer["Announcements"]</a></li>
+                        <li><a asp-controller="Services" asp-action="Index">⚙ @Localizer["Services"]</a></li>
                     </ul>
                 </div>
             </aside>
