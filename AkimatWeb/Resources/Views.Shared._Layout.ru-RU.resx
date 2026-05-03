@@ -126,4 +126,84 @@
   <data name="ErrorTitle" xml:space="preserve"><value>Произошла ошибка</value></data>
   <data name="ErrorMessage" xml:space="preserve"><value>При обработке вашего запроса возникла ошибка.</value></data>
   <data name="BackToHome" xml:space="preserve"><value>Вернуться на главную</value></data>
+
+  <!-- PAGINATION -->
+  <data name="PrevPage" xml:space="preserve"><value>Предыдущая</value></data>
+  <data name="NextPage" xml:space="preserve"><value>Следующая</value></data>
+
+  <!-- ANNOUNCEMENTS DETAILS -->
+  <data name="Details" xml:space="preserve"><value>Подробности</value></data>
+  <data name="BackToAnn" xml:space="preserve"><value>Вернуться к объявлениям</value></data>
+  <data name="Deadline" xml:space="preserve"><value>Срок</value></data>
+
+  <!-- APPLICATIONS SUBMIT -->
+  <data name="SubmitSubTitle" xml:space="preserve"><value>Опишите проблему, мы ответим</value></data>
+  <data name="AppDetails" xml:space="preserve"><value>Данные обращения</value></data>
+  <data name="Phone" xml:space="preserve"><value>Телефон</value></data>
+  <data name="Optional" xml:space="preserve"><value>необязательно</value></data>
+  <data name="SelectCategory" xml:space="preserve"><value>Выберите категорию</value></data>
+  <data name="CatRoad" xml:space="preserve"><value>Ремонт дорог</value></data>
+  <data name="CatUtility" xml:space="preserve"><value>Коммунальные услуги</value></data>
+  <data name="CatTrees" xml:space="preserve"><value>Снос деревьев / озеленение</value></data>
+  <data name="CatNoise" xml:space="preserve"><value>Шум / нарушение порядка</value></data>
+  <data name="CatYard" xml:space="preserve"><value>Придомовая территория</value></data>
+  <data name="CatLighting" xml:space="preserve"><value>Освещение</value></data>
+  <data name="CatGarbage" xml:space="preserve"><value>Вывоз мусора</value></data>
+  <data name="CatOther" xml:space="preserve"><value>Другое</value></data>
+  <data name="DescPlaceholder" xml:space="preserve"><value>Подробно опишите проблему: где, что произошло, точный адрес...</value></data>
+  <data name="Or" xml:space="preserve"><value>или</value></data>
+  <data name="MaxSize" xml:space="preserve"><value>Максимум</value></data>
+  <data name="Note" xml:space="preserve"><value>Примечание</value></data>
+  <data name="NoteTracking" xml:space="preserve"><value>Заявление будет зарегистрировано и получит трекинг-номер</value></data>
+  <data name="NoteDeadline" xml:space="preserve"><value>Срок ответа: 3–5 рабочих дней</value></data>
+  <data name="NoteNotify" xml:space="preserve"><value>О результате сообщат по телефону/email</value></data>
+  <data name="NoteCheck" xml:space="preserve"><value>По трекинг-номеру можно проверить статус</value></data>
+  <data name="TrackDesc" xml:space="preserve"><value>Проверьте статус ранее поданного заявления</value></data>
+
+  <!-- APPLICATIONS TRACK -->
+  <data name="TrackHeading" xml:space="preserve"><value>Отслеживание заявления</value></data>
+  <data name="TrackSubTitle" xml:space="preserve"><value>Проверьте статус по трекинг-номеру</value></data>
+  <data name="EnterTrackCode" xml:space="preserve"><value>Введите трекинг-номер (например: AB12CD34)</value></data>
+  <data name="StatusPending" xml:space="preserve"><value>Ожидает рассмотрения</value></data>
+  <data name="StatusInReview" xml:space="preserve"><value>На рассмотрении</value></data>
+  <data name="StatusApproved" xml:space="preserve"><value>Одобрено</value></data>
+  <data name="StatusRejected" xml:space="preserve"><value>Отклонено</value></data>
+  <data name="StatusUnknown" xml:space="preserve"><value>Неизвестно</value></data>
+  <data name="ReviewedAt" xml:space="preserve"><value>Рассмотрено</value></data>
+  <data name="TrackingNumber" xml:space="preserve"><value>Трекинг-номер</value></data>
+  <data name="SubmittedAt" xml:space="preserve"><value>Дата подачи</value></data>
+  <data name="AdminReply" xml:space="preserve"><value>Ответ</value></data>
+
+  <!-- POLLS -->
+  <data name="PollsSubTitle" xml:space="preserve"><value>Партисипаторный бюджет — ваше мнение важно</value></data>
+  <data name="Participants" xml:space="preserve"><value>участников</value></data>
+  <data name="MultiChoice" xml:space="preserve"><value>Несколько ответов</value></data>
+  <data name="VoteAccepted" xml:space="preserve"><value>Ваш голос принят.</value></data>
+  <data name="AllPolls" xml:space="preserve"><value>Все опросы</value></data>
+  <data name="AnonymousVote" xml:space="preserve"><value>Анонимное голосование</value></data>
+
+  <!-- ABOUT -->
+  <data name="AboutUs" xml:space="preserve"><value>О нас</value></data>
+  <data name="AboutDesc1" xml:space="preserve"><value>Исполнительный орган территориального управления. Обеспечивает устойчивое развитие города, повышение качества жизни жителей и эффективное предоставление государственных услуг.</value></data>
+  <data name="AboutDesc2" xml:space="preserve"><value>Наши основные задачи: оказание качественных государственных услуг населению, развитие инфраструктуры, своевременное рассмотрение и решение обращений граждан.</value></data>
+  <data name="PriorityAreas" xml:space="preserve"><value>Приоритетные направления</value></data>
+  <data name="AreaInfra" xml:space="preserve"><value>Развитие инфраструктуры</value></data>
+  <data name="AreaEco" xml:space="preserve"><value>Экология и окружающая среда</value></data>
+  <data name="AreaSocial" xml:space="preserve"><value>Социальная поддержка населения</value></data>
+  <data name="AreaEducation" xml:space="preserve"><value>Образование и культура</value></data>
+  <data name="AreaBusiness" xml:space="preserve"><value>Поддержка предпринимательства</value></data>
+  <data name="AreaSafety" xml:space="preserve"><value>Общественный порядок и безопасность</value></data>
+  <data name="WorkingHoursValue" xml:space="preserve"><value>Пн–Пт: 09:00–18:00</value></data>
+
+  <!-- CONTACTS -->
+  <data name="ContactsSubTitle" xml:space="preserve"><value>Свяжитесь с нами</value></data>
+  <data name="EmailReply" xml:space="preserve"><value>Ответ: 1–2 рабочих дня</value></data>
+  <data name="AddressValue" xml:space="preserve"><value>г. Астана, Бейбітшілік 11</value></data>
+  <data name="AppointmentNote" xml:space="preserve"><value>Приём: по предварительной записи</value></data>
+  <data name="OnlineApp" xml:space="preserve"><value>Онлайн обращение</value></data>
+  <data name="OnlineAppDesc" xml:space="preserve"><value>Есть проблема? Подайте обращение онлайн и ожидайте ответа.</value></data>
+
+  <!-- SERVICES -->
+  <data name="ServicesSubTitle" xml:space="preserve"><value>Все услуги доступны в онлайн формате</value></data>
+  <data name="ServiceCount" xml:space="preserve"><value>услуг</value></data>
 </root>
