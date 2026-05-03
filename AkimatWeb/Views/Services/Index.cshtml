@@ -1,16 +1,17 @@
+@inject IViewLocalizer Localizer
 @model List<AkimatWeb.Domain.Models.ServiceCategory>
 @{
-    ViewData["Title"] = "Мемлекеттік қызметтер";
+    ViewData["Title"] = Localizer["ServicesTitle"].Value;
 }
 
 <div class="page-header">
     <div class="container">
         <div class="breadcrumb">
-            <a asp-controller="Home" asp-action="Index">Басты бет</a>
-            <span>/</span><span>Қызметтер</span>
+            <a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
+            <span>/</span><span>@Localizer["Services"]</span>
         </div>
-        <h1>Мемлекеттік қызметтер</h1>
-        <p>Барлық қызметтер онлайн форматта қол жетімді</p>
+        <h1>@Localizer["ServicesTitle"]</h1>
+        <p>@Localizer["ServicesSubTitle"]</p>
     </div>
 </div>
 
@@ -20,7 +21,7 @@
         {
             <div class="empty-state">
                 <div class="empty-state-icon">⚙</div>
-                <p>Қызметтер әлі қосылмаған</p>
+                <p>@Localizer["NoServices"]</p>
             </div>
         }
         else
@@ -29,7 +30,7 @@
                 @foreach (var cat in Model)
                 {
                     <a asp-action="Details" asp-route-id="@cat.Id"
-                       class="service-cat-card" style="text-decoration:none">
+                           class="service-cat-card" style="text-decoration:none">
                         <div class="service-cat-icon">⚙</div>
                         <div class="service-cat-name">@cat.Name</div>
                         @if (!string.IsNullOrEmpty(cat.Description))
@@ -37,7 +38,7 @@
                             <p style="font-size:0.82rem;color:#9ca3af;margin-top:6px">@cat.Description</p>
                         }
                         <p style="font-size:0.8rem;color:#3b82f6;margin-top:12px">
-                            @cat.Services.Count(s => s.IsActive) қызмет →
+                            @cat.Services.Count(s => s.IsActive) @Localizer["ServiceCount"] →
                         </p>
                     </a>
                 }
