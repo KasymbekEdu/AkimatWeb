@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="AdminReply" xml:space="preserve"><value>Жауап</value></data>
+  <data name="AppNotFound" xml:space="preserve"><value>Өтініш табылмады</value></data>
+  <data name="AttachFile" xml:space="preserve"><value>Фото немесе видео қосу</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>Басты бетке оралу</value></data>
+  <data name="Category" xml:space="preserve"><value>Санатты таңдаңыз</value></data>
+  <data name="Description" xml:space="preserve"><value>Мәселенің сипаттамасы</value></data>
+  <data name="EnterTrackCode" xml:space="preserve"><value>Трекинг нөмірін енгізіңіз (мысалы: AB12CD34)</value></data>
+  <data name="FullName" xml:space="preserve"><value>Аты-жөніңіз</value></data>
+  <data name="Home" xml:space="preserve"><value>Басты бет</value></data>
+  <data name="ReviewedAt" xml:space="preserve"><value>Қаралды</value></data>
+  <data name="SearchBtn" xml:space="preserve"><value>Іздеу</value></data>
+  <data name="StatusApproved" xml:space="preserve"><value>Мақұлданды</value></data>
+  <data name="StatusInReview" xml:space="preserve"><value>Қаралуда</value></data>
+  <data name="StatusPending" xml:space="preserve"><value>Күтілуде</value></data>
+  <data name="StatusRejected" xml:space="preserve"><value>Қабылданбады</value></data>
+  <data name="StatusUnknown" xml:space="preserve"><value>Белгісіз</value></data>
+  <data name="SubmitApp" xml:space="preserve"><value>Өтініш беру</value></data>
+  <data name="SubmittedAt" xml:space="preserve"><value>Берілген күні</value></data>
+  <data name="TrackHeading" xml:space="preserve"><value>Өтінішті қадағалау</value></data>
+  <data name="TrackSubTitle" xml:space="preserve"><value>Трекинг нөмірі арқылы мәртебесін тексеріңіз</value></data>
+  <data name="TrackTitle" xml:space="preserve"><value>Өтінішті тексеру</value></data>
+  <data name="TrackingNumber" xml:space="preserve"><value>Трекинг нөмірі</value></data>
+</root>

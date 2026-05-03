@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="AppDetails" xml:space="preserve"><value>Данные обращения</value></data>
+  <data name="AttachFile" xml:space="preserve"><value>Прикрепить фото или видео</value></data>
+  <data name="CatGarbage" xml:space="preserve"><value>Вывоз мусора</value></data>
+  <data name="CatLighting" xml:space="preserve"><value>Освещение</value></data>
+  <data name="CatNoise" xml:space="preserve"><value>Шум / нарушение порядка</value></data>
+  <data name="CatOther" xml:space="preserve"><value>Другое</value></data>
+  <data name="CatRoad" xml:space="preserve"><value>Ремонт дорог</value></data>
+  <data name="CatTrees" xml:space="preserve"><value>Снос деревьев / озеленение</value></data>
+  <data name="CatUtility" xml:space="preserve"><value>Коммунальные услуги</value></data>
+  <data name="CatYard" xml:space="preserve"><value>Придомовая территория</value></data>
+  <data name="Category" xml:space="preserve"><value>Выберите категорию</value></data>
+  <data name="DescPlaceholder" xml:space="preserve"><value>Подробно опишите проблему: где, что произошло, точный адрес...</value></data>
+  <data name="Description" xml:space="preserve"><value>Описание проблемы</value></data>
+  <data name="FullName" xml:space="preserve"><value>Ваше ФИО</value></data>
+  <data name="Home" xml:space="preserve"><value>Главная</value></data>
+  <data name="MaxSize" xml:space="preserve"><value>Максимум</value></data>
+  <data name="Note" xml:space="preserve"><value>Примечание</value></data>
+  <data name="NoteCheck" xml:space="preserve"><value>По трекинг-номеру можно проверить статус</value></data>
+  <data name="NoteDeadline" xml:space="preserve"><value>Срок ответа: 3–5 рабочих дней</value></data>
+  <data name="NoteNotify" xml:space="preserve"><value>О результате сообщат по телефону/email</value></data>
+  <data name="NoteTracking" xml:space="preserve"><value>Заявление будет зарегистрировано и получит трекинг-номер</value></data>
+  <data name="Optional" xml:space="preserve"><value>необязательно</value></data>
+  <data name="Or" xml:space="preserve"><value>или</value></data>
+  <data name="Phone" xml:space="preserve"><value>Телефон</value></data>
+  <data name="SelectCategory" xml:space="preserve"><value>Выберите категорию</value></data>
+  <data name="SendBtn" xml:space="preserve"><value>Отправить обращение</value></data>
+  <data name="SubmitApp" xml:space="preserve"><value>Подать заявление</value></data>
+  <data name="SubmitSubTitle" xml:space="preserve"><value>Опишите проблему, мы ответим</value></data>
+  <data name="SubmitTitle" xml:space="preserve"><value>Подача нового обращения</value></data>
+  <data name="TrackDesc" xml:space="preserve"><value>Проверьте статус ранее поданного заявления</value></data>
+  <data name="TrackTitle" xml:space="preserve"><value>Проверить заявление</value></data>
+</root>

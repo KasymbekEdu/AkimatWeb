@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Address" xml:space="preserve"><value>Адрес</value></data>
+  <data name="AddressValue" xml:space="preserve"><value>г. Астана, Бейбітшілік 11</value></data>
+  <data name="AppointmentNote" xml:space="preserve"><value>Приём: по предварительной записи</value></data>
+  <data name="ContactUS" xml:space="preserve"><value>Контакты</value></data>
+  <data name="ContactsSubTitle" xml:space="preserve"><value>Свяжитесь с нами</value></data>
+  <data name="ContactsTitle" xml:space="preserve"><value>Контакты</value></data>
+  <data name="Email" xml:space="preserve"><value>Электронная почта</value></data>
+  <data name="EmailReply" xml:space="preserve"><value>Ответ: 1–2 рабочих дня</value></data>
+  <data name="Home" xml:space="preserve"><value>Главная</value></data>
+  <data name="OnlineApp" xml:space="preserve"><value>Онлайн обращение</value></data>
+  <data name="OnlineAppDesc" xml:space="preserve"><value>Есть проблема? Подайте обращение онлайн и ожидайте ответа.</value></data>
+  <data name="Phone" xml:space="preserve"><value>Телефон</value></data>
+  <data name="SubmitBtn" xml:space="preserve"><value>Подать заявление</value></data>
+  <data name="WorkingHoursValue" xml:space="preserve"><value>Пн–Пт: 09:00–18:00</value></data>
+</root>

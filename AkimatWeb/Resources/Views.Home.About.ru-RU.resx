@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="About" xml:space="preserve"><value>Об акимате</value></data>
+  <data name="AboutDesc1" xml:space="preserve"><value>Исполнительный орган территориального управления. Обеспечивает устойчивое развитие города, повышение качества жизни жителей и эффективное предоставление государственных услуг.</value></data>
+  <data name="AboutDesc2" xml:space="preserve"><value>Наши основные задачи: оказание качественных государственных услуг населению, развитие инфраструктуры, своевременное рассмотрение и решение обращений граждан.</value></data>
+  <data name="AboutTitle" xml:space="preserve"><value>Об акимате</value></data>
+  <data name="AboutUs" xml:space="preserve"><value>О нас</value></data>
+  <data name="AreaBusiness" xml:space="preserve"><value>Поддержка предпринимательства</value></data>
+  <data name="AreaEco" xml:space="preserve"><value>Экология и окружающая среда</value></data>
+  <data name="AreaEducation" xml:space="preserve"><value>Образование и культура</value></data>
+  <data name="AreaInfra" xml:space="preserve"><value>Развитие инфраструктуры</value></data>
+  <data name="AreaSafety" xml:space="preserve"><value>Общественный порядок и безопасность</value></data>
+  <data name="AreaSocial" xml:space="preserve"><value>Социальная поддержка населения</value></data>
+  <data name="Email" xml:space="preserve"><value>Электронная почта</value></data>
+  <data name="Home" xml:space="preserve"><value>Главная</value></data>
+  <data name="Phone" xml:space="preserve"><value>Телефон</value></data>
+  <data name="PriorityAreas" xml:space="preserve"><value>Приоритетные направления</value></data>
+  <data name="WorkingHours" xml:space="preserve"><value>Часы работы</value></data>
+  <data name="WorkingHoursValue" xml:space="preserve"><value>Пн–Пт: 09:00–18:00</value></data>
+</root>

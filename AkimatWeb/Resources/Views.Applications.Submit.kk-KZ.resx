@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="AppDetails" xml:space="preserve"><value>Өтініш мәліметтері</value></data>
+  <data name="AttachFile" xml:space="preserve"><value>Фото немесе видео қосу</value></data>
+  <data name="CatGarbage" xml:space="preserve"><value>Қоқыс жинау</value></data>
+  <data name="CatLighting" xml:space="preserve"><value>Жарықтандыру</value></data>
+  <data name="CatNoise" xml:space="preserve"><value>Шу / тәртіп бұзу</value></data>
+  <data name="CatOther" xml:space="preserve"><value>Басқа</value></data>
+  <data name="CatRoad" xml:space="preserve"><value>Жол жөндеу</value></data>
+  <data name="CatTrees" xml:space="preserve"><value>Ағаш кесу / жасылдандыру</value></data>
+  <data name="CatUtility" xml:space="preserve"><value>Коммуналдық қызмет</value></data>
+  <data name="CatYard" xml:space="preserve"><value>Үй іргесіндегі аула</value></data>
+  <data name="Category" xml:space="preserve"><value>Санатты таңдаңыз</value></data>
+  <data name="DescPlaceholder" xml:space="preserve"><value>Мәселеңізді толық сипаттаңыз: қайда, не болды, нақты мекенжай...</value></data>
+  <data name="Description" xml:space="preserve"><value>Мәселенің сипаттамасы</value></data>
+  <data name="FullName" xml:space="preserve"><value>Аты-жөніңіз</value></data>
+  <data name="Home" xml:space="preserve"><value>Басты бет</value></data>
+  <data name="MaxSize" xml:space="preserve"><value>Максимум</value></data>
+  <data name="Note" xml:space="preserve"><value>Ескертпе</value></data>
+  <data name="NoteCheck" xml:space="preserve"><value>Трекинг нөмірі арқылы мәртебесін тексеруге болады</value></data>
+  <data name="NoteDeadline" xml:space="preserve"><value>Жауап берілу мерзімі: 3–5 жұмыс күні</value></data>
+  <data name="NoteNotify" xml:space="preserve"><value>Нәтиже туралы телефон/email арқылы хабарланады</value></data>
+  <data name="NoteTracking" xml:space="preserve"><value>Өтінішіңіз тіркеліп, трекинг нөмірі берілетін болады</value></data>
+  <data name="Optional" xml:space="preserve"><value>міндетті емес</value></data>
+  <data name="Or" xml:space="preserve"><value>немесе</value></data>
+  <data name="Phone" xml:space="preserve"><value>Телефон</value></data>
+  <data name="SelectCategory" xml:space="preserve"><value>Санатты таңдаңыз</value></data>
+  <data name="SendBtn" xml:space="preserve"><value>Өтінішті жіберу</value></data>
+  <data name="SubmitApp" xml:space="preserve"><value>Өтініш беру</value></data>
+  <data name="SubmitSubTitle" xml:space="preserve"><value>Мәселеңізді сипаттаңыз, біз жауап береміз</value></data>
+  <data name="SubmitTitle" xml:space="preserve"><value>Жаңа өтініш жіберу</value></data>
+  <data name="TrackDesc" xml:space="preserve"><value>Бұрын берген өтінішіңіздің мәртебесін тексеріңіз</value></data>
+  <data name="TrackTitle" xml:space="preserve"><value>Өтінішті тексеру</value></data>
+</root>
