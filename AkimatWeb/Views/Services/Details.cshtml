@@ -1,3 +1,4 @@
+@inject IViewLocalizer Localizer
 @model AkimatWeb.Domain.Models.ServiceCategory
 @{
     ViewData["Title"] = Model.Name;
@@ -6,9 +7,9 @@
 <div class="page-header">
     <div class="container">
         <div class="breadcrumb">
-            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
             <span>/</span>
-            <a asp-controller="Services" asp-action="Index">Қызметтер</a>
+            <a asp-controller="Services" asp-action="Index">@Localizer["Services"]</a>
             <span>/</span><span>@Model.Name</span>
         </div>
         <h1>@Model.Name</h1>
@@ -25,7 +26,7 @@
         {
             <div class="empty-state">
                 <div class="empty-state-icon">⚙</div>
-                <p>Бұл санатта қызметтер жоқ</p>
+                <p>@Localizer["NoServices"]</p>
             </div>
         }
         else
@@ -44,8 +45,8 @@
                         @if (!string.IsNullOrEmpty(service.ExternalUrl))
                         {
                             <a href="@service.ExternalUrl" target="_blank" rel="noopener"
-                               class="btn btn-outline btn-sm" style="white-space:nowrap">
-                                Өту →
+                                   class="btn btn-outline btn-sm" style="white-space:nowrap">
+                                @Localizer["GoTo"] →
                             </a>
                         }
                     </li>
@@ -53,7 +54,7 @@
             </ul>
         }
         <div style="margin-top:24px">
-            <a asp-action="Index" class="btn btn-outline">← Барлық қызметтер</a>
+            <a asp-action="Index" class="btn btn-outline">← @Localizer["ServicesTitle"]</a>
         </div>
     </div>
 </section>
