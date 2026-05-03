@@ -1,12 +1,13 @@
-﻿@model List<AkimatWeb.Domain.Models.Poll>
+﻿@inject IViewLocalizer Localizer
+@model List<AkimatWeb.Domain.Models.Poll>
 @{
-    ViewData["Title"] = "Сауалнамалар";
+    ViewData["Title"] = Localizer["PollsTitle"].Value;
 }
 
 <div class="page-header">
     <div class="container">
-        <h1>📊 Сауалнамалар</h1>
-        <p>Халық қатысатын бюджет — сіздің пікіріңіз маңызды</p>
+        <h1>📊 @Localizer["PollsTitle"]</h1>
+        <p>@Localizer["PollsSubTitle"]</p>
     </div>
 </div>
 
@@ -16,7 +17,7 @@
         {
             <div class="empty-state">
                 <div class="empty-state-icon">📊</div>
-                <p>Белсенді сауалнамалар жоқ</p>
+                <p>@Localizer["NoPolls"]</p>
             </div>
         }
         else
@@ -37,11 +38,11 @@
                             </div>
                             <div style="text-align:right;flex-shrink:0">
                                 <div style="font-size:1.4rem;font-weight:700;color:var(--blue)">@voters</div>
-                                <div style="font-size:0.75rem;color:#9ca3af">қатысушы</div>
+                                <div style="font-size:0.75rem;color:#9ca3af">@Localizer["Participants"]</div>
                             </div>
                         </div>
                         <a asp-action="Details" asp-route-id="@poll.Id"
-                           class="btn btn-primary btn-sm">Дауыс беру →</a>
+                           class="btn btn-primary btn-sm">@Localizer["VoteBtn"] →</a>
                     </div>
                 }
             </div>

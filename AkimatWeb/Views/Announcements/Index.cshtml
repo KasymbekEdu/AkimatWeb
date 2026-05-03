@@ -1,17 +1,18 @@
+@inject IViewLocalizer Localizer
 @model List<AkimatWeb.Domain.Models.Announcement>
 @using AkimatWeb.Domain.Models
 @{
-    ViewData["Title"] = "Хабарландырулар";
+    ViewData["Title"] = Localizer["AnnPageTitle"].Value;
     AnnouncementType? currentType = ViewBag.CurrentType;
 }
 
 <div class="page-header">
     <div class="container">
         <div class="breadcrumb">
-            <a asp-controller="Home" asp-action="Index">Басты бет</a>
-            <span>/</span><span>Хабарландырулар</span>
+            <a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
+            <span>/</span><span>@Localizer["Announcements"]</span>
         </div>
-        <h1>Хабарландырулар</h1>
+        <h1>@Localizer["AnnPageTitle"]</h1>
     </div>
 </div>
 
@@ -19,14 +20,15 @@
     <div class="container">
         <div style="display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap">
             <a asp-action="Index"
-               class="btn btn-sm @(currentType == null ? "btn-primary" : "btn-outline")">Барлығы</a>
+               class="btn btn-sm @(currentType == null ? "btn-primary" : "btn-outline")">@Localizer["All"]</a>
             @foreach (var type in Enum.GetValues<AnnouncementType>())
             {
-                var label = type switch {
-                    AnnouncementType.Tender      => "Тендер",
-                    AnnouncementType.RoadClosure => "Жол жабылуы",
-                    AnnouncementType.Emergency   => "Шұғыл",
-                    _                            => "Жалпы"
+                var label = type switch
+                {
+                    AnnouncementType.Tender => Localizer["Tender"].Value,
+                    AnnouncementType.RoadClosure => Localizer["RoadClosure"].Value,
+                    AnnouncementType.Emergency => Localizer["Emergency"].Value,
+                    _ => Localizer["General"].Value
                 };
                 <a asp-action="Index" asp-route-type="@type"
                    class="btn btn-sm @(currentType == type ? "btn-primary" : "btn-outline")">@label</a>
@@ -37,7 +39,7 @@
         {
             <div class="empty-state">
                 <div class="empty-state-icon">📢</div>
-                <p>Хабарландырулар жоқ</p>
+                <p>@Localizer["NoAnnouncements"]</p>
             </div>
         }
         else
@@ -50,11 +52,12 @@
                             <div style="flex:1">
                                 <div style="margin-bottom:6px">
                                     <span class="badge type-badge-@ann.Type">
-                                        @(ann.Type switch {
-                                            AnnouncementType.Tender      => "Тендер",
-                                            AnnouncementType.RoadClosure => "Жол жабылуы",
-                                            AnnouncementType.Emergency   => "🚨 Шұғыл",
-                                            _                            => "Жалпы"
+                                        @(ann.Type switch
+                                        {
+                                            AnnouncementType.Tender => Localizer["Tender"].Value,
+                                            AnnouncementType.RoadClosure => Localizer["RoadClosure"].Value,
+                                            AnnouncementType.Emergency => "🚨 " + Localizer["Emergency"].Value,
+                                            _ => Localizer["General"].Value
                                         })
                                     </span>
                                 </div>
@@ -66,7 +69,7 @@
                                 @if (ann.ExpiresAt.HasValue)
                                 {
                                     <span style="font-size:0.78rem;color:#9ca3af">
-                                        ⏰ Мерзімі: @ann.ExpiresAt.Value.ToString("dd.MM.yyyy")
+                                        ⏰ @Localizer["Deadline"]: @ann.ExpiresAt.Value.ToString("dd.MM.yyyy")
                                     </span>
                                 }
                             </div>
@@ -75,7 +78,7 @@
                                     @ann.PublishedAt.ToString("dd.MM.yyyy")
                                 </span>
                                 <a asp-action="Details" asp-route-id="@ann.Id"
-                                   class="btn btn-sm btn-outline">Толығырақ</a>
+                                   class="btn btn-sm btn-outline">@Localizer["More"]</a>
                             </div>
                         </div>
                     </div>

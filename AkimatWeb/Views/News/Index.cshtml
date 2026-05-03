@@ -6,27 +6,36 @@
     int totalPages = ViewBag.TotalPages ?? 1;
 }
 
+<div class="page-header">
+    <div class="container">
+        <div class="breadcrumb">
+            <a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
+            <span>/</span><span>@Localizer["News"]</span>
+        </div>
+        <h1>@Localizer["NewsTitle"]</h1>
+    </div>
+</div>
+
 <section class="section">
     <div class="container">
-        <div class="section-header">
-            <h1 class="section-title">@Localizer["NewsTitle"]</h1>
-        </div>
-
-        <!-- Іздеу -->
-        <form method="get" style="margin-bottom:28px;display:flex;gap:10px;flex-wrap:wrap;">
-            <input type="text" name="search" value="@ViewBag.Search"
-                   placeholder="@Localizer["SearchNews"]"
-                   style="flex:1;min-width:220px;padding:10px 14px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:0.97rem;" />
-            <button type="submit" class="btn btn-primary">🔍</button>
-        </form>
-
-        @if (Model.Any())
+        @if (!Model.Any())
+        {
+            <div class="empty-state">
+                <div class="empty-state-icon">📰</div>
+                <p>@Localizer["NoNews"]</p>
+            </div>
+        }
+        else
         {
             <div class="cards-grid cards-grid-3">
                 @foreach (var news in Model)
                 {
                     <article class="card">
-                        @if (!string.IsNullOrEmpty(news.ImagePath))
+                        @if (news.Images != null && news.Images.Any())
+                        {
+                            <img src="@news.Images.First().ImagePath" alt="@news.Title" class="card-img" />
+                        }
+                        else if (!string.IsNullOrEmpty(news.ImagePath))
                         {
                             <img src="@news.ImagePath" alt="@news.Title" class="card-img" />
                         }
@@ -39,14 +48,10 @@
                                 <span>📅 @news.PublishedAt.ToString("dd.MM.yyyy")</span>
                             </div>
                             <h3 class="card-title">
-                                <a asp-controller="News" asp-action="Details" asp-route-id="@news.Id">
-                                    @news.Title
-                                </a>
+                                <a asp-action="Details" asp-route-id="@news.Id">@news.Title</a>
                             </h3>
-                            <a asp-controller="News" asp-action="Details" asp-route-id="@news.Id"
-                                   class="btn btn-outline btn-sm card-footer-link">
-                                @Localizer["ReadMore"] →
-                            </a>
+                            <a asp-action="Details" asp-route-id="@news.Id"
+                               class="btn btn-outline btn-sm">@Localizer["ReadMore"] →</a>
                         </div>
                     </article>
                 }
@@ -54,20 +59,28 @@
 
             @if (totalPages > 1)
             {
-                <div style="display:flex;justify-content:center;gap:8px;margin-top:36px;flex-wrap:wrap;">
+                <div class="pagination">
+                    @if (currentPage > 1)
+                    {
+                        <a asp-action="Index" asp-route-page="@(currentPage - 1)">← @Localizer["PrevPage"]</a>
+                    }
                     @for (int i = 1; i <= totalPages; i++)
                     {
-                        <a asp-action="Index" asp-route-page="@i" asp-route-search="@ViewBag.Search"
-                               class="btn @(i == currentPage ? "btn-primary" : "btn-outline") btn-sm">
-                            @i
-                        </a>
+                        if (i == currentPage)
+                        {
+                            <span class="current">@i</span>
+                        }
+                        else
+                        {
+                            <a asp-action="Index" asp-route-page="@i">@i</a>
+                        }
+                    }
+                    @if (currentPage < totalPages)
+                    {
+                        <a asp-action="Index" asp-route-page="@(currentPage + 1)">@Localizer["NextPage"] →</a>
                     }
                 </div>
             }
-        }
-        else
-        {
-            <p class="text-muted text-center" style="padding:48px 0;">@Localizer["NoNews"]</p>
         }
     </div>
 </section>

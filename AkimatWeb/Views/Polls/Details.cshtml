@@ -1,4 +1,5 @@
-﻿@model AkimatWeb.Domain.Models.Poll
+﻿@inject IViewLocalizer Localizer
+@model AkimatWeb.Domain.Models.Poll
 @using AkimatWeb.Domain.Models
 @{
     ViewData["Title"] = Model.Question;
@@ -10,7 +11,7 @@
 
 <div class="page-header">
     <div class="container">
-        <h1>📊 Сауалнама</h1>
+        <h1>📊 @Localizer["PollsTitle"]</h1>
     </div>
 </div>
 
@@ -33,16 +34,16 @@
                 <p style="color:#4b5563;margin-bottom:16px;font-size:0.9rem">@Model.Description</p>
             }
             <p style="font-size:0.82rem;color:#9ca3af;margin-bottom:20px">
-                👥 @totalVoters қатысушы
+                👥 @totalVoters @Localizer["Participants"]
                 @if (isMulti)
                 {
-                    <span class="badge badge-info" style="margin-left:8px">Бірнеше жауап</span>
+                    <span class="badge badge-info" style="margin-left:8px">@Localizer["MultiChoice"]</span>
                 }
             </p>
 
             @if (hasVoted)
             {
-                <p style="font-weight:600;color:#065f46;margin-bottom:16px">✅ Дауысыңыз қабылданды. Нәтижелер:</p>
+                <p style="font-weight:600;color:#065f46;margin-bottom:16px">✅ @Localizer["VoteAccepted"] @Localizer["PollResults"]:</p>
                 @foreach (var opt in Model.Options)
                 {
                     int cnt = voteCounts.GetValueOrDefault(opt.Id, 0);
@@ -79,15 +80,15 @@
                             </label>
                         }
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">📤 Дауыс беру</button>
+                    <button type="submit" class="btn btn-primary btn-block">📤 @Localizer["VoteBtn"]</button>
                     <p style="font-size:0.75rem;color:#9ca3af;text-align:center;margin-top:8px">
-                        Анонимді дауыс беру
+                        @Localizer["AnonymousVote"]
                     </p>
                 </form>
             }
         </div>
         <div style="margin-top:16px">
-            <a asp-action="Index" class="btn btn-outline">← Барлық сауалнамалар</a>
+            <a asp-action="Index" class="btn btn-outline">← @Localizer["AllPolls"]</a>
         </div>
     </div>
 </section>

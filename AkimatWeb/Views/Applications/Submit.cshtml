@@ -1,16 +1,17 @@
+@inject IViewLocalizer Localizer
 @model AkimatWeb.Models.ViewModels.ApplicationCreateVM
 @{
-    ViewData["Title"] = "Өтініш беру";
+    ViewData["Title"] = Localizer["SubmitTitle"].Value;
 }
 
 <div class="page-header">
     <div class="container">
         <div class="breadcrumb">
-            <a asp-controller="Home" asp-action="Index">Басты бет</a>
-            <span>/</span><span>Өтініш беру</span>
+            <a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
+            <span>/</span><span>@Localizer["SubmitApp"]</span>
         </div>
-        <h1>Өтініш / Шағым беру</h1>
-        <p>Мәселеңізді сипаттаңыз, біз жауап береміз</p>
+        <h1>@Localizer["SubmitTitle"]</h1>
+        <p>@Localizer["SubmitSubTitle"]</p>
     </div>
 </div>
 
@@ -19,69 +20,68 @@
         <div style="display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:start">
             <div>
                 <div class="form-card">
-                    <h2 style="margin-bottom:24px;font-size:1.2rem">Өтініш мәліметтері</h2>
+                    <h2 style="margin-bottom:24px;font-size:1.2rem">@Localizer["AppDetails"]</h2>
 
                     <form asp-action="Submit" method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
                         <div class="form-group">
-                            <label asp-for="FullName" class="form-label">Аты-жөні *</label>
+                            <label asp-for="FullName" class="form-label">@Localizer["FullName"] *</label>
                             <input asp-for="FullName" class="form-control"
-                                   placeholder="Иванов Иван Иванович"/>
+                                   placeholder="Иванов Иван Иванович" />
                             <span asp-validation-for="FullName" class="text-danger"></span>
                         </div>
 
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
                             <div class="form-group">
-                                <label asp-for="Phone" class="form-label">Телефон *</label>
+                                <label asp-for="Phone" class="form-label">@Localizer["Phone"] *</label>
                                 <input asp-for="Phone" class="form-control" type="tel"
-                                       placeholder="+7 (700) 000-00-00"/>
+                                       placeholder="+7 (700) 000-00-00" />
                                 <span asp-validation-for="Phone" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Email" class="form-label">Email (міндетті емес)</label>
+                                <label asp-for="Email" class="form-label">Email (@Localizer["Optional"])</label>
                                 <input asp-for="Email" class="form-control"
-                                       placeholder="example@mail.kz"/>
+                                       placeholder="example@mail.kz" />
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="Category" class="form-label">Өтініш санаты *</label>
+                            <label asp-for="Category" class="form-label">@Localizer["Category"] *</label>
                             <select asp-for="Category" class="form-control">
-                                <option value="">— Санатты таңдаңыз —</option>
-                                <option>Жол жөндеу</option>
-                                <option>Коммуналдық қызмет</option>
-                                <option>Ағаш кесу / жасылдандыру</option>
-                                <option>Шу / тәртіп бұзу</option>
-                                <option>Үй іргесіндегі аула</option>
-                                <option>Жарықтандыру</option>
-                                <option>Қоқыс жинау</option>
-                                <option>Басқа</option>
+                                <option value="">— @Localizer["SelectCategory"] —</option>
+                                <option>@Localizer["CatRoad"]</option>
+                                <option>@Localizer["CatUtility"]</option>
+                                <option>@Localizer["CatTrees"]</option>
+                                <option>@Localizer["CatNoise"]</option>
+                                <option>@Localizer["CatYard"]</option>
+                                <option>@Localizer["CatLighting"]</option>
+                                <option>@Localizer["CatGarbage"]</option>
+                                <option>@Localizer["CatOther"]</option>
                             </select>
                             <span asp-validation-for="Category" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="Description" class="form-label">Өтінішіңіз *</label>
+                            <label asp-for="Description" class="form-label">@Localizer["Description"] *</label>
                             <textarea asp-for="Description" class="form-control" rows="6"
-                                      placeholder="Мәселеңізді толық сипаттаңыз: қайда, не болды, нақты мекенжай..."></textarea>
+                                      placeholder="@Localizer["DescPlaceholder"]"></textarea>
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">📷 Фото / Видео</label>
+                            <label class="form-label">📷 @Localizer["AttachFile"]</label>
                             <input type="file" name="file"
                                    accept=".jpg,.jpeg,.png,.mp4"
                                    class="form-control" />
-
                             <small style="color:#6b7280">
-                                JPG, PNG немесе MP4. Максимум 10MB.
+                                JPG, PNG @Localizer["Or"] MP4. @Localizer["MaxSize"] 10MB.
                             </small>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-lg btn-block">
-                            📤 Өтінішті жіберу
+                            📤 @Localizer["SendBtn"]
                         </button>
                     </form>
                 </div>
@@ -89,21 +89,21 @@
 
             <aside>
                 <div class="form-card">
-                    <h4 style="margin-bottom:16px">ℹ Ескертпе</h4>
+                    <h4 style="margin-bottom:16px">ℹ @Localizer["Note"]</h4>
                     <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;font-size:0.88rem;color:#4b5563">
-                        <li>✅ Өтінішіңіз тіркеліп, трекинг нөмірі берілетін болады</li>
-                        <li>⏰ Жауап берілу мерзімі: 3–5 жұмыс күні</li>
-                        <li>🔔 Нәтиже туралы телефон/email арқылы хабарланады</li>
-                        <li>🔍 Трекинг нөмірі арқылы мәртебесін тексеруге болады</li>
+                        <li>✅ @Localizer["NoteTracking"]</li>
+                        <li>⏰ @Localizer["NoteDeadline"]</li>
+                        <li>🔔 @Localizer["NoteNotify"]</li>
+                        <li>🔍 @Localizer["NoteCheck"]</li>
                     </ul>
                 </div>
                 <div class="form-card mt-2">
-                    <h4 style="margin-bottom:12px">📋 Өтінішті тексеру</h4>
+                    <h4 style="margin-bottom:12px">📋 @Localizer["TrackTitle"]</h4>
                     <p style="font-size:0.88rem;color:#4b5563;margin-bottom:12px">
-                        Бұрын берген өтінішіңіздің мәртебесін тексеріңіз
+                        @Localizer["TrackDesc"]
                     </p>
                     <a asp-action="Track" class="btn btn-outline btn-sm btn-block">
-                        🔍 Тексеру
+                        🔍 @Localizer["TrackTitle"]
                     </a>
                 </div>
             </aside>
@@ -112,5 +112,7 @@
 </section>
 
 @section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

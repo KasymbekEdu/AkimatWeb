@@ -240,4 +240,7 @@
   <data name="Roads" xml:space="preserve">
     <value>Жолдардың жабылуы</value>
   </data>
+  <data name="GovServices" xml:space="preserve">
+    <value>Мемлекеттік қызметтер</value>
+  </data>
 </root>

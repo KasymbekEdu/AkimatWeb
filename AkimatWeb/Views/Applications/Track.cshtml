@@ -1,18 +1,19 @@
+@inject IViewLocalizer Localizer
 @model AkimatWeb.Domain.Models.Application?
 @using AkimatWeb.Domain.Models
 @{
-    ViewData["Title"] = "Өтінішті тексеру";
+    ViewData["Title"] = Localizer["TrackTitle"].Value;
     bool searched = Context.Request.Query.ContainsKey("number");
 }
 
 <div class="page-header">
     <div class="container">
         <div class="breadcrumb">
-            <a asp-controller="Home" asp-action="Index">Басты бет</a>
-            <span>/</span><span>Өтінішті тексеру</span>
+            <a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
+            <span>/</span><span>@Localizer["TrackTitle"]</span>
         </div>
-        <h1>Өтінішті қадағалау</h1>
-        <p>Трекинг нөмірі арқылы мәртебесін тексеріңіз</p>
+        <h1>@Localizer["TrackHeading"]</h1>
+        <p>@Localizer["TrackSubTitle"]</p>
     </div>
 </div>
 
@@ -21,11 +22,11 @@
         <form method="get" asp-action="Track" style="margin-bottom:32px">
             <div style="display:flex;gap:8px">
                 <input type="text" name="number" class="form-control"
-                       placeholder="Трекинг нөмірін енгізіңіз (мысалы: AB12CD34)"
+                       placeholder="@Localizer["EnterTrackCode"]"
                        value="@Context.Request.Query["number"]"
                        style="font-family:monospace;font-size:1rem;letter-spacing:0.05em"/>
                 <button type="submit" class="btn btn-primary" style="white-space:nowrap">
-                    🔍 Тексеру
+                    🔍 @Localizer["SearchBtn"]
                 </button>
             </div>
         </form>
@@ -33,11 +34,11 @@
         @if (Model != null)
         {
             var (statusLabel, statusClass) = Model.Status switch {
-                ApplicationStatus.Pending  => ("Күтілуде",     "Pending"),
-                ApplicationStatus.InReview => ("Қаралуда",     "InReview"),
-                ApplicationStatus.Approved => ("Мақұлданды",   "Approved"),
-                ApplicationStatus.Rejected => ("Қабылданбады", "Rejected"),
-                _                          => ("Белгісіз",     "Pending")
+                ApplicationStatus.Pending  => (Localizer["StatusPending"].Value,  "Pending"),
+                ApplicationStatus.InReview => (Localizer["StatusInReview"].Value, "InReview"),
+                ApplicationStatus.Approved => (Localizer["StatusApproved"].Value, "Approved"),
+                ApplicationStatus.Rejected => (Localizer["StatusRejected"].Value, "Rejected"),
+                _                          => (Localizer["StatusUnknown"].Value,  "Pending")
             };
 
             <div class="tracking-box">
@@ -48,7 +49,7 @@
                         @if (Model.ReviewedAt.HasValue)
                         {
                             <div style="font-size:0.82rem;color:#9ca3af">
-                                Қаралды: @Model.ReviewedAt.Value.ToString("dd.MM.yyyy HH:mm")
+                                @Localizer["ReviewedAt"]: @Model.ReviewedAt.Value.ToString("dd.MM.yyyy HH:mm")
                             </div>
                         }
                     </div>
@@ -64,52 +65,50 @@
 
                 <dl>
                     <div class="detail-row">
-                        <dt>Трекинг нөмірі</dt>
+                        <dt>@Localizer["TrackingNumber"]</dt>
                         <dd style="font-family:monospace;font-weight:700">@Model.TrackingNumber</dd>
                     </div>
                     <div class="detail-row">
-                        <dt>Аты-жөні</dt>
+                        <dt>@Localizer["FullName"]</dt>
                         <dd>@Model.FullName</dd>
                     </div>
                     <div class="detail-row">
-                        <dt>Санат</dt>
+                        <dt>@Localizer["Category"]</dt>
                         <dd>@Model.Category</dd>
                     </div>
                     <div class="detail-row">
-                        <dt>Берілген күні</dt>
+                        <dt>@Localizer["SubmittedAt"]</dt>
                         <dd>@Model.SubmittedAt.ToString("dd.MM.yyyy HH:mm")</dd>
                     </div>
                     <div class="detail-row" style="border-bottom:none">
-                        <dt>Мазмұны</dt>
+                        <dt>@Localizer["Description"]</dt>
                         <dd style="white-space:pre-wrap">@Model.Description</dd>
                     </div>
                     @if (!string.IsNullOrEmpty(Model.FilePath))
-{
-    <div class="detail-row" style="border-bottom:none">
-        <dt>Қосымша файл</dt>
-        <dd>
-            @if (Model.FilePath.EndsWith(".mp4"))
-            {
-                <video width="320" controls style="max-width:100%;border-radius:12px;border:1px solid #ddd;">
-                    <source src="@Model.FilePath" type="video/mp4" />
-                    Браузер видеоны қолдамайды.
-                </video>
-            }
-            else
-            {
-                <img src="@Model.FilePath"
-                     alt="Өтініш файлы"
-                     style="max-width:320px;width:100%;border-radius:12px;border:1px solid #ddd;" />
-            }
-        </dd>
-    </div>
-}
+                    {
+                        <div class="detail-row" style="border-bottom:none">
+                            <dt>@Localizer["AttachFile"]</dt>
+                            <dd>
+                                @if (Model.FilePath.EndsWith(".mp4"))
+                                {
+                                    <video width="320" controls style="max-width:100%;border-radius:12px;border:1px solid #ddd;">
+                                        <source src="@Model.FilePath" type="video/mp4" />
+                                    </video>
+                                }
+                                else
+                                {
+                                    <img src="@Model.FilePath" alt="@Localizer["AttachFile"]"
+                                         style="max-width:320px;width:100%;border-radius:12px;border:1px solid #ddd;" />
+                                }
+                            </dd>
+                        </div>
+                    }
                 </dl>
 
                 @if (!string.IsNullOrEmpty(Model.AdminComment))
                 {
                     <div class="alert alert-info" style="margin-top:16px">
-                        <strong>💬 Жауап:</strong> @Model.AdminComment
+                        <strong>💬 @Localizer["AdminReply"]:</strong> @Model.AdminComment
                     </div>
                 }
             </div>
@@ -117,13 +116,13 @@
         else if (searched)
         {
             <div class="alert alert-warning">
-                ⚠ Бұл нөмірмен өтініш табылмады. Нөмірді дұрыс енгізгеніңізге көз жеткізіңіз.
+                ⚠ @Localizer["AppNotFound"]
             </div>
         }
 
         <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap">
-            <a asp-action="Submit" class="btn btn-outline">📝 Жаңа өтініш беру</a>
-            <a asp-controller="Home" asp-action="Index" class="btn btn-outline">🏠 Басты бетке</a>
+            <a asp-action="Submit" class="btn btn-outline">📝 @Localizer["SubmitApp"]</a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline">🏠 @Localizer["BackToHome"]</a>
         </div>
     </div>
 </section>

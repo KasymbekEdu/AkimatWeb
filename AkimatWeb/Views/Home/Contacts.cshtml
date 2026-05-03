@@ -1,17 +1,18 @@
+@inject IViewLocalizer Localizer
 @inject AkimatWeb.Infrastructure.AppConfig Config
 @{
-    ViewData["Title"] = "Байланыс";
+    ViewData["Title"] = Localizer["ContactsTitle"].Value;
 }
 
 <div class="page-header">
     <div class="container">
         <div class="breadcrumb">
-            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
             <span>/</span>
-            <span>Байланыс</span>
+            <span>@Localizer["ContactUS"]</span>
         </div>
-        <h1>Байланыс</h1>
-        <p>Бізбен хабарласыңыз</p>
+        <h1>@Localizer["ContactsTitle"]</h1>
+        <p>@Localizer["ContactsSubTitle"]</p>
     </div>
 </div>
 
@@ -20,31 +21,31 @@
         <div class="cards-grid cards-grid-3">
             <div class="form-card text-center">
                 <div style="font-size:2rem;margin-bottom:12px">📞</div>
-                <h3 style="margin-bottom:8px">Телефон</h3>
+                <h3 style="margin-bottom:8px">@Localizer["Phone"]</h3>
                 <p style="color:#4b5563">@Config.Company.CompanyPhone</p>
-                <p style="font-size:0.82rem;color:#9ca3af;margin-top:6px">Дс–Жм: 09:00–18:00</p>
+                <p style="font-size:0.82rem;color:#9ca3af;margin-top:6px">@Localizer["WorkingHoursValue"]</p>
             </div>
             <div class="form-card text-center">
                 <div style="font-size:2rem;margin-bottom:12px">✉</div>
-                <h3 style="margin-bottom:8px">Email</h3>
+                <h3 style="margin-bottom:8px">@Localizer["Email"]</h3>
                 <p><a href="mailto:@Config.Company.CompanyEmail">@Config.Company.CompanyEmail</a></p>
-                <p style="font-size:0.82rem;color:#9ca3af;margin-top:6px">Жауап: 1–2 жұмыс күні</p>
+                <p style="font-size:0.82rem;color:#9ca3af;margin-top:6px">@Localizer["EmailReply"]</p>
             </div>
             <div class="form-card text-center">
                 <div style="font-size:2rem;margin-bottom:12px">📍</div>
-                <h3 style="margin-bottom:8px">Мекенжай</h3>
-                <p style="color:#4b5563">Астана қаласы, Бейбітшілік 11</p>
-                <p style="font-size:0.82rem;color:#9ca3af;margin-top:6px">Қабылдау: алдын ала жазылу бойынша</p>
+                <h3 style="margin-bottom:8px">@Localizer["Address"]</h3>
+                <p style="color:#4b5563">@Localizer["AddressValue"]</p>
+                <p style="font-size:0.82rem;color:#9ca3af;margin-top:6px">@Localizer["AppointmentNote"]</p>
             </div>
         </div>
 
         <div style="margin-top:40px;background:#f5f6f8;border-radius:12px;padding:32px;text-align:center">
-            <h3 style="margin-bottom:12px">Онлайн өтініш</h3>
+            <h3 style="margin-bottom:12px">@Localizer["OnlineApp"]</h3>
             <p style="color:#4b5563;margin-bottom:20px">
-                Мәселеңіз бар ма? Онлайн өтініш беріп, жауабыңызды күтіңіз.
+                @Localizer["OnlineAppDesc"]
             </p>
             <a asp-controller="Applications" asp-action="Submit" class="btn btn-primary btn-lg">
-                📝 Өтініш беру
+                📝 @Localizer["SubmitBtn"]
             </a>
         </div>
     </div>

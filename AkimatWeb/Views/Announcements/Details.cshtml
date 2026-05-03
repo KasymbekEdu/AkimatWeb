@@ -1,3 +1,4 @@
+@inject IViewLocalizer Localizer
 @model AkimatWeb.Domain.Models.Announcement
 @using AkimatWeb.Domain.Models
 @{
@@ -7,10 +8,10 @@
 <div class="page-header">
     <div class="container">
         <div class="breadcrumb">
-            <a asp-controller="Home" asp-action="Index">Басты бет</a>
+            <a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
             <span>/</span>
-            <a asp-controller="Announcements" asp-action="Index">Хабарландырулар</a>
-            <span>/</span><span>Мәліметтер</span>
+            <a asp-controller="Announcements" asp-action="Index">@Localizer["Announcements"]</a>
+            <span>/</span><span>@Localizer["Details"]</span>
         </div>
         <h1>@Model.Title</h1>
         <p>📅 @Model.PublishedAt.ToString("dd.MM.yyyy")</p>
@@ -22,24 +23,25 @@
         <div class="form-card">
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
                 <span class="badge type-badge-@Model.Type">
-                    @(Model.Type switch {
-                        AnnouncementType.Tender      => "Тендер",
-                        AnnouncementType.RoadClosure => "Жол жабылуы",
-                        AnnouncementType.Emergency   => "🚨 Шұғыл",
-                        _                            => "Жалпы"
+                    @(Model.Type switch
+                    {
+                        AnnouncementType.Tender => Localizer["Tender"].Value,
+                        AnnouncementType.RoadClosure => Localizer["RoadClosure"].Value,
+                        AnnouncementType.Emergency => "🚨 " + Localizer["Emergency"].Value,
+                        _ => Localizer["General"].Value
                     })
                 </span>
                 @if (Model.ExpiresAt.HasValue)
                 {
                     <span class="badge badge-warning">
-                        ⏰ Мерзімі: @Model.ExpiresAt.Value.ToString("dd.MM.yyyy")
+                        ⏰ @Localizer["Deadline"]: @Model.ExpiresAt.Value.ToString("dd.MM.yyyy")
                     </span>
                 }
             </div>
             <div style="line-height:1.8">@Html.Raw(Model.Content)</div>
         </div>
         <div style="margin-top:20px">
-            <a asp-action="Index" class="btn btn-outline">← Хабарландыруларға қайту</a>
+            <a asp-action="Index" class="btn btn-outline">← @Localizer["BackToAnn"]</a>
         </div>
     </div>
 </section>
