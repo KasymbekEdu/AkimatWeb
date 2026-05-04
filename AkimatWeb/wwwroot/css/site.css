@@ -582,3 +582,34 @@ tbody tr:hover { background: var(--gray-100); }
 .detail-row dd { color: var(--gray-800); }
 .empty-state { text-align: center; padding: 60px 20px; color: var(--gray-400); }
 .empty-state-icon { font-size: 3rem; margin-bottom: 16px; }
+
+
+/* Бұл блок тек экран 992px-ден кіші болғанда (планшет/телефон) іске қосылады */
+@media (max-width: 992px) {
+    /* Карта мен оң жақ тізімді баған түріне ауыстырамыз */
+    .info-card-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* Картаны толық енге жаю */
+    .map-container {
+        width: 100% !important;
+        height: 400px !important; /* Телефонда карта биіктігі */
+        margin-bottom: 20px;
+    }
+
+    /* Оң жақтағы тізімді толық енге жаю */
+    .announcements-list-sidebar {
+        width: 100% !important;
+    }
+
+    /* Сүзгі батырмаларының арасын реттеу */
+    .filter-buttons-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+}
