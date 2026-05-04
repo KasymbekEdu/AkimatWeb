@@ -6,11 +6,39 @@
 }
 
 @section Styles {
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
     <style>
         #map { height: 540px; border-radius: 12px; border: 1px solid #e9ebee; }
         .map-list-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+        /* --- МОБАЙЛ ҚҰРЫЛҒЫЛАРҒА АРНАЛҒАН СТИЛЬДЕР --- */
+        @@media (max-width: 992px) {
+            /* Карта мен тізімді баған түріне ауыстыру */
+            div[style*="display:grid"] {
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+            /* Телефонда картаның биіктігін азайтып, толық енге жаю */
+            #map { 
+                height: 350px !important; 
+                width: 100% !important; 
+                order: 1; 
+            }
+
+            /* Тізімді картаның астына қойып, ішкі скроллды алып тастау */
+            #objectList { 
+                width: 100% !important; 
+                max-height: none !important; 
+                order: 2; 
+                margin-top: 16px;
+            }
+            
+            /* Сүзгі батырмаларын ортаға туралау */
+            #mapFilters {
+                justify-content: center;
+            }
+        }
     </style>
 }
 
@@ -80,7 +108,9 @@
 @section Scripts {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-const map = L.map('map').setView([43.2565, 76.9286], 13);
+// Астана координаттарына бапталды
+const map = L.map('map').setView([51.1694, 71.4491], 12);
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
 }).addTo(map);
@@ -89,6 +119,7 @@ const colors = {
     Repair:'#f59e0b', RoadClosed:'#ef4444',
     Construction:'#8b5cf6', Utility:'#3b82f6', Other:'#6b7280'
 };
+
 const labels = {
     Repair:'🔧 @Localizer["MapRepair"]',
     RoadClosed:'🚧 @Localizer["MapRoadClosed"]',
@@ -96,6 +127,7 @@ const labels = {
     Utility:'⚡ @Localizer["MapUtility"]',
     Other:'📍 @Localizer["MapOther"]'
 };
+
 const statusLabels = {
     Planned:'🕐 @Localizer["MapStatusPlanned"]',
     Active:'🔴 @Localizer["MapStatusActive"]',
@@ -132,6 +164,7 @@ fetch('/api/map/objects').then(r => r.json()).then(data => {
         m.addTo(map);
         allMarkers.push(m);
     });
+    // Егер базада нысандар бар болса, карта соларға қарай жақындайды
     if (allMarkers.length > 0)
         map.fitBounds(L.featureGroup(allMarkers).getBounds().pad(0.2));
 });
